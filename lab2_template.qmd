@@ -473,19 +473,19 @@ View(hospitals)
 st_crs(hospitals)
 
 
-underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles = rename(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, any_of(c("new" = "XPZ")))
+underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles = rename(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, any_of(c("County_Names" = "NAMELSADCO")))
 View(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)
 ```
 
 ```{r, echo=FALSE}
-#ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(x= X,  y=Y, colour = new))+ geom_point(size = 5) + geom_point(data = hospitals, 
-             #aes(x = X, y = Y), # Map the aesthetics for the new data
-          #   color = "red",     # Set a specific color for the second data set, outside aes()
-          #   size = 2)+ 
-  #labs(title = "County-Level Choropleth Map of Underserved Vulnerable Tracts in Pennsylvania",
-   #    subtitle = "Red points indicate hospital locations",
-     #  caption = "Data Source: ACS 2022, Pennsylvania Department of Health") + 
-         # theme_void()   
+ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(x= X,  y=Y, colour = County_Names))+ geom_point(size = 5) + geom_point(data = hospitals, 
+             aes(x = X, y = Y), # Map the aesthetics for the new data
+            color = "red",     # Set a specific color for the second data set, outside aes()
+            size = 2)+ 
+  labs(title = "County-Level Choropleth Map of Underserved Vulnerable Tracts in Pennsylvania",
+      subtitle = "Red points indicate hospital locations",
+       caption = "Data Source: ACS 2022, Pennsylvania Department of Health") + 
+         theme_void()   
 ```
 
 I have done this:  
@@ -695,6 +695,9 @@ View(street_trees)
 
 ```
 ```{r, echo=FALSE}
+#| message: false
+#| warning: false
+#| results: 'hide'
 
 median(Philidelphia_data$median_incomeE, na.rm = TRUE)
 ```
@@ -941,7 +944,7 @@ I used all these spatial analysis along with other spatial analysis too.
 
 
 
-## Finally - A few comments about your incorporation of feedback!
+### Finally - A few comments about your incorporation of feedback!
 Yes I have incorporated suggestions which were given to me by teached specially the code hiding in my document.
 
 
