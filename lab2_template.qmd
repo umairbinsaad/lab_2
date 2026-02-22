@@ -3,12 +3,12 @@ title: "Lab 2: Spatial Analysis and Visualization"
 subtitle: "Healthcare Access and Equity in Pennsylvania"
 author: "UMAIR BIN SAAD"
 date: today
-format: 
+format:  
   html:
     code-fold: false
     toc: true
     toc_float: true
-    toc_depth: 2 
+    toc_depth: 3 
     toc-location: left
     theme: cosmo
     embed-resources: true
@@ -24,7 +24,7 @@ execute:
 - Integrate census demographic data with spatial analysis   
 - Create publication-quality visualizations and maps     
 - Work with spatial data from multiple sources    
-- Communicate findings effectively for policy audiences
+- Communicate findings effectively for policy audiencess
 
 ---
 
@@ -36,9 +36,11 @@ execute:
 
 My analysis should identify counties that should be priorities for healthcare investment and policy intervention.
 
-# Analysis Steps
+### Analysis Steps
 
-<div style="text-align: justify;">I have Completed the following analysis, tried to give the brief explanations about each step (Although if you want codes you may check technical details through my source code on GitHub:</div>
+<div style="text-align: justify;">
+I have Completed the following analysis, tried to give the brief explanations about each step (Although if you want codes you may check technical details through my source code on GitHub:</div>
+---
 
 # Step 1: Data Detail
 
@@ -77,12 +79,12 @@ pa_countiesdbf <- st_read("D:/Ph.D/US Pakistan Knowledge Corridore/Upenn/Subject
 
 ```
 
+
 I will answer the following questions in my analysis :  
 - How many hospitals are in your dataset?   
 - How many census tracts?   
 - What coordinate reference system is each dataset in?    
 
----
 
 I am obtaining tract-level demographic data for Pennsylvania from American Census Survey data portal.   
 
@@ -161,9 +163,11 @@ vulnerable_tracts <- tracts_with_data %>%
 
 ```
 
-#### My replies to some important questions related to my analysis:
-<div style="text-align: justify;">
-- What income threshold did you choose and why?   
+##    My replies to some important questions related to my analysis:
+
+
+
+<div style="text-align: justify;">- What income threshold did you choose and why?   
 I have chosen an income threshold of $50,000 because it is a common benchmark for low-income status in many policy analyses. It also allows us to capture a significant portion of the population that may be struggling financially, while still including enough tracts for meaningful analysis.
 - What elderly population threshold did you choose and why?   
 I have chosen an elderly population threshold of 200 because it represents a significant number of elderly residents in a tract, which may indicate a higher need for healthcare services. This threshold allows us to focus on tracts that have a substantial elderly population, which is often more vulnerable to health issues and may require more frequent access to hospitals.
@@ -179,9 +183,9 @@ Total 16.1103 percent of PA census tracts are considered vulnerable by the defin
 (nrow(vulnerable_tracts) / nrow(tracts_with_data)) * 100
 ```
 
----
 
-## Distance calculation to Hospitals 
+
+### Distance calculation to Hospitals 
 
 The points picture below shows the centers of vulnerable tracts. Starting from here, I calculated the distance to the nearest hospital from each vulnerable tract. 
 
@@ -221,7 +225,7 @@ vulnerable_tracts_county_centers$dist_to_nearest <- min_distances/ 1609.34 # Con
 
 ```
 
-#### My replies to some important points:
+## My replies to some important points:
 
 - Use an appropriate projected coordinate system for Pennsylvania    
   I have used the PROJCRS["NAD83 / UTM zone 17N"] (EPSG:26917) which is a common projected coordinate system for the eastern United States, including Pennsylvania. It uses meters as units, which allows for accurate distance calculations.
@@ -400,7 +404,7 @@ kable(head(Total_vulnerable_population, n = 1),
 ```
 
 
-## Answers to some important questions
+### Answers to some important questions
 <div style="text-align: justify;"> - Which 5 counties have the highest percentage of underserved vulnerable tracts?
 The 5 counties with the highest percentage of underserved vulnerable tracts are Clearfield County, Forest County, Cameron County, 	
 Centre County and Juniata County(Although these counties have same percentage i-e Cameron County, Centre County and Juniata County). These counties have the highest proportion of vulnerable tracts that are located more than 15 miles from the nearest hospital, indicating that they may be at greater risk of being underserved in terms of healthcare access. Targeting healthcare investments and policy interventions in these counties could help improve access to healthcare services for vulnerable populations and address disparities in healthcare access and outcomes.</div>
@@ -425,7 +429,7 @@ kable(head(most_vulnerable_people_New, n = 10),
 
 
 ```
----
+
 
 ### I Created Summary Table below:
 
@@ -631,6 +635,7 @@ I showed in graphs:
 - **Question:** "Do low-income and minority neighborhoods have equitable access to green space?"
 - **Operations:** Buffer parks (10-minute walk = 0.5 mile), calculate tree canopy or park acreage per capita, compare by demographics  
 -**Policy relevance:** Climate resilience, environmental justice, urban forestry investment
+
 ---
 
 <div style="text-align: justify;"> First of all for this analysis, I will be using the data of parks, street trees and census tracts. I will be using the data of Philadelphia city. I will be using the data of 2022 ACS for census tracts. I will be using the data of parks and street trees from OpenDataPhilly. I have gotten data from get_acs function for census tracts. I have also read the data of parks and street trees using st_read function. I have transformed the data of parks and street trees to the same projection as census tracts. I have also calculated the coordinates of parks and street trees using st_coordinates function. I have also calculated the median income and median population. </div>
