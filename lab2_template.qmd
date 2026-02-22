@@ -628,7 +628,7 @@ I have chosen to do the analysis on "Green Space Equity" in Philadelphia. I will
 - **Data:** Parks, Street Trees, Census tracts (race/income demographics)
 - **Question:** "Do low-income and minority neighborhoods have equitable access to green space?"
 - **Operations:** Buffer parks (10-minute walk = 0.5 mile), calculate tree canopy or park acreage per capita, compare by demographics  
-**Policy relevance:** Climate resilience, environmental justice, urban forestry investment
+-**Policy relevance:** Climate resilience, environmental justice, urban forestry investment
 ---
 
 First of all for this analysis, I will be using the data of parks, street trees and census tracts. I will be using the data of Philadelphia city. I will be using the data of 2022 ACS for census tracts. I will be using the data of parks and street trees from OpenDataPhilly. I have gotten data from get_acs function for census tracts. I have also read the data of parks and street trees using st_read function. I have transformed the data of parks and street trees to the same projection as census tracts. I have also calculated the coordinates of parks and street trees using st_coordinates function. I have also calculated the median income and median population.
