@@ -124,15 +124,19 @@ tracts_with_data <- census_tracts %>%
 
 **Questions to answer:**
 
-- What year of ACS data are you using?
+- What year of ACS data are you using?  
 I am using 2022 ACS data.
 
-- How many tracts have missing income data?
+- How many tracts have missing income data?  
 There is 0 tract with missing income data.
 
-- What is the median income across all PA census tracts?
-
+- What is the median income across all PA census tracts?  
+Median income across all PA census tracts = 70188
 ```{r, echo=FALSE}
+#| message: false
+#| warning: false
+#| results: 'hide'
+
 median(tracts_with_data$median_incomeE, na.rm = TRUE)
 ```
 
