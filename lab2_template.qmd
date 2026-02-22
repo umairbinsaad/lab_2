@@ -153,13 +153,13 @@ These two are my criteria:
 
 vulnerable_tracts <- tracts_with_data %>%
   filter(median_incomeE < 50000, Population_65_over > 200)
-View(vulnerable_tracts)
+
 
 
 
 ```
 
-My replies to some important questions related to my analysis:
+#### My replies to some important questions related to my analysis:
 
 - What income threshold did you choose and why?   
 I have chosen an income threshold of $50,000 because it is a common benchmark for low-income status in many policy analyses. It also allows us to capture a significant portion of the population that may be struggling financially, while still including enough tracts for meaningful analysis.
@@ -179,21 +179,25 @@ Total 16.1103 percent of PA census tracts are considered vulnerable by the defin
 
 ---
 
-## Step 4: Calculate Distance to Hospitals 
+#### Distance calculation to Hospitals 
 
-For each vulnerable tract, calculate the distance to the nearest hospital.
+I calculated the distance to the nearest hospital from each vulnerable tract.
 
 **Your Task:**
-```{r}
+```{r, echo=FALSE}
+#| message: false
+#| warning: false
+#| results: 'hide'
+
 # Transform to appropriate projected CRS
 st_crs(vulnerable_tracts)
 vulnerable_tracts <- st_transform(vulnerable_tracts, crs = 26917)
 st_crs(vulnerable_tracts)
-View(vulnerable_tracts)
+
 
 
 hospitals <- st_transform(hospitals, crs = 26917)
-View(hospitals)
+
 
 # Calculate distance from each tract centroid to nearest hospital
 
@@ -215,46 +219,59 @@ vulnerable_tracts_county_centers$dist_to_nearest <- min_distances/ 1609.34 # Con
 
 ```
 
-**Requirements:**
-- Use an appropriate projected coordinate system for Pennsylvania
+#### My replies to some important points:
+
+- Use an appropriate projected coordinate system for Pennsylvania    
   I have used the PROJCRS["NAD83 / UTM zone 17N"] (EPSG:26917) which is a common projected coordinate system for the eastern United States, including Pennsylvania. It uses meters as units, which allows for accurate distance calculations.
   
-- Calculate distances in miles 
+- Calculate distances in miles    
   Distance has been calculated in mile (1 Mile = 1609.34 Meters)  
   
-- Explain why you chose your projection
+- Explain why you chose your projection    
   I have chosen this projection because it is a common projected coordinate system for the eastern United States, including Pennsylvania. It uses meters as units, which allows for accurate distance calculations.
 
 **Questions to answer:**
-```{r}
+```{r, echo=FALSE}
+#| message: false
+#| warning: false
+#| results: 'hide'
 mean(vulnerable_tracts_county_centers$dist_to_nearest)
 
-```
-- What is the average distance to the nearest hospital for vulnerable tracts?
-  The average distance to the nearest hospital for vulnerable tracts is approximately 2.619415 miles.
+``` 
+- What is the average distance to the nearest hospital for vulnerable tracts?     
+  The average distance to the nearest hospital for vulnerable tracts is approximately 2.619415 miles.   
   
-```{r}
+```{r, echo=FALSE}
+#| message: false
+#| warning: false
+#| results: 'hide'
 max(vulnerable_tracts_county_centers$dist_to_nearest)
 ```
-- What is the maximum distance?
-  The maximum distance to the nearest hospital for vulnerable tracts is approximately 18.96458 miles.
+- What is the maximum distance?     
+  The maximum distance to the nearest hospital for vulnerable tracts is approximately 18.96458 miles.    
   
-- How many vulnerable tracts are more than 15 miles from the nearest hospital?
-There are total 128 vulnerable tracts that are more than 15 miles from the nearest hospital.
-```{r}
+- How many vulnerable tracts are more than 15 miles from the nearest hospital?    
+There are total 128 vulnerable tracts that are more than 15 miles from the nearest hospital.    
+```{r, echo=FALSE}
+#| message: false
+#| warning: false
+#| results: 'hide'
 tracts_more_than_15_miles <- vulnerable_tracts_county_centers %>%
   filter(dist_to_nearest > 15)
-View(tracts_more_than_15_miles)
+
 ``` 
   
 
-#### Step 5: Identify Underserved Areas 
+#### Identification of Underserved Areas    
 
-Define "underserved" as vulnerable tracts that are more than 15 miles from the nearest hospital.
+I Defined "underserved" as :    
 vulnerable tracts that are more than 15 miles from the nearest hospital are considered underserved because they likely face significant barriers to accessing healthcare services, which can lead to worse health outcomes. This distance can be a major obstacle for individuals who may not have reliable transportation or who have mobility issues, particularly among the elderly population. Identifying these underserved areas is crucial for targeting healthcare investments and policy interventions to improve access and equity in healthcare services.
 
-**Your Task:**
-```{r}
+
+```{r, echo=FALSE}
+#| message: false
+#| warning: false
+#| results: 'hide'
 # Create underserved variable
 
                                        
@@ -265,22 +282,28 @@ underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles <- tracts_more
     
   ))
 View(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles )
-
-
+coordinates_underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles <- st_coordinates(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)
+underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles <- cbind(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, coordinates_underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles[, c("X", "Y")])
+View(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles )
 ``` 
 
 
 
-```
-
-**Questions to answer:**
-- How many tracts are underserved?
+## Primary results:  
+- How many tracts are underserved?    
 There are total 9 tracts that are underserved, meaning they are vulnerable and located more than 15 miles from the nearest hospital.
-- What percentage of vulnerable tracts are underserved?
+- What percentage of vulnerable tracts are underserved?    
 Approximately 1.62% of vulnerable tracts are underserved, meaning they are located more than 15 miles from the nearest hospital. This is calculated by dividing the number of underserved tracts (9) by the total number of vulnerable tracts (555) and multiplying by 100. 
+```{r, echo=FALSE}
+ggplot(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(X ,Y)) +
+  geom_point(color = "red", size = 10) 
+
 ```
 
-```{r}    
+```{r, echo=FALSE}
+#| message: false
+#| warning: false
+#| results: 'hide'  
 (9 / 555) * 100
 ```
 
@@ -293,19 +316,6 @@ It is somewhat surprising that only a small percentage of vulnerable tracts are 
 
 Use spatial joins and aggregation to calculate county-level statistics about vulnerable populations and hospital access.
 
-**Your Task:**
-```{r}
-# Spatial join tracts to counties
-
-
-
-
-
-
-# Aggregate statistics by county
-
-
-```
 
 **Required county-level statistics:**
 - Number of vulnerable tracts
@@ -435,24 +445,26 @@ underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles <- cbind(under
 View(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)
 #underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles <- rename(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, Tracts_namess = NAMELSAD)
 View(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)
+st_crs(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)
 
 hospitals_coords_matrix <- st_coordinates(hospitals)
 View(hospitals_coords_matrix)
 hospitals <- cbind(hospitals, hospitals_coords_matrix[, c("X", "Y")])
+hospitals <- st_transform(hospitals, crs = 26917)
 View(hospitals)
+st_crs(hospitals)
 
 
-
-ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(x= X,  y=Y, colour = "black"))+ geom_point(size = 5) + geom_point(data = hospitals, 
+ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(x= X,  y=Y, colour = "green"))+ geom_point(size = 5) + geom_point(data = hospitals, 
              aes(x = X, y = Y), # Map the aesthetics for the new data
-             color = "red",     # Set a specific color for the second data set, outside aes()
-             size = 3)+ 
+             color = "green",     # Set a specific color for the second data set, outside aes()
+             size = 2)+ 
   labs(title = "County-Level Choropleth Map of Underserved Vulnerable Tracts in Pennsylvania",
        subtitle = "Red points indicate hospital locations",
        caption = "Data Source: ACS 2022, Pennsylvania Department of Health") + 
           theme_void()   
 
-View(census_tracts)
+
 
 
 
@@ -485,9 +497,11 @@ View(census_tracts_NAD83)
 st_crs(census_tracts_NAD83)
 zxzx <- st_join(census_tracts_NAD83, underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, join = st_intersects, left = TRUE)
 View(zxzx)
+st_crs(zxzx)
+
 
 ggplot(data = zxzx) +
-  geom_sf(aes(fill = underserved), color = "white", size = 0.1) +
+  geom_sf(aes(fill = underserved), color = "white", size = 0.3) +
   geom_point(data = hospitals, 
              aes(x = X, y = Y), # Map the aesthetics for the new data
              color = "blue",     # Set a specific color for the second data set, outside aes()
