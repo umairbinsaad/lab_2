@@ -307,25 +307,34 @@ ggplot(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(X 
 (9 / 555) * 100
 ```
 
-- Does this surprise you? Why or why not?
+- Does this surprise you? Why or why not?    
 It is somewhat surprising that only a small percentage of vulnerable tracts are underserved, given the significant barriers to healthcare access that can exist in rural and low-income areas. However, it may also reflect the fact that many vulnerable populations are located in more urban or suburban areas where hospitals are more accessible. It highlights the importance of looking beyond just the number of vulnerable tracts and considering the geographic distribution and specific needs of these populations when planning healthcare investments and interventions.
 
 ---
 
-#### Step 6: Aggregate to County Level
+## Aggregate to County Level:   
+I used spatial joins and aggregation to calculate county-level statistics about vulnerable populations and hospital access.
 
-Use spatial joins and aggregation to calculate county-level statistics about vulnerable populations and hospital access.
 
+#### county-level statistics:   
+The number of vulnerable tracts in each county is calculated by performing a spatial join between the vulnerable tracts and the county boundaries, and then counting the number of vulnerable tracts that fall within each county. This will gave us a count of how many vulnerable tracts are located in each county, which can help identify which counties have the highest concentration of vulnerable populations that may be underserved in terms of healthcare access. Philadelphia County has the highest number of vulnerable tracts, with a total of 138 vulnerable tracts. This indicates that Philadelphia County has a significant concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access, particularly if many of these tracts are located far from hospitals. Allegheny County has the second highest number of vulnerable tracts, with a total of 80 vulnerable tracts. This suggests that Allegheny County also has a significant concentration of vulnerable populations that may require targeted healthcare investments and policy interventions to improve access to healthcare services. Luzerne County has the third highest number of vulnerable tracts, with a total of 29 vulnerable tracts. This indicates that Luzerne County also has a notable concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access. These findings highlight the importance of focusing healthcare investments and policy interventions in these counties to address the needs of vulnerable populations and improve healthcare access and equity.   
 
-**Required county-level statistics:**
-- Number of vulnerable tracts
-There number of vulnerable tracts in each county is calculated by performing a spatial join between the vulnerable tracts and the county boundaries, and then counting the number of vulnerable tracts that fall within each county. This will gave us a count of how many vulnerable tracts are located in each county, which can help identify which counties have the highest concentration of vulnerable populations that may be underserved in terms of healthcare access. Philadelphia County has the highest number of vulnerable tracts, with a total of 138 vulnerable tracts. This indicates that Philadelphia County has a significant concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access, particularly if many of these tracts are located far from hospitals. Allegheny County has the second highest number of vulnerable tracts, with a total of 80 vulnerable tracts. This suggests that Allegheny County also has a significant concentration of vulnerable populations that may require targeted healthcare investments and policy interventions to improve access to healthcare services. Luzerne County has the third highest number of vulnerable tracts, with a total of 29 vulnerable tracts. This indicates that Luzerne County also has a notable concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access. These findings highlight the importance of focusing healthcare investments and policy interventions in these counties to address the needs of vulnerable populations and improve healthcare access and equity.   
-
-```{r}
+```{r, echo=FALSE}
 # Calculate frequencies
 vulnerable_tracts_frequency_by_county <- table(vulnerable_tracts_county_centers$NAMELSADCO)
 View(vulnerable_tracts_frequency_by_county)
-head(vulnerable_tracts_frequency_by_county)
+
+
+
+library(knitr)
+knitr::kable(head(vulnerable_tracts_frequency_by_county, n = 8),
+      col.names = c("VAR1"="Name of Counties", "Freq" = "number of vulnerable tracts"),
+      caption = "The number of vulnerable tracts in each county",
+      format.args = list(big.mark = ","),
+      )
+
+
+
 ```
 
 - Number of underserved tracts  
