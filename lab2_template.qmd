@@ -409,7 +409,7 @@ View(selected_cols_vulnerable_tracts_county_centers)
 Using the skills from Week 3 (Data Visualization), create publication-quality maps and charts.
 
 ```{r}
-View(Hospitals)
+View(hospitals)
 
 ### Map 1: County-Level Choropleth 
 ```
@@ -433,7 +433,7 @@ View(hospitals)
 
 
 
-ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(x= X,  y=Y, colour = county_names))+ geom_point(size = 5) + geom_point(data = hospitals, 
+ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(x= X,  y=Y, colour = "black"))+ geom_point(size = 5) + geom_point(data = hospitals, 
              aes(x = X, y = Y), # Map the aesthetics for the new data
              color = "red",     # Set a specific color for the second data set, outside aes()
              size = 3)+ 
@@ -545,8 +545,9 @@ ggplot(vulnerable_tracts_county_centers, aes(x=NAMELSADCO ,y = dist_to_nearest))
 
 
 - Bar chart of underserved tracts by county
+
 ```{r}
-ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(x = dist_to_nearest, y = county_names)) +
+ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(x = dist_to_nearest, y = Tracts_namess)) +
   geom_col( fill = "blue", color = "white", position = "identity", alpha = 0.8)+
   labs(
     title = "Distribution of distances to hospitals for (total) vulnerable populations",      # Main plot title
