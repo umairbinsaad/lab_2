@@ -327,7 +327,7 @@ View(vulnerable_tracts_frequency_by_county)
 
 
 library(knitr)
-knitr::kable(head(vulnerable_tracts_frequency_by_county, n = 8),
+kable(head(vulnerable_tracts_frequency_by_county, n = 8),
       col.names = c("VAR1"="Name of Counties", "Freq" = "number of vulnerable tracts"),
       caption = "The number of vulnerable tracts in each county",
       format.args = list(big.mark = ","),
@@ -337,15 +337,21 @@ knitr::kable(head(vulnerable_tracts_frequency_by_county, n = 8),
 
 ```
 
-- Number of underserved tracts  
+#### Number of underserved tracts:  
 The number of underserved tracts in each county is calculated by performing a spatial join between the underserved tracts (vulnerable tracts that are more than 15 miles from the nearest hospital) and the county boundaries, and then counting the number of underserved tracts that fall within each county. This will give us a count of how many underserved tracts are located in each county, which can help identify which counties have the highest concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access. Clearfield County has the highest number of underserved tracts, with a total of 3 underserved tracts. This indicates that Pike County has a significant concentration of vulnerable populations that are located far from hospitals and may be at risk of being underserved in terms of healthcare access. Forest County has the second highest number of underserved tracts, with a total of 2 underserved tracts. This suggests that Chester County also has a notable concentration of vulnerable populations that are located far from hospitals and may require targeted healthcare investments and policy interventions to improve access to healthcare services. 	
 
 
 ```{r}
 # Calculate frequencies
 underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles_frequency_by_county <- table(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles$NAMELSADCO)
-View(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles_frequency_by_county)
-head(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles_frequency_by_county)
+
+
+library(knitr)
+kable(head(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles_frequency_by_county , n = 6),
+      col.names = c("VAR1"="Name of Counties", "Freq" = "number of vulnerable tracts"),
+      caption = "The number of vulnerable tracts in each county that are more than 15 Miles away from county",
+      format.args = list(big.mark = ","),
+      )
 
 
 ```
