@@ -18,7 +18,7 @@
     "href": "lab2_template.html#part-1-healthcare-access-for-vulnerable-populations",
     "title": "Lab 2: Spatial Analysis and Visualization",
     "section": "Part 1: Healthcare Access for Vulnerable Populations",
-    "text": "Part 1: Healthcare Access for Vulnerable Populations\n\nResearch Question\nWhich Pennsylvania counties have the highest proportion of vulnerable populations (elderly + low-income) living far from hospitals?\nMy analysis should identify counties that should be priorities for healthcare investment and policy intervention.\n#Analysis Steps\n\nI have Completed the following analysis, tried to give the brief explanations about each step (Although if you want codes you may check technical details through my source code on GitHub:"
+    "text": "Part 1: Healthcare Access for Vulnerable Populations\n\nResearch Question\nWhich Pennsylvania counties have the highest proportion of vulnerable populations (elderly + low-income) living far from hospitals?\nMy analysis should identify counties that should be priorities for healthcare investment and policy intervention."
   },
   {
     "objectID": "lab2_template.html#distance-calculation-to-hospitals",

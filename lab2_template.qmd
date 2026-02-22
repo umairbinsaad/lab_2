@@ -7,6 +7,8 @@ format:
   html:
     code-fold: false
     toc: true
+    toc_float: true
+    toc_depth: 2 
     toc-location: left
     theme: cosmo
     embed-resources: true
@@ -34,7 +36,7 @@ execute:
 
 My analysis should identify counties that should be priorities for healthcare investment and policy intervention.
 
-#Analysis Steps
+# Analysis Steps
 
 <div style="text-align: justify;">I have Completed the following analysis, tried to give the brief explanations about each step (Although if you want codes you may check technical details through my source code on GitHub:</div>
 
