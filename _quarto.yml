@@ -10,7 +10,7 @@ website:
         text: Home
       - text: Labs
         menu:
-          - href: https://umairbinsaad.github.io/lab_2/lab2_template.htmllll
+          - href: https://umairbinsaad.github.io/lab_2/lab2_template.html
             text: "Lab 2: Spatial Analysis"
 format:
   html:
