@@ -3885,7 +3885,10 @@ vertical-align: -.125em;
   <li><a href="#research-question" id="toc-research-question" class="nav-link" data-scroll-target="#research-question">Research Question</a></li>
   </ul></li>
   <li><a href="#primary-results" id="toc-primary-results" class="nav-link" data-scroll-target="#primary-results">Primary results:</a></li>
-  <li><a href="#aggregate-to-county-level" id="toc-aggregate-to-county-level" class="nav-link" data-scroll-target="#aggregate-to-county-level">Aggregate to County Level:</a></li>
+  <li><a href="#aggregate-to-county-level" id="toc-aggregate-to-county-level" class="nav-link" data-scroll-target="#aggregate-to-county-level">Aggregate to County Level:</a>
+  <ul class="collapse">
+  <li><a href="#calculated-percentage-of-vulnerable-tracts-that-are-underserved" id="toc-calculated-percentage-of-vulnerable-tracts-that-are-underserved" class="nav-link" data-scroll-target="#calculated-percentage-of-vulnerable-tracts-that-are-underserved">Calculated percentage of vulnerable tracts that are underserved</a></li>
+  </ul></li>
   <li><a href="#i-have-made-comprehensive-visualization" id="toc-i-have-made-comprehensive-visualization" class="nav-link" data-scroll-target="#i-have-made-comprehensive-visualization">I have made Comprehensive Visualization</a>
   <ul class="collapse">
   <li><a href="#here-below-is-the-detailed-vulnerability-map" id="toc-here-below-is-the-detailed-vulnerability-map" class="nav-link" data-scroll-target="#here-below-is-the-detailed-vulnerability-map">Here below is the detailed Vulnerability Map</a></li>
@@ -4014,7 +4017,6 @@ Total 16.1103 percent of PA census tracts are considered vulnerable by the defin
 <section id="distance-calculation-to-hospitals" class="level4">
 <h4 class="anchored" data-anchor-id="distance-calculation-to-hospitals">Distance calculation to Hospitals</h4>
 <p>The picture below shows the centers of vulnerable tracts. Starting from here, I calculated the distance to the nearest hospital from each vulnerable tract.</p>
-<p><strong>Your Task:</strong></p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -4050,7 +4052,7 @@ There are total 128 vulnerable tracts that are more than 15 miles from the neare
 <section id="identification-of-underserved-areas" class="level4">
 <h4 class="anchored" data-anchor-id="identification-of-underserved-areas">Identification of Underserved Areas</h4>
 <p>I Defined “underserved” as :<br>
-vulnerable tracts that are more than 15 miles from the nearest hospital are considered underserved because they likely face significant barriers to accessing healthcare services, which can lead to worse health outcomes. This distance can be a major obstacle for individuals who may not have reliable transportation or who have mobility issues, particularly among the elderly population. Identifying these underserved areas is crucial for targeting healthcare investments and policy interventions to improve access and equity in healthcare services.</p>
+Vulnerable tracts that are more than 15 miles from the nearest hospital are considered underserved because they likely face significant barriers to accessing healthcare services, which can lead to worse health outcomes. This distance can be a major obstacle for individuals who may not have reliable transportation or who have mobility issues, particularly among the elderly population. Identifying these underserved areas is crucial for targeting healthcare investments and policy interventions to improve access and equity in healthcare services.</p>
 </section>
 </section>
 </section>
@@ -4174,8 +4176,11 @@ It is somewhat surprising that only a small percentage of vulnerable tracts are 
 </div>
 </div>
 <ul>
-<li>Percentage of vulnerable tracts that are underserved # Calculate percentage of vulnerable tracts that are underserved</li>
+<li>Percentage of vulnerable tracts that are underserved</li>
 </ul>
+</section>
+<section id="calculated-percentage-of-vulnerable-tracts-that-are-underserved" class="level3">
+<h3 class="anchored" data-anchor-id="calculated-percentage-of-vulnerable-tracts-that-are-underserved">Calculated percentage of vulnerable tracts that are underserved</h3>
 <p>Approximately 0.02% of vulnerable tracts are underserved, meaning they are located more than 15 miles from the nearest hospital. This is calculated by dividing the number of underserved tracts (9) by the total number of vulnerable tracts (555) and multiplying by 100.</p>
 <ul>
 <li>Average distance to nearest hospital for vulnerable tracts The average distance to the nearest hospital for vulnerable tracts is approximately 2.619415 miles. This is calculated by taking the mean of the dist_to_nearest variable for all vulnerable tracts, which represents the distance from each tract centroid to the nearest hospital.</li>
@@ -4201,7 +4206,6 @@ The total vulnerable population is calculated by summing the total_popE variable
 </table>
 </div>
 </div>
-</section>
 <section id="answers-to-some-important-questions" class="level4">
 <h4 class="anchored" data-anchor-id="answers-to-some-important-questions">Answers to some important questions</h4>
 <ul>
@@ -4386,6 +4390,7 @@ Centre County and Juniata County(Although these counties have same percentage i-
 </table>
 </div>
 </div>
+</section>
 </section>
 </section>
 <section id="i-have-made-comprehensive-visualization" class="level2">
