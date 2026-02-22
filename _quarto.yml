@@ -1,0 +1,22 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "UMAIR BIN SAAD - MUSA 5080 Portfolio"
+  navbar:
+    left:
+      - href: https://umairbinsaad.github.io/lab_1/lab1_template%20(1).html
+        text: Home
+      - text: Labs
+        menu:
+          - href: https://umairbinsaad.github.io/lab_1/lab1_template%20(1).html
+            text: "Lab 1: Census Data Exploration"
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-fold: true
+
+execute:
+  freeze: auto

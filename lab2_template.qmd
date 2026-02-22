@@ -113,14 +113,13 @@ View(tract_demographics)
 # Join to tract boundaries
 census_tracts <- tracts(state = "PA", cb = TRUE)
 View(census_tracts)
-plot(census_tracts)
-plot(st_geometry(census_tracts))
+
+
 
 tracts_with_data <- census_tracts %>%
   left_join(tract_demographics, by = "GEOID")
 
 View(tracts_with_data)
-plot(tracts_with_data)
 plot(st_geometry(tracts_with_data))
 ```
 
@@ -193,17 +192,15 @@ vulnerable_tracts_county_centers <- st_centroid(vulnerable_tracts)
 ggplot(vulnerable_tracts_county_centers)+
   geom_sf()+
   theme_void()
-plot(vulnerable_tracts_county_centers)
+
 
 #### Calculate distance matrix (matrix[i, j] is dist from poly i to point j)
 dist_matrix <- st_distance(vulnerable_tracts_county_centers, hospitals)
-View(dist_matrix)
 #### Get minimum distance for each polygon
 min_distances <- apply(dist_matrix, 1, min)
-View(min_distances)
 #### Add distances to the original dataframe
 vulnerable_tracts_county_centers$dist_to_nearest <- min_distances/ 1609.34 # Convert from meters to miles
-View(vulnerable_tracts_county_centers)
+
 
 
 ```
@@ -384,11 +381,11 @@ selected_cols_vulnerable_tracts_county_centers <- selected_cols_vulnerable_tract
   arrange(desc(dist_to_nearest))
 View(selected_cols_vulnerable_tracts_county_centers)
 
-kable(head(selected_cols_vulnerable_tracts_county_centers, n = 10),
-      col.names = c("NAMELSADCO"="Name Counties", "dist_to_nearest" = "Distance to nearest hospital (Mile", "total_popE" = "Total Estimated population", "median_incomeE"= "Median Income of People", "Population_65_over" = "Population that is above 65 years of age", "geometry" = "Geometry of the tracts"),
-      caption = "Top 10 priority counties for healthcare investment",
-      format.args = list(big.mark = ","),
-      )
+#kable(head(selected_cols_vulnerable_tracts_county_centers, n = 10),
+      #col.names = c("NAMELSADCO"="Name Counties", "dist_to_nearest" = "Distance to nearest hospital (Mile", "total_popE" = "Total Estimated population", "median_incomeE"= "Median Income of People", "Population_65_over" = "Population that is above 65 years of age", "geometry" = "Geometry of the tracts"),
+    #  caption = "Top 10 priority counties for healthcare investment",
+     # format.args = list(big.mark = ","),
+      #)
 
 
 
@@ -426,7 +423,7 @@ coords_matrix <- st_coordinates(underserved_tracts_out_of_vulnerable_which_are_m
 View(coords_matrix)
 underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles <- cbind(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, coords_matrix[, c("X", "Y")])
 View(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)
-underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles <- rename(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, county_names = NAMELSADCO)
+#underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles <- rename(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, Tracts_namess = NAMELSAD)
 View(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)
 
 hospitals_coords_matrix <- st_coordinates(hospitals)
@@ -728,12 +725,11 @@ The blue points on the map represent the locations of street trees in Philadelph
 
 ```{r}
 buffer_area_parks <- st_buffer(parks_shapefile, dist = 804.672) # 0.5 miles in meters
-ggplot() +
-  geom_sf(data = buffer_area_parks, fill = "yellow", color = "grey")
-View(buffer_area_parks)
-plot(buffer_area_parks)
+###ggplot() +
+###  geom_sf(data = buffer_area_parks, fill = "yellow", color = "grey")
+###View(buffer_area_parks)
 
-But in analysis we are not taking trees as these are not suitalbe for analysis rather we are taking parks as these are more suitable for analysis. I have created a buffer of 0.5 miles (10-minute walk) around the parks to represent the area of influence of each park. This buffer allows us to visually assess which census tracts fall within a reasonable walking distance to the parks, which can help identify areas that may have better access to green spaces and those that may be underserved in terms of park access. By overlaying the buffer areas with the low-income and minority neighborhoods, we can further analyze the equity of access to green spaces in Philadelphia.
+#But in analysis we are not taking trees as these are not suitalbe for analysis rather we are taking parks as these are more suitable for analysis. I have created a buffer of 0.5 miles (10-minute walk) around the parks to represent the area of influence of each park. This buffer allows us to visually assess which census tracts fall within a reasonable walking distance to the parks, which can help identify areas that may have better access to green spaces and those that may be underserved in terms of park access. By overlaying the buffer areas with the low-income and minority neighborhoods, we can further analyze the equity of access to green spaces in Philadelphia.
 
 
 ggplot() +
@@ -804,11 +800,11 @@ head(Per_capita_tree_canopy)
 rrrrr <-  select(Per_capita_tree_canopy, NAME, total_popE, n, tree_canopy_per_capita) 
 View(rrrrr)
 
-kable(head(rrrrr, n = 10),
-      col.names = c("NAME"="Census_Tracts", "total_popE" = "Total population", "n"= "Number_of_trees ", "tree_canopy_per_capita" = "Number_of_trees(canopy)_per_capita", "geometry"= "Geometry " ),
-      caption = "Tree/Tree canopy for each tract per capita ",
-      format.args = list(big.mark = ","),
-      )
+#kable(head(rrrrr, n = 10),
+    #  col.names = c("NAME"="Census_Tracts", "total_popE" = "Total population", "n"= "Number_of_trees ", "tree_canopy_per_capita" = "Number_of_trees(canopy)_per_capita", "geometry"= "Geometry " ),
+    #  caption = "Tree/Tree canopy for each tract per capita ",
+    #  format.args = list(big.mark = ","),
+    #  )
 
 
 
