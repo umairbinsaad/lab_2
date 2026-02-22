@@ -58,7 +58,7 @@ library(here)
 
 ```
 
-```{r}
+```{r, echo=FALSE}
 #| message: false
 #| warning: false
 #| results: 'hide'
@@ -75,19 +75,19 @@ pa_countiesdbf <- st_read("D:/Ph.D/US Pakistan Knowledge Corridore/Upenn/Subject
 
 ```
 
-I will answer the following questions in my analysis :
-- How many hospitals are in your dataset?
-- How many census tracts?
-- What coordinate reference system is each dataset in?
+I will answer the following questions in my analysis :  
+- How many hospitals are in your dataset?   
+- How many census tracts?   
+- What coordinate reference system is each dataset in?    
 
 ---
 
-#I am obtaining tract-level demographic data for Pennsylvania from American Census Survey data portal.
+#I am obtaining tract-level demographic data for Pennsylvania from American Census Survey data portal.   
 
-Following are the variables I am taking into consideration
-- Total population
-- Median household income
-- Population 65 years and over (you may need to sum multiple age categories)
+Following are the variables I am taking into consideration   
+- Total population   
+- Median household income   
+- Population 65 years and over (you may need to sum multiple age categories)   
 
 ```{r, echo=FALSE}
 # Get demographic data from ACS
@@ -108,7 +108,6 @@ tract_demographics <- get_acs(
 tract_demographics <- tract_demographics %>%
   mutate(Population_65_over = male_65_66E + male_67_69E + male_70_74E + male_75_79E + male_80_84E + male_85_150E + Female_65_66E + Female_67_69 + Female_70_74 + Female_75_79 + Female_80_84 + Female_85_150  )
 
-View(tract_demographics)
 
 # Join to tract boundaries
 census_tracts <- tracts(state = "PA", cb = TRUE)
