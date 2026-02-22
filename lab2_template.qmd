@@ -269,7 +269,7 @@ tracts_more_than_15_miles <- vulnerable_tracts_county_centers %>%
 ``` 
   
 
-## Identification of Underserved Areas    
+## Identification of Underserved Areas:    
 
 I Defined "underserved" as :    
 <div style="text-align: justify;"> Vulnerable tracts that are more than 15 miles from the nearest hospital are considered underserved because they likely face significant barriers to accessing healthcare services, which can lead to worse health outcomes. This distance can be a major obstacle for individuals who may not have reliable transportation or who have mobility issues, particularly among the elderly population. Identifying these underserved areas is crucial for targeting healthcare investments and policy interventions to improve access and equity in healthcare services. </div>
@@ -297,6 +297,7 @@ View(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles )
 
 
 ## Primary results:  
+
 - How many tracts are underserved?    
 <div style="text-align: justify;">There are total 9 tracts that are underserved, meaning they are vulnerable and located more than 15 miles from the nearest hospital.</div>
 - What percentage of vulnerable tracts are underserved?    
