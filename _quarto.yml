@@ -3,14 +3,14 @@ project:
   output-dir: docs
 
 website:
-  title: "UMAIR BIN SAAD - MUSA 5080 Portfolio"
+  title: "UMAIR BIN SAADD - MUSA 5080 Portfolio"
   navbar:
     left:
       - href: https://umairbinsaad.github.io/lab_2/lab2_template.html
         text: Home
       - text: Labs
         menu:
-          - href: https://umairbinsaad.github.io/lab_2/lab2_template.html
+          - href: https://umairbinsaad.github.io/lab_2/lab2_template.htmllll
             text: "Lab 2: Spatial Analysis"
 format:
   html:
