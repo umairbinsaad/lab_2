@@ -17,7 +17,7 @@ execute:
 
 ## Assignment Overview
 
-**Learning Objectives:**
+**Learning Objectives:**    
 - Apply spatial operations to answer policy-relevant research questions    
 - Integrate census demographic data with spatial analysis   
 - Create publication-quality visualizations and maps     
