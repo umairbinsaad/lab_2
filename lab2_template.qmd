@@ -181,7 +181,7 @@ Total 16.1103 percent of PA census tracts are considered vulnerable by the defin
 
 #### Distance calculation to Hospitals 
 
-The picture below shows the centers of vulnerable tracts. Starting from here, I calculated the distance to the nearest hospital from each vulnerable tract. 
+The points picture below shows the centers of vulnerable tracts. Starting from here, I calculated the distance to the nearest hospital from each vulnerable tract. 
 
 
 ```{r, echo=FALSE}
@@ -204,7 +204,7 @@ hospitals <- st_transform(hospitals, crs = 26917)
 #### Distance between county centroids
 vulnerable_tracts_county_centers <- st_centroid(vulnerable_tracts)
 ggplot(vulnerable_tracts_county_centers)+
-  geom_sf(colour = "blue")+
+  geom_sf(colour = "maroon", size = 2)+
   theme_void()
 
 
@@ -552,7 +552,7 @@ Created a visualization showing the distribution of distances to hospitals for v
 #| results: 'hide'
 
 ggplot(vulnerable_tracts_county_centers, aes(x = dist_to_nearest)) +
-  geom_histogram(binwidth = 0.1, fill = "blue", color = "white", position = "identity", alpha = 0.8) +
+  geom_histogram(binwidth = 0.1, fill = "orange", color = "white", position = "identity", alpha = 0.8) +
   labs(
     title = "Distribution of distances to hospitals for (total) vulnerable populations",      # Main plot title
     subtitle = "Histogram showing nearest hospital from all vulnerable tracts",       # Subtitle
@@ -570,7 +570,7 @@ ggplot(vulnerable_tracts_county_centers, aes(x = dist_to_nearest)) +
 #| results: 'hide'
 
 ggplot(vulnerable_tracts_county_centers, aes(x=NAMELSADCO ,y = dist_to_nearest)) +
-  geom_boxplot(binwidth = 0.1, fill = "blue", color = "white", position = "identity", alpha = 0.8) +
+  geom_boxplot(binwidth = 0.1, fill = "darkgreen", color = "white", position = "identity", alpha = 0.8) +
   labs(
     title = "Distribution of distances to hospitals for (total) vulnerable populations",      # Main plot title
     subtitle = "Histogram showing nearest hospital from all vulnerable tracts",       # Subtitle
