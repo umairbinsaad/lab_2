@@ -341,7 +341,7 @@ kable(head(vulnerable_tracts_frequency_by_county, n = 8),
 The number of underserved tracts in each county is calculated by performing a spatial join between the underserved tracts (vulnerable tracts that are more than 15 miles from the nearest hospital) and the county boundaries, and then counting the number of underserved tracts that fall within each county. This will give us a count of how many underserved tracts are located in each county, which can help identify which counties have the highest concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access. Clearfield County has the highest number of underserved tracts, with a total of 3 underserved tracts. This indicates that Pike County has a significant concentration of vulnerable populations that are located far from hospitals and may be at risk of being underserved in terms of healthcare access. Forest County has the second highest number of underserved tracts, with a total of 2 underserved tracts. This suggests that Chester County also has a notable concentration of vulnerable populations that are located far from hospitals and may require targeted healthcare investments and policy interventions to improve access to healthcare services. 	
 
 
-```{r}
+```{r, echo=FALSE}
 # Calculate frequencies
 underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles_frequency_by_county <- table(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles$NAMELSADCO)
 
@@ -360,14 +360,20 @@ kable(head(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles_fre
 
 Approximately 0.02% of vulnerable tracts are underserved, meaning they are located more than 15 miles from the nearest hospital. This is calculated by dividing the number of underserved tracts (9) by the total number of vulnerable tracts (555) and multiplying by 100. 
 
-```{r}    
+```{r, echo=FALSE}
+#| message: false
+#| warning: false
+#| results: 'hide'  
 (9 / 555) * 100
 ```
 
 - Average distance to nearest hospital for vulnerable tracts
 The average distance to the nearest hospital for vulnerable tracts is approximately 2.619415 miles. This is calculated by taking the mean of the `dist_to_nearest` variable for all vulnerable tracts, which represents the distance from each tract centroid to the nearest hospital.
 
-```{r}
+```{r, echo=FALSE}
+#| message: false
+#| warning: false
+#| results: 'hide'
 
 mean(vulnerable_tracts_county_centers$dist_to_nearest)
 ```
@@ -375,11 +381,19 @@ mean(vulnerable_tracts_county_centers$dist_to_nearest)
 - Total vulnerable population
   The total vulnerable population is calculated by summing the `total_popE` variable for all vulnerable tracts. This gives us an estimate of the total number of 1861909 people living in vulnerable tracts, which can help us understand the scale of the population that is at risk of being vulnerable in terms of healthcare access.
 
-```{r}
+```{r, echo=FALSE}
+#| message: false
+#| warning: false
+#| results: 'hide'
 # Calculate frequencies
 Total_vulnerable_population <- sum(vulnerable_tracts_county_centers$total_popE)
 View(Total_vulnerable_population)
-head(Total_vulnerable_population)
+library(knitr)
+kable(head(Total_vulnerable_population, n = 1),
+      col.names = c("Value"="Total vulnerable population"),
+      caption = "The total vulnerable population",
+      format.args = list(big.mark = ","),
+      )
 ```
 
 
