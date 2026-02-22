@@ -3888,29 +3888,6 @@ vertical-align: -.125em;
   <li><a href="#aggregate-to-county-level" id="toc-aggregate-to-county-level" class="nav-link" data-scroll-target="#aggregate-to-county-level">Aggregate to County Level:</a>
   <ul class="collapse">
   <li><a href="#calculated-percentage-of-vulnerable-tracts-that-are-underserved" id="toc-calculated-percentage-of-vulnerable-tracts-that-are-underserved" class="nav-link" data-scroll-target="#calculated-percentage-of-vulnerable-tracts-that-are-underserved">Calculated percentage of vulnerable tracts that are underserved</a></li>
-  <li><a href="#i-created-summary-table-below" id="toc-i-created-summary-table-below" class="nav-link" data-scroll-target="#i-created-summary-table-below">I Created Summary Table below:</a></li>
-  </ul></li>
-  <li><a href="#i-have-made-comprehensive-visualization" id="toc-i-have-made-comprehensive-visualization" class="nav-link" data-scroll-target="#i-have-made-comprehensive-visualization">I have made Comprehensive Visualization</a>
-  <ul class="collapse">
-  <li><a href="#here-below-is-the-detailed-vulnerability-map" id="toc-here-below-is-the-detailed-vulnerability-map" class="nav-link" data-scroll-target="#here-below-is-the-detailed-vulnerability-map">Here below is the detailed Vulnerability Map</a></li>
-  </ul></li>
-  <li><a href="#i-carried-a-distribution-analysis" id="toc-i-carried-a-distribution-analysis" class="nav-link" data-scroll-target="#i-carried-a-distribution-analysis">I carried a Distribution Analysis:</a></li>
-  <li><a href="#my-own-data-analysis" id="toc-my-own-data-analysis" class="nav-link" data-scroll-target="#my-own-data-analysis">My Own Data Analysis</a>
-  <ul class="collapse">
-  <li><a href="#environmental-justice" id="toc-environmental-justice" class="nav-link" data-scroll-target="#environmental-justice">Environmental Justice</a></li>
-  <li><a href="#green-space-equity" id="toc-green-space-equity" class="nav-link" data-scroll-target="#green-space-equity">Green Space Equity</a></li>
-  <li><a href="#median-income" id="toc-median-income" class="nav-link" data-scroll-target="#median-income">Median Income:</a></li>
-  <li><a href="#median-number-of-white-people" id="toc-median-number-of-white-people" class="nav-link" data-scroll-target="#median-number-of-white-people">Median number of white people:</a></li>
-  <li><a href="#median-number-of-black-people" id="toc-median-number-of-black-people" class="nav-link" data-scroll-target="#median-number-of-black-people">Median number of black people:</a></li>
-  <li><a href="#median-number-of-asian-people" id="toc-median-number-of-asian-people" class="nav-link" data-scroll-target="#median-number-of-asian-people">Median number of asian people”</a></li>
-  <li><a href="#median-number-of-hispanic-people" id="toc-median-number-of-hispanic-people" class="nav-link" data-scroll-target="#median-number-of-hispanic-people">Median number of hispanic people”</a></li>
-  <li><a href="#median-number-of-native_hawaiian-people" id="toc-median-number-of-native_hawaiian-people" class="nav-link" data-scroll-target="#median-number-of-native_hawaiian-people">Median number of Native_Hawaiian people:</a></li>
-  <li><a href="#median-number-of-american_indian-people" id="toc-median-number-of-american_indian-people" class="nav-link" data-scroll-target="#median-number-of-american_indian-people">Median number of American_Indian people:</a></li>
-  <li><a href="#median-number-of-othere-people" id="toc-median-number-of-othere-people" class="nav-link" data-scroll-target="#median-number-of-othere-people">Median number of otherE people:</a></li>
-  </ul></li>
-  <li><a href="#vulnerable-tracts-based-on-our-criteria" id="toc-vulnerable-tracts-based-on-our-criteria" class="nav-link" data-scroll-target="#vulnerable-tracts-based-on-our-criteria">vulnerable tracts based on our criteria:</a>
-  <ul class="collapse">
-  <li><a href="#finally---a-few-comments-about-your-incorporation-of-feedback" id="toc-finally---a-few-comments-about-your-incorporation-of-feedback" class="nav-link" data-scroll-target="#finally---a-few-comments-about-your-incorporation-of-feedback">Finally - A few comments about your incorporation of feedback!</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -4085,7 +4062,10 @@ Approximately 1.62% of vulnerable tracts are underserved, meaning they are locat
 </div>
 <ul>
 <li>Does this surprise you? Why or why not?<br>
-It is somewhat surprising that only a small percentage of vulnerable tracts are underserved, given the significant barriers to healthcare access that can exist in rural and low-income areas. However, it may also reflect the fact that many vulnerable populations are located in more urban or suburban areas where hospitals are more accessible. It highlights the importance of looking beyond just the number of vulnerable tracts and considering the geographic distribution and specific needs of these populations when planning healthcare investments and interventions.</li>
+
+<div style="text-align: justify;">
+It is somewhat surprising that only a small percentage of vulnerable tracts are underserved, given the significant barriers to healthcare access that can exist in rural and low-income areas. However, it may also reflect the fact that many vulnerable populations are located in more urban or suburban areas where hospitals are more accessible. It highlights the importance of looking beyond just the number of vulnerable tracts and considering the geographic distribution and specific needs of these populations when planning healthcare investments and interventions.
+</div></li>
 </ul>
 <hr>
 </section>
@@ -4094,7 +4074,9 @@ It is somewhat surprising that only a small percentage of vulnerable tracts are 
 <p>I used spatial joins and aggregation to calculate county-level statistics about vulnerable populations and hospital access.</p>
 <section id="county-level-statistics" class="level4">
 <h4 class="anchored" data-anchor-id="county-level-statistics">county-level statistics:</h4>
-<p>The number of vulnerable tracts in each county is calculated by performing a spatial join between the vulnerable tracts and the county boundaries, and then counting the number of vulnerable tracts that fall within each county. This will gave us a count of how many vulnerable tracts are located in each county, which can help identify which counties have the highest concentration of vulnerable populations that may be underserved in terms of healthcare access. Philadelphia County has the highest number of vulnerable tracts, with a total of 138 vulnerable tracts. This indicates that Philadelphia County has a significant concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access, particularly if many of these tracts are located far from hospitals. Allegheny County has the second highest number of vulnerable tracts, with a total of 80 vulnerable tracts. This suggests that Allegheny County also has a significant concentration of vulnerable populations that may require targeted healthcare investments and policy interventions to improve access to healthcare services. Luzerne County has the third highest number of vulnerable tracts, with a total of 29 vulnerable tracts. This indicates that Luzerne County also has a notable concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access. These findings highlight the importance of focusing healthcare investments and policy interventions in these counties to address the needs of vulnerable populations and improve healthcare access and equity.</p>
+<div style="text-align: justify;">
+The number of vulnerable tracts in each county is calculated by performing a spatial join between the vulnerable tracts and the county boundaries, and then counting the number of vulnerable tracts that fall within each county. This will gave us a count of how many vulnerable tracts are located in each county, which can help identify which counties have the highest concentration of vulnerable populations that may be underserved in terms of healthcare access. Philadelphia County has the highest number of vulnerable tracts, with a total of 138 vulnerable tracts. This indicates that Philadelphia County has a significant concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access, particularly if many of these tracts are located far from hospitals. Allegheny County has the second highest number of vulnerable tracts, with a total of 80 vulnerable tracts. This suggests that Allegheny County also has a significant concentration of vulnerable populations that may require targeted healthcare investments and policy interventions to improve access to healthcare services. Luzerne County has the third highest number of vulnerable tracts, with a total of 29 vulnerable tracts. This indicates that Luzerne County also has a notable concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access. These findings highlight the importance of focusing healthcare investments and policy interventions in these counties to address the needs of vulnerable populations and improve healthcare access and equity.
+</div>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -4145,7 +4127,9 @@ It is somewhat surprising that only a small percentage of vulnerable tracts are 
 </section>
 <section id="number-of-underserved-tracts" class="level4">
 <h4 class="anchored" data-anchor-id="number-of-underserved-tracts">Number of underserved tracts:</h4>
-<p>The number of underserved tracts in each county is calculated by performing a spatial join between the underserved tracts (vulnerable tracts that are more than 15 miles from the nearest hospital) and the county boundaries, and then counting the number of underserved tracts that fall within each county. This will give us a count of how many underserved tracts are located in each county, which can help identify which counties have the highest concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access. Clearfield County has the highest number of underserved tracts, with a total of 3 underserved tracts. This indicates that Pike County has a significant concentration of vulnerable populations that are located far from hospitals and may be at risk of being underserved in terms of healthcare access. Forest County has the second highest number of underserved tracts, with a total of 2 underserved tracts. This suggests that Chester County also has a notable concentration of vulnerable populations that are located far from hospitals and may require targeted healthcare investments and policy interventions to improve access to healthcare services.</p>
+<div style="text-align: justify;">
+The number of underserved tracts in each county is calculated by performing a spatial join between the underserved tracts (vulnerable tracts that are more than 15 miles from the nearest hospital) and the county boundaries, and then counting the number of underserved tracts that fall within each county. This will give us a count of how many underserved tracts are located in each county, which can help identify which counties have the highest concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access. Clearfield County has the highest number of underserved tracts, with a total of 3 underserved tracts. This indicates that Pike County has a significant concentration of vulnerable populations that are located far from hospitals and may be at risk of being underserved in terms of healthcare access. Forest County has the second highest number of underserved tracts, with a total of 2 underserved tracts. This suggests that Chester County also has a notable concentration of vulnerable populations that are located far from hospitals and may require targeted healthcare investments and policy interventions to improve access to healthcare services.
+</div>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -4187,14 +4171,21 @@ It is somewhat surprising that only a small percentage of vulnerable tracts are 
 </div>
 </section>
 <section id="calculated-percentage-of-vulnerable-tracts-that-are-underserved" class="level3">
-<h3 class="anchored" data-anchor-id="calculated-percentage-of-vulnerable-tracts-that-are-underserved">Calculated percentage of vulnerable tracts that are underserved</h3>
+<h3 class="anchored">Calculated percentage of vulnerable tracts that are underserved</h3>
+<div style="text-align: justify;">
 <p>Approximately 0.02% of vulnerable tracts are underserved, meaning they are located more than 15 miles from the nearest hospital. This is calculated by dividing the number of underserved tracts (9) by the total number of vulnerable tracts (555) and multiplying by 100.</p>
 <ul>
-<li>Average distance to nearest hospital for vulnerable tracts The average distance to the nearest hospital for vulnerable tracts is approximately 2.619415 miles. This is calculated by taking the mean of the dist_to_nearest variable for all vulnerable tracts, which represents the distance from each tract centroid to the nearest hospital.</li>
+<li>Average distance to nearest hospital for vulnerable tracts
+<div style="text-align: justify;">
+The average distance to the nearest hospital for vulnerable tracts is approximately 2.619415 miles. This is calculated by taking the mean of the dist_to_nearest variable for all vulnerable tracts, which represents the distance from each tract centroid to the nearest hospital.
+</div></li>
 </ul>
 <ul>
 <li>Total vulnerable population<br>
-The total vulnerable population is calculated by summing the total_popE variable for all vulnerable tracts. This gives us an estimate of the total number of 1861909 people living in vulnerable tracts, which can help us understand the scale of the population that is at risk of being vulnerable in terms of healthcare access.</li>
+
+<div style="text-align: justify;">
+The total vulnerable population is calculated by summing the total_popE variable for all vulnerable tracts. This gives us an estimate of the total number of 1861909 people living in vulnerable tracts, which can help us understand the scale of the population that is at risk of being vulnerable in terms of healthcare access.
+</div></li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -4214,12 +4205,17 @@ The total vulnerable population is calculated by summing the total_popE variable
 </div>
 </div>
 <section id="answers-to-some-important-questions" class="level4">
-<h4 class="anchored" data-anchor-id="answers-to-some-important-questions">Answers to some important questions</h4>
+<h4 class="anchored">Answers to some important questions</h4>
+<div style="text-align: justify;">
 <ul>
-<li><p>Which 5 counties have the highest percentage of underserved vulnerable tracts? The 5 counties with the highest percentage of underserved vulnerable tracts are Clearfield County, Forest County, Cameron County,<br>
-Centre County and Juniata County(Although these counties have same percentage i-e Cameron County, Centre County and Juniata County). These counties have the highest proportion of vulnerable tracts that are located more than 15 miles from the nearest hospital, indicating that they may be at greater risk of being underserved in terms of healthcare access. Targeting healthcare investments and policy interventions in these counties could help improve access to healthcare services for vulnerable populations and address disparities in healthcare access and outcomes.</p></li>
-<li><p>Which counties have the most vulnerable people living far from hospitals? the counties with the most vulnerable people living far from hospitals are Clearfield County, Forest County, Cameron County, Monroe County. These counties have the highest number of vulnerable tracts that are located more than 15 miles (i-e 18+) from the nearest hospital, indicating that they may have a significant population of vulnerable individuals who are at risk of being underserved in terms of healthcare access. Focusing healthcare investments and policy interventions in these counties could help improve access to healthcare services for vulnerable populations and address disparities in healthcare access and outcomes.</p></li>
-</ul>
+<li>Which 5 counties have the highest percentage of underserved vulnerable tracts? The 5 counties with the highest percentage of underserved vulnerable tracts are Clearfield County, Forest County, Cameron County,<br>
+Centre County and Juniata County(Although these counties have same percentage i-e Cameron County, Centre County and Juniata County). These counties have the highest proportion of vulnerable tracts that are located more than 15 miles from the nearest hospital, indicating that they may be at greater risk of being underserved in terms of healthcare access. Targeting healthcare investments and policy interventions in these counties could help improve access to healthcare services for vulnerable populations and address disparities in healthcare access and outcomes.
+</li></ul></div>
+<li>Which counties have the most vulnerable people living far from hospitals?
+<div style="text-align: justify;">
+The counties with the most vulnerable people living far from hospitals are Clearfield County, Forest County, Cameron County, Monroe County. These counties have the highest number of vulnerable tracts that are located more than 15 miles (i-e 18+) from the nearest hospital, indicating that they may have a significant population of vulnerable individuals who are at risk of being underserved in terms of healthcare access. Focusing healthcare investments and policy interventions in these counties could help improve access to healthcare services for vulnerable populations and address disparities in healthcare access and outcomes.
+</div></li>
+
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -4287,8 +4283,6 @@ Centre County and Juniata County(Although these counties have same percentage i-
 </div>
 </div>
 <hr>
-</section>
-</section>
 <section id="i-created-summary-table-below" class="level3">
 <h3 class="anchored" data-anchor-id="i-created-summary-table-below">I Created Summary Table below:</h3>
 <div class="cell">
@@ -4399,7 +4393,6 @@ Centre County and Juniata County(Although these counties have same percentage i-
 </div>
 </div>
 </section>
-</section>
 <section id="i-have-made-comprehensive-visualization" class="level2">
 <h2 class="anchored" data-anchor-id="i-have-made-comprehensive-visualization">I have made Comprehensive Visualization</h2>
 <p>I have created a choropleth map showing healthcare access challenges at the county level.</p>
@@ -4474,7 +4467,9 @@ Centre County and Juniata County(Although these counties have same percentage i-
 </div>
 </div>
 </div>
-<p>The chart above shows the distribution of distances to hospitals for vulnerable populations in Pennsylvania. The bar chart indicates that the some of vulnerable tracts are not located within a few miles of the nearest hospital, with a long tail extending to higher distances. This suggests that while many vulnerable populations have relatively good access to healthcare services, there are some tracts that face significant barriers due to their distance from hospitals. Targeted interventions may be needed to improve healthcare access for those living in more remote areas.</p>
+<div style="text-align: justify;">
+The chart above shows the distribution of distances to hospitals for vulnerable populations in Pennsylvania. The bar chart indicates that the some of vulnerable tracts are not located within a few miles of the nearest hospital, with a long tail extending to higher distances. This suggests that while many vulnerable populations have relatively good access to healthcare services, there are some tracts that face significant barriers due to their distance from hospitals. Targeted interventions may be needed to improve healthcare access for those living in more remote areas.
+</div>
 <p>I showed in graphs:<br>
 - Clear axes labels with units<br>
 - Appropriate title<br>
@@ -4708,8 +4703,13 @@ Yes transformed it to NAD83 / UTM zone 17N” EPSG:26917.</p>
 
 </section>
 </section>
+</section></div>
+</section>
+</section></main></div>
 
-</main> <!-- /main -->
+
+
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -5110,7 +5110,7 @@ Yes transformed it to NAD83 / UTM zone 17N” EPSG:26917.</p>
     }
   });
   </script>
-</div> <!-- /content -->
+ <!-- /content -->
 
 
 
