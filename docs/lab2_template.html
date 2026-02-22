@@ -3923,12 +3923,25 @@ vertical-align: -.125em;
   <li><a href="#aggregate-to-county-level" id="toc-aggregate-to-county-level" class="nav-link" data-scroll-target="#aggregate-to-county-level">Aggregate to County Level:</a></li>
   <li><a href="#i-have-made-comprehensive-visualization" id="toc-i-have-made-comprehensive-visualization" class="nav-link" data-scroll-target="#i-have-made-comprehensive-visualization">I have made Comprehensive Visualization</a>
   <ul class="collapse">
-  <li><a href="#map-2-detailed-vulnerability-map" id="toc-map-2-detailed-vulnerability-map" class="nav-link" data-scroll-target="#map-2-detailed-vulnerability-map">Map 2: Detailed Vulnerability Map</a></li>
-  <li><a href="#chart-distribution-analysis" id="toc-chart-distribution-analysis" class="nav-link" data-scroll-target="#chart-distribution-analysis">Chart: Distribution Analysis</a></li>
+  <li><a href="#here-below-is-the-detailed-vulnerability-map" id="toc-here-below-is-the-detailed-vulnerability-map" class="nav-link" data-scroll-target="#here-below-is-the-detailed-vulnerability-map">Here below is the detailed Vulnerability Map</a></li>
   </ul></li>
-  <li><a href="#part-3-bring-your-own-data-analysis" id="toc-part-3-bring-your-own-data-analysis" class="nav-link" data-scroll-target="#part-3-bring-your-own-data-analysis">Part 3: Bring Your Own Data Analysis</a></li>
+  <li><a href="#i-carried-a-distribution-analysis" id="toc-i-carried-a-distribution-analysis" class="nav-link" data-scroll-target="#i-carried-a-distribution-analysis">I carried a Distribution Analysis:</a></li>
+  <li><a href="#my-own-data-analysis" id="toc-my-own-data-analysis" class="nav-link" data-scroll-target="#my-own-data-analysis">My Own Data Analysis</a>
+  <ul class="collapse">
+  <li><a href="#green-space-equity" id="toc-green-space-equity" class="nav-link" data-scroll-target="#green-space-equity">Green Space Equity</a></li>
+  <li><a href="#median-income" id="toc-median-income" class="nav-link" data-scroll-target="#median-income">Median Income:</a></li>
+  <li><a href="#median-number-of-white-people" id="toc-median-number-of-white-people" class="nav-link" data-scroll-target="#median-number-of-white-people">Median number of white people:</a></li>
+  <li><a href="#median-number-of-black-people" id="toc-median-number-of-black-people" class="nav-link" data-scroll-target="#median-number-of-black-people">Median number of black people:</a></li>
+  <li><a href="#median-number-of-asian-people" id="toc-median-number-of-asian-people" class="nav-link" data-scroll-target="#median-number-of-asian-people">Median number of asian people”</a></li>
+  <li><a href="#median-number-of-hispanic-people" id="toc-median-number-of-hispanic-people" class="nav-link" data-scroll-target="#median-number-of-hispanic-people">Median number of hispanic people”</a></li>
+  <li><a href="#median-number-of-native_hawaiian-people" id="toc-median-number-of-native_hawaiian-people" class="nav-link" data-scroll-target="#median-number-of-native_hawaiian-people">Median number of Native_Hawaiian people:</a></li>
+  <li><a href="#median-number-of-american_indian-people" id="toc-median-number-of-american_indian-people" class="nav-link" data-scroll-target="#median-number-of-american_indian-people">Median number of American_Indian people:</a></li>
+  <li><a href="#median-number-of-othere-people" id="toc-median-number-of-othere-people" class="nav-link" data-scroll-target="#median-number-of-othere-people">Median number of otherE people:</a></li>
+  </ul></li>
+  <li><a href="#vulnerable-tracts-based-on-our-criteria" id="toc-vulnerable-tracts-based-on-our-criteria" class="nav-link" data-scroll-target="#vulnerable-tracts-based-on-our-criteria">vulnerable tracts based on our criteria:</a>
+  <ul class="collapse">
   <li><a href="#finally---a-few-comments-about-your-incorporation-of-feedback" id="toc-finally---a-few-comments-about-your-incorporation-of-feedback" class="nav-link" data-scroll-target="#finally---a-few-comments-about-your-incorporation-of-feedback">Finally - A few comments about your incorporation of feedback!</a></li>
-  <li><a href="#submission-requirements" id="toc-submission-requirements" class="nav-link" data-scroll-target="#submission-requirements">Submission Requirements</a></li>
+  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -4231,19 +4244,6 @@ Centre County and Juniata County(Although these counties have same percentage i-
 <li><p>Which counties have the most vulnerable people living far from hospitals? the counties with the most vulnerable people living far from hospitals are Clearfield County, Forest County, Cameron County, Monroe County. These counties have the highest number of vulnerable tracts that are located more than 15 miles (i-e 18+) from the nearest hospital, indicating that they may have a significant population of vulnerable individuals who are at risk of being underserved in terms of healthcare access. Focusing healthcare investments and policy interventions in these counties could help improve access to healthcare services for vulnerable populations and address disparities in healthcare access and outcomes.</p></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>most_vulnerable_people <span class="ot">&lt;-</span> vulnerable_tracts_county_centers <span class="sc">%&gt;%</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(dist_to_nearest))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(most_vulnerable_people)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>most_vulnerable_people_New <span class="ot">&lt;-</span> most_vulnerable_people <span class="sc">%&gt;%</span> <span class="fu">select</span>(NAMELSADCO, dist_to_nearest)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(most_vulnerable_people_New)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(most_vulnerable_people_New, <span class="at">n =</span> <span class="dv">10</span>),</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;NAMELSADCO&quot;</span><span class="ot">=</span><span class="st">&quot;Name of Counties&quot;</span>, <span class="st">&quot;dist_to_nearest&quot;</span> <span class="ot">=</span> <span class="st">&quot;Distance In Miles&quot;</span>, <span class="st">&quot;geometry&quot;</span> <span class="ot">=</span> <span class="st">&quot;Geometry&quot;</span> ),</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;The counties with the most vulnerable people living far from hospitals&quot;</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">big.mark =</span> <span class="st">&quot;,&quot;</span>),</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>The counties with the most vulnerable people living far from hospitals</caption>
@@ -4311,28 +4311,13 @@ Centre County and Juniata County(Although these counties have same percentage i-
 </div>
 <hr>
 </section>
-<section id="step-7-create-summary-table" class="level4">
-<h4 class="anchored" data-anchor-id="step-7-create-summary-table">Step 7: Create Summary Table</h4>
-<p>Create a professional table showing the top 10 priority counties for healthcare investment.</p>
+<section id="i-am-creating-summary-table" class="level4">
+<h4 class="anchored" data-anchor-id="i-am-creating-summary-table">I am Creating Summary Table</h4>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and format priority counties table</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(vulnerable_tracts_county_centers)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>selected_cols_vulnerable_tracts_county_centers <span class="ot">&lt;-</span> vulnerable_tracts_county_centers[, <span class="fu">c</span>(<span class="st">&quot;NAMELSADCO&quot;</span>, <span class="st">&quot;dist_to_nearest&quot;</span>, <span class="st">&quot;total_popE&quot;</span>, <span class="st">&quot;median_incomeE&quot;</span>, <span class="st">&quot;Population_65_over&quot;</span>)]</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(selected_cols_vulnerable_tracts_county_centers)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>selected_cols_vulnerable_tracts_county_centers <span class="ot">&lt;-</span> selected_cols_vulnerable_tracts_county_centers <span class="sc">%&gt;%</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(dist_to_nearest))</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(selected_cols_vulnerable_tracts_county_centers)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(selected_cols_vulnerable_tracts_county_centers, <span class="at">n =</span> <span class="dv">10</span>),</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;NAMELSADCO&quot;</span><span class="ot">=</span><span class="st">&quot;Name Counties&quot;</span>, <span class="st">&quot;dist_to_nearest&quot;</span> <span class="ot">=</span> <span class="st">&quot;Distance to nearest hospital (Mile&quot;</span>, <span class="st">&quot;total_popE&quot;</span> <span class="ot">=</span> <span class="st">&quot;Total Estimated population&quot;</span>, <span class="st">&quot;median_incomeE&quot;</span><span class="ot">=</span> <span class="st">&quot;Median Income of People&quot;</span>, <span class="st">&quot;Population_65_over&quot;</span> <span class="ot">=</span> <span class="st">&quot;Population that is above 65 years of age&quot;</span>, <span class="st">&quot;geometry&quot;</span> <span class="ot">=</span> <span class="st">&quot;Geometry of the tracts&quot;</span>),</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">aption =</span> <span class="st">&quot;Top 10 priority counties for healthcare investment&quot;</span>,</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">big.mark =</span> <span class="st">&quot;,&quot;</span>),</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>      )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
+<caption>Details about the counties with the most vulnerable people living far from hospitals</caption>
 <colgroup>
 <col style="width: 10%">
 <col style="width: 20%">
@@ -4442,15 +4427,15 @@ Centre County and Juniata County(Although these counties have same percentage i-
 <h2 class="anchored" data-anchor-id="i-have-made-comprehensive-visualization">I have made Comprehensive Visualization</h2>
 <p>I have created a choropleth map showing healthcare access challenges at the county level.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create county-level access map</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>coords_matrix <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(coords_matrix)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles <span class="ot">&lt;-</span> <span class="fu">cbind</span>(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, coords_matrix[, <span class="fu">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>)])</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles &lt;- rename(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, Tracts_namess = NAMELSAD)</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create county-level access map</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>coords_matrix <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(coords_matrix)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles <span class="ot">&lt;-</span> <span class="fu">cbind</span>(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, coords_matrix[, <span class="fu">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>)])</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles &lt;- rename(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, Tracts_namess = NAMELSAD)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Coordinate Reference System:
   User input: EPSG:26917 
@@ -4494,12 +4479,12 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
         BBOX[23.81,-84,84,-78]],
     ID[&quot;EPSG&quot;,26917]]</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>hospitals_coords_matrix <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(hospitals)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(hospitals_coords_matrix)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>hospitals <span class="ot">&lt;-</span> <span class="fu">cbind</span>(hospitals, hospitals_coords_matrix[, <span class="fu">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>)])</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>hospitals <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(hospitals, <span class="at">crs =</span> <span class="dv">26917</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(hospitals)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(hospitals)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>hospitals_coords_matrix <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(hospitals)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(hospitals_coords_matrix)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>hospitals <span class="ot">&lt;-</span> <span class="fu">cbind</span>(hospitals, hospitals_coords_matrix[, <span class="fu">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>)])</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>hospitals <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(hospitals, <span class="at">crs =</span> <span class="dv">26917</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(hospitals)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(hospitals)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Coordinate Reference System:
   User input: EPSG:26917 
@@ -4543,33 +4528,32 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
         BBOX[23.81,-84,84,-78]],
     ID[&quot;EPSG&quot;,26917]]</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, <span class="fu">aes</span>(<span class="at">x=</span> X,  <span class="at">y=</span>Y, <span class="at">colour =</span> <span class="st">&quot;green&quot;</span>))<span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">data =</span> hospitals, </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> X, <span class="at">y =</span> Y), <span class="co"># Map the aesthetics for the new data</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;green&quot;</span>,     <span class="co"># Set a specific color for the second data set, outside aes()</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span>)<span class="sc">+</span> </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;County-Level Choropleth Map of Underserved Vulnerable Tracts in Pennsylvania&quot;</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Red points indicate hospital locations&quot;</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Data Source: ACS 2022, Pennsylvania Department of Health&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">theme_void</span>()   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img role="img" src="data:image/png;base64,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" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles <span class="ot">=</span> <span class="fu">rename</span>(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, <span class="fu">any_of</span>(<span class="fu">c</span>(<span class="st">&quot;new&quot;</span> <span class="ot">=</span> <span class="st">&quot;XPZ&quot;</span>)))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(x= X,  y=Y, colour = new))+ geom_point(size = 5) + geom_point(data = hospitals, </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>             <span class="co">#aes(x = X, y = Y), # Map the aesthetics for the new data</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>          <span class="co">#   color = &quot;red&quot;,     # Set a specific color for the second data set, outside aes()</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>          <span class="co">#   size = 2)+ </span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#labs(title = &quot;County-Level Choropleth Map of Underserved Vulnerable Tracts in Pennsylvania&quot;,</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>   <span class="co">#    subtitle = &quot;Red points indicate hospital locations&quot;,</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>     <span class="co">#  caption = &quot;Data Source: ACS 2022, Pennsylvania Department of Health&quot;) + </span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>         <span class="co"># theme_void()   </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-</div>
-<p><strong>Requirements:</strong> - Fill counties by percentage of vulnerable tracts that are underserved - Include hospital locations as points - Use an appropriate color scheme - Include clear title, subtitle, and caption - Use <code>theme_void()</code> or similar clean theme - Add a legend with formatted labels</p>
+<p>I have done this:<br>
+- Filled counties by percentage of vulnerable tracts that are underserved<br>
+- Included hospital locations as points<br>
+- Used an appropriate color scheme - Included clear title, subtitle, and caption<br>
+- Used theme_void()<br>
+- Added a legend with formatted labels</p>
 <hr>
-<section id="map-2-detailed-vulnerability-map" class="level3">
-<h3 class="anchored" data-anchor-id="map-2-detailed-vulnerability-map">Map 2: Detailed Vulnerability Map</h3>
-<p>Create a map highlighting underserved vulnerable tracts.</p>
-<p><strong>Your Task:</strong></p>
+<section id="here-below-is-the-detailed-vulnerability-map" class="level3">
+<h3 class="anchored" data-anchor-id="here-below-is-the-detailed-vulnerability-map">Here below is the detailed Vulnerability Map</h3>
+<p>I created a map highlighting underserved vulnerable tracts.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create detailed tract-level map</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Coordinate Reference System:
   User input: EPSG:26917 
@@ -4613,7 +4597,6 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
         BBOX[23.81,-84,84,-78]],
     ID[&quot;EPSG&quot;,26917]]</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(census_tracts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Coordinate Reference System:
   User input: NAD83 
@@ -4633,9 +4616,6 @@ GEOGCRS[&quot;NAD83&quot;,
             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
     ID[&quot;EPSG&quot;,4269]]</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>census_tracts_NAD83 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(census_tracts, <span class="at">crs =</span> <span class="dv">26917</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(census_tracts_NAD83)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(census_tracts_NAD83)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Coordinate Reference System:
   User input: EPSG:26917 
@@ -4679,9 +4659,6 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
         BBOX[23.81,-84,84,-78]],
     ID[&quot;EPSG&quot;,26917]]</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>zxzx <span class="ot">&lt;-</span> <span class="fu">st_join</span>(census_tracts_NAD83, underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, <span class="at">join =</span> st_intersects, <span class="at">left =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(zxzx)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(zxzx)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Coordinate Reference System:
   User input: EPSG:26917 
@@ -4725,16 +4702,6 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
         BBOX[23.81,-84,84,-78]],
     ID[&quot;EPSG&quot;,26917]]</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> zxzx) <span class="sc">+</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> underserved), <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">size =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> hospitals, </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> X, <span class="at">y =</span> Y), <span class="co"># Map the aesthetics for the new data</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>,     <span class="co"># Set a specific color for the second data set, outside aes()</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>)<span class="sc">+</span> </span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Tracts-Level Choropleth Map of Underserved Vulnerable Tracts in Pennsylvania&quot;</span>,</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Blue points indicate hospital locations&quot;</span>,</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Data Source: ACS 2022, Pennsylvania Department of Health&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">theme_void</span>()  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -4743,29 +4710,17 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
 </div>
 </div>
 </div>
-<p><strong>Requirements:</strong> - Show underserved vulnerable tracts in a contrasting color - Include county boundaries for context - Show hospital locations - Use appropriate visual hierarchy (what should stand out?) - Include informative title and subtitle</p>
+<p>I have done this in the above picture: - Showed underserved vulnerable tracts in a contrasting color - Included county boundaries for context - Showed hospital locations - Used appropriate visual hierarchy - Included informative title and subtitle</p>
 <hr>
 </section>
-<section id="chart-distribution-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="chart-distribution-analysis">Chart: Distribution Analysis</h3>
-<p>Create a visualization showing the distribution of distances to hospitals for vulnerable populations.</p>
-<p><strong>Your Task:</strong></p>
+</section>
+<section id="i-carried-a-distribution-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="i-carried-a-distribution-analysis">I carried a Distribution Analysis:</h2>
+<p>Created a visualization showing the distribution of distances to hospitals for vulnerable populations.</p>
+<ul>
+<li>I generated a histogram or density plot of distances:</li>
+</ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create distribution visualization</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p><strong>Suggested chart types:</strong> - Histogram or density plot of distances</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vulnerable_tracts_county_centers, <span class="fu">aes</span>(<span class="at">x =</span> dist_to_nearest)) <span class="sc">+</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.1</span>, <span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Distribution of distances to hospitals for (total) vulnerable populations&quot;</span>,      <span class="co"># Main plot title</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Histogram showing nearest hospital from all vulnerable tracts&quot;</span>,       <span class="co"># Subtitle</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Created: UMAIR BIN SAAD&quot;</span>,     <span class="co"># Plot caption</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Distance in Miles&quot;</span>,           <span class="co"># X-axis label</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Frequency/count&quot;</span>                         <span class="co"># Y-axis label</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="co"># Optional: applies a clean theme</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -4775,19 +4730,9 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
 </div>
 </div>
 <ul>
-<li>Box plot comparing distances across regions</li>
+<li>I generated a Box plot comparing distances across regions</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vulnerable_tracts_county_centers, <span class="fu">aes</span>(<span class="at">x=</span>NAMELSADCO ,<span class="at">y =</span> dist_to_nearest)) <span class="sc">+</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">binwidth =</span> <span class="fl">0.1</span>, <span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Distribution of distances to hospitals for (total) vulnerable populations&quot;</span>,      <span class="co"># Main plot title</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Histogram showing nearest hospital from all vulnerable tracts&quot;</span>,       <span class="co"># Subtitle</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Created: UMAIR BIN SAAD&quot;</span>,     <span class="co"># Plot caption</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Distance in Miles&quot;</span>,           <span class="co"># X-axis label</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Frequency/count&quot;</span>                         <span class="co"># Y-axis label</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="co"># Optional: applies a clean theme</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -4797,19 +4742,9 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
 </div>
 </div>
 <ul>
-<li>Bar chart of underserved tracts by county</li>
+<li>I generated a Bar chart of underserved tracts by county</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, <span class="fu">aes</span>(<span class="at">x =</span> dist_to_nearest, <span class="at">y =</span> NAME.x)) <span class="sc">+</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>( <span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>)<span class="sc">+</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Distribution of distances to hospitals for (total) vulnerable populations&quot;</span>,      <span class="co"># Main plot title</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Histogram showing nearest hospital from all vulnerable tracts&quot;</span>,       <span class="co"># Subtitle</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Created: UMAIR BIN SAAD&quot;</span>,     <span class="co"># Plot caption</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Distance in Miles&quot;</span>,           <span class="co"># X-axis label</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Frequency/count&quot;</span>                         <span class="co"># Y-axis label</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="co"># Optional: applies a clean theme</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -4819,39 +4754,27 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
 </div>
 </div>
 <p>The chart above shows the distribution of distances to hospitals for vulnerable populations in Pennsylvania. The bar chart indicates that the some of vulnerable tracts are not located within a few miles of the nearest hospital, with a long tail extending to higher distances. This suggests that while many vulnerable populations have relatively good access to healthcare services, there are some tracts that face significant barriers due to their distance from hospitals. Targeted interventions may be needed to improve healthcare access for those living in more remote areas.</p>
-<p><strong>Requirements:</strong> - Clear axes labels with units - Appropriate title - Professional formatting - Brief interpretation (1-2 sentences as a caption or in text)</p>
+<p>I showed in graphs:<br>
+- Clear axes labels with units<br>
+- Appropriate title<br>
+- Professional formatting<br>
+- Brief interpretation</p>
 <hr>
 </section>
-</section>
-<section id="part-3-bring-your-own-data-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="part-3-bring-your-own-data-analysis">Part 3: Bring Your Own Data Analysis</h2>
-<p>Choose ONE of the following challenge exercises, or propose your own research question using OpenDataPhilly data (https://opendataphilly.org/datasets/).</p>
-<p><strong>Note these are just loose suggestions to spark ideas - follow or make your own as the data permits and as your ideas evolve. This analysis should include bringing in your own dataset, ensuring the projection/CRS of your layers align and are appropriate for the analysis (not lat/long or geodetic coordinate systems). The analysis portion should include some combination of spatial and attribute operations to answer a relatively straightforward question</strong></p>
+<section id="my-own-data-analysis" class="level1">
+<h1>My Own Data Analysis</h1>
 <p>I have chosen to do the analysis on “Green Space Equity” in Philadelphia. I will be using the data of parks, street trees and census tracts.<br>
 #### Environmental Justice</p>
-<p><strong>Option C: Green Space Equity</strong> - <strong>Data:</strong> Parks, Street Trees, Census tracts (race/income demographics) - <strong>Question:</strong> “Do low-income and minority neighborhoods have equitable access to green space?” - <strong>Operations:</strong> Buffer parks (10-minute walk = 0.5 mile), calculate tree canopy or park acreage per capita, compare by demographics - <strong>Policy relevance:</strong> Climate resilience, environmental justice, urban forestry investment —</p>
+<section id="green-space-equity" class="level2">
+<h2 class="anchored" data-anchor-id="green-space-equity">Green Space Equity</h2>
+<ul>
+<li><strong>Data:</strong> Parks, Street Trees, Census tracts (race/income demographics)</li>
+<li><strong>Question:</strong> “Do low-income and minority neighborhoods have equitable access to green space?”</li>
+<li><strong>Operations:</strong> Buffer parks (10-minute walk = 0.5 mile), calculate tree canopy or park acreage per capita, compare by demographics</li>
+<li><h2 id="policy-relevance-climate-resilience-environmental-justice-urban-forestry-investment" class="anchored"><strong>Policy relevance:</strong> Climate resilience, environmental justice, urban forestry investment</h2></li>
+</ul>
 <p>First of all for this analysis, I will be using the data of parks, street trees and census tracts. I will be using the data of Philadelphia city. I will be using the data of 2022 ACS for census tracts. I will be using the data of parks and street trees from OpenDataPhilly. I have gotten data from get_acs function for census tracts. I have also read the data of parks and street trees using st_read function. I have transformed the data of parks and street trees to the same projection as census tracts. I have also calculated the coordinates of parks and street trees using st_coordinates function. I have also calculated the median income and median population.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>Philidelphia_data <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">&quot;tract&quot;</span>,</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> <span class="st">&quot;PA&quot;</span>,</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">county =</span> <span class="st">&quot;Philadelphia&quot;</span>,</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">variables =</span> <span class="fu">c</span>(</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_pop =</span> <span class="st">&quot;B01003_001&quot;</span>,</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_income =</span> <span class="st">&quot;B19013_001&quot;</span>,</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">white =</span> <span class="st">&quot;B03002_003&quot;</span>,</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">black =</span> <span class="st">&quot;B03002_004&quot;</span>,</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">asian =</span> <span class="st">&quot;B03002_006&quot;</span>,</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">hispanic =</span> <span class="st">&quot;B03002_012&quot;</span>,</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Native_Hawaiian =</span> <span class="st">&quot;B03002_007&quot;</span>,</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">American_Indian=</span> <span class="st">&quot;B03002_005&quot;</span>,</span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">other =</span> <span class="st">&quot;B03002_008&quot;</span></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">geometry =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2022</span>,</span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">&quot;wide&quot;</span></span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
   |                                                                            
@@ -5059,15 +4982,9 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
   |                                                                            
   |======================================================================| 100%</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(Philidelphia_data)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>Philidelphia_data <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(Philidelphia_data, <span class="at">crs =</span> <span class="dv">26917</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(Philidelphia_data)</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># transformed the data of Philadelphia census tracts to the same projection as parks and street trees, which is NAD83 / UTM zone 17N (EPSG:26917). This projection is appropriate for spatial analysis in Philadelphia because it uses meters as units, allowing for accurate distance calculations and spatial operations. By ensuring that all datasets are in the same projected coordinate system, I can perform spatial joins, buffering, and other analyses without issues related to misaligned geometries or inaccurate distance measurements.</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>parks_geojson <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;C:/Users/Umair Bin Saad/Desktop/Green Space Equity/parks/PPR_Program_Sites.geojson&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>I transformed the data of Philadelphia census tracts to the same projection as parks and street trees, which is NAD83 / UTM zone 17N (EPSG:26917). This projection is appropriate for spatial analysis in Philadelphia because it uses meters as units, allowing for accurate distance calculations and spatial operations. By ensuring that all datasets are in the same projected coordinate system, I can perform spatial joins, buffering, and other analyses without issues related to misaligned geometries or inaccurate distance measurements.</p>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `PPR_Program_Sites&#39; from data source 
   `C:\Users\Umair Bin Saad\Desktop\Green Space Equity\parks\PPR_Program_Sites.geojson&#39; 
@@ -5078,7 +4995,6 @@ Dimension:     XY
 Bounding box:  xmin: -75.2563 ymin: 39.90444 xmax: -74.96944 ymax: 40.12284
 Geodetic CRS:  WGS 84</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>parks_shapefile <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;C:/Users/Umair Bin Saad/Desktop/Green Space Equity/parks/PPR_Program_Sites.shp&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `PPR_Program_Sites&#39; from data source 
   `C:\Users\Umair Bin Saad\Desktop\Green Space Equity\parks\PPR_Program_Sites.shp&#39; 
@@ -5089,11 +5005,6 @@ Dimension:     XY
 Bounding box:  xmin: -8377493 ymin: 4852065 xmax: -8345560 ymax: 4883810
 Projected CRS: WGS 84 / Pseudo-Mercator</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>parks_shapefile <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(parks_shapefile, <span class="at">crs =</span> <span class="dv">26917</span>)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>parks_shapefile_coords_matrix <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(parks_shapefile)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>parks_shapefile <span class="ot">&lt;-</span> <span class="fu">cbind</span>(parks_shapefile, parks_shapefile_coords_matrix [, <span class="fu">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>)])</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(parks_shapefile)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -5101,7 +5012,6 @@ Projected CRS: WGS 84 / Pseudo-Mercator</code></pre>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(parks_shapefile)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Coordinate Reference System:
   User input: EPSG:26917 
@@ -5145,8 +5055,6 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
         BBOX[23.81,-84,84,-78]],
     ID[&quot;EPSG&quot;,26917]]</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(parks_shapefile)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Philidelphia_data<span class="sc">$</span>geometry)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -5154,7 +5062,6 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>street_trees <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;C:/Users/Umair Bin Saad/Desktop/Green Space Equity/Street Trees/ppr_tree_inventory_2025.shp&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `ppr_tree_inventory_2025&#39; from data source 
   `C:\Users\Umair Bin Saad\Desktop\Green Space Equity\Street Trees\ppr_tree_inventory_2025.shp&#39; 
@@ -5165,8 +5072,6 @@ Dimension:     XY
 Bounding box:  xmin: -8380434 ymin: 4847791 xmax: -8344373 ymax: 4885938
 Projected CRS: WGS 84 / Pseudo-Mercator</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>street_trees <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(street_trees, <span class="at">crs =</span> <span class="dv">26917</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(street_trees)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Coordinate Reference System:
   User input: EPSG:26917 
@@ -5210,64 +5115,89 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
         BBOX[23.81,-84,84,-78]],
     ID[&quot;EPSG&quot;,26917]]</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>street_trees_coordinates <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(street_trees)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>street_trees <span class="ot">&lt;-</span> <span class="fu">cbind</span>(street_trees, street_trees_coordinates[, <span class="fu">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>)])</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(street_trees)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(Philidelphia_data<span class="sc">$</span>median_incomeE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 58514</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Median Income of Philadelphia is $58514. So, I will consider the tracts with median income less than $40,000 as low-income tracts because it is significantly below the median income of Philadelphia, indicating that these tracts may have a higher concentration of low-income residents who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space.</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(Philidelphia_data<span class="sc">$</span>whiteE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="median-income" class="level2">
+<h2 class="anchored" data-anchor-id="median-income">Median Income:</h2>
+<p>Median Income of Philadelphia is $58514. So, I will consider the tracts with median income less than $40,000 as low-income tracts because it is significantly below the median income of Philadelphia, indicating that these tracts may have a higher concentration of low-income residents who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space.</p>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 887</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Median number of whiteE people of Philadelphia is 887. So, I will consider the tracts with whiteE population less than 200 as minority neighborhoods because these tracts have a significantly lower number of white residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(Philidelphia_data<span class="sc">$</span>blackE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="median-number-of-white-people" class="level2">
+<h2 class="anchored" data-anchor-id="median-number-of-white-people">Median number of white people:</h2>
+<p>Median number of whiteE people of Philadelphia is 887. So, I will consider the tracts with whiteE population less than 200 as minority neighborhoods because these tracts have a significantly lower number of white residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.</p>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 894.5</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Median number of blackE people of Philadelphia is 895. So, I will consider the tracts with blackE population less than 210 as minority neighborhoods because these tracts have a significantly lower number of black residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(Philidelphia_data<span class="sc">$</span>asianE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="median-number-of-black-people" class="level2">
+<h2 class="anchored" data-anchor-id="median-number-of-black-people">Median number of black people:</h2>
+<p>Median number of blackE people of Philadelphia is 895. So, I will consider the tracts with blackE population less than 210 as minority neighborhoods because these tracts have a significantly lower number of black residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.</p>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 129.5</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Median number of asianE people of Philadelphia is 130. So, I will consider the tracts with asianE population less than 50 as minority neighborhoods because these tracts have a significantly lower number of Asian residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(Philidelphia_data<span class="sc">$</span>hispanicE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="median-number-of-asian-people" class="level2">
+<h2 class="anchored" data-anchor-id="median-number-of-asian-people">Median number of asian people”</h2>
+<p>Median number of asianE people of Philadelphia is 130. So, I will consider the tracts with asianE population less than 50 as minority neighborhoods because these tracts have a significantly lower number of Asian residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.</p>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 231</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Median number of hispanicE people of Philadelphia is 231. So, I will consider the tracts with hispanicE population less than 10 as minority neighborhoods because these tracts have a significantly lower number of Hispanic residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(Philidelphia_data<span class="sc">$</span>Native_HawaiianE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Median number of Native_HawaiianE people of Philadelphia is 0. So, I will consider the tracts with Native_HawaiianE population less than 10 as minority neighborhoods because these tracts have a significantly lower number of Native Hawaiian residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(Philidelphia_data<span class="sc">$</span>American_IndianE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Median number of American_IndianE people of Philadelphia is 0. So, I will consider the tracts with American_IndianE  population less than 10 as minority neighborhoods because these tracts have a significantly lower number of American Indian residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(Philidelphia_data<span class="sc">$</span>otherE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Median number of otherE people of Philadelphia is 0. So, I will consider the tracts with otherE population less than 10 as minority neighborhoods because these tracts have a significantly lower number of residents categorized as &quot;other&quot; compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities. </span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for vulnerable tracts based on your criteria</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+</section>
+<section id="median-number-of-hispanic-people" class="level2">
+<h2 class="anchored" data-anchor-id="median-number-of-hispanic-people">Median number of hispanic people”</h2>
+<p>Median number of hispanicE people of Philadelphia is 231. So, I will consider the tracts with hispanicE population less than 10 as minority neighborhoods because these tracts have a significantly lower number of Hispanic residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>low_income_Philidelphia_data <span class="ot">&lt;-</span> <span class="fu">filter</span>(Philidelphia_data, median_incomeE <span class="sc">&lt;</span> <span class="dv">40000</span> <span class="sc">&amp;</span> whiteE <span class="sc">&lt;</span> <span class="dv">200</span> <span class="sc">|</span> blackE <span class="sc">&lt;</span> <span class="dv">210</span> <span class="sc">&amp;</span> asianE <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">|</span> asianE <span class="sc">&lt;</span> <span class="dv">50</span> <span class="sc">&amp;</span> asianE <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">|</span> hispanicE <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">&amp;</span> hispanicE <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">|</span> Native_HawaiianE <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">&amp;</span> Native_HawaiianE <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">|</span> American_IndianE <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">&amp;</span> American_IndianE <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">|</span> otherE <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">&amp;</span> otherE <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(low_income_Philidelphia_data)</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> Philidelphia_data, <span class="at">fill =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> low_income_Philidelphia_data, <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+</section>
+<section id="median-number-of-native_hawaiian-people" class="level2">
+<h2 class="anchored" data-anchor-id="median-number-of-native_hawaiian-people">Median number of Native_Hawaiian people:</h2>
+<p>Median number of Native_HawaiianE people of Philadelphia is 0. So, I will consider the tracts with Native_HawaiianE population less than 10 as minority neighborhoods because these tracts have a significantly lower number of Native Hawaiian residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+</section>
+<section id="median-number-of-american_indian-people" class="level2">
+<h2 class="anchored" data-anchor-id="median-number-of-american_indian-people">Median number of American_Indian people:</h2>
+<p>#Median number of American_IndianE people of Philadelphia is 0. So, I will consider the tracts with American_IndianE population less than 10 as minority neighborhoods because these tracts have a significantly lower number of American Indian residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+</section>
+<section id="median-number-of-othere-people" class="level2">
+<h2 class="anchored" data-anchor-id="median-number-of-othere-people">Median number of otherE people:</h2>
+<p>Median number of otherE people of Philadelphia is 0. So, I will consider the tracts with otherE population less than 10 as minority neighborhoods because these tracts have a significantly lower number of residents categorized as “other” compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.</p>
+</section>
+</section>
+<section id="vulnerable-tracts-based-on-our-criteria" class="level1">
+<h1>vulnerable tracts based on our criteria:</h1>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>low_income_Philidelphia_data <span class="ot">&lt;-</span> <span class="fu">filter</span>(Philidelphia_data, median_incomeE <span class="sc">&lt;</span> <span class="dv">40000</span> <span class="sc">&amp;</span> whiteE <span class="sc">&lt;</span> <span class="dv">200</span> <span class="sc">|</span> blackE <span class="sc">&lt;</span> <span class="dv">210</span> <span class="sc">&amp;</span> asianE <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">|</span> asianE <span class="sc">&lt;</span> <span class="dv">50</span> <span class="sc">&amp;</span> asianE <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">|</span> hispanicE <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">&amp;</span> hispanicE <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">|</span> Native_HawaiianE <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">&amp;</span> Native_HawaiianE <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">|</span> American_IndianE <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">&amp;</span> American_IndianE <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">|</span> otherE <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">&amp;</span> otherE <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(low_income_Philidelphia_data)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> Philidelphia_data, <span class="at">fill =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> low_income_Philidelphia_data, <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -5275,15 +5205,9 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#I have filtered the Philadelphia census tracts to identify low-income and minority neighborhoods based on the defined criteria. The resulting dataset, `low_income_Philidelphia_data`, contains the 184 tracts out of 408 tracts that meet the criteria for being considered low-income and/or minority neighborhoods. These tracts are likely to face greater challenges in terms of access to green spaces and other resources, making them important areas of focus for environmental justice and urban planning efforts in Philadelphia.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>I have filtered the Philadelphia census tracts to identify low-income and minority neighborhoods based on the defined criteria. The resulting dataset, low_income_Philidelphia_data, contains the 184 tracts out of 408 tracts that meet the criteria for being considered low-income and/or minority neighborhoods. These tracts are likely to face greater challenges in terms of access to green spaces and other resources, making them important areas of focus for environmental justice and urban planning efforts in Philadelphia.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> Philidelphia_data, <span class="at">fill =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> low_income_Philidelphia_data, <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. Add the points on top</span></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> parks_shapefile, <span class="at">color =</span> <span class="st">&quot;darkGreen&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -5291,17 +5215,9 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Then I showed parks on the map. The parks are shown in dark green color. The low-income and minority neighborhoods are shown in red color, while the other tracts are shown in yellow color. This map allows us to visually assess the distribution of parks in relation to low-income and minority neighborhoods in Philadelphia, which can help identify areas that may be underserved in terms of access to green spaces and inform targeted interventions to improve environmental justice and urban planning efforts.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Then I showed parks on the map. The parks are shown in dark green color. The low-income and minority neighborhoods are shown in red color, while the other tracts are shown in yellow color. This map allows us to visually assess the distribution of parks in relation to low-income and minority neighborhoods in Philadelphia, which can help identify areas that may be underserved in terms of access to green spaces and inform targeted interventions to improve environmental justice and urban planning efforts.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> Philidelphia_data, <span class="at">fill =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> low_income_Philidelphia_data, <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. Add the points on top</span></span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> street_trees, <span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="fl">0.0001</span>) <span class="sc">+</span></span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> parks_shapefile, <span class="at">color =</span> <span class="st">&quot;darkGreen&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -5309,24 +5225,16 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co">#The blue points on the map represent the locations of street trees in Philadelphia. By overlaying the street tree data with the census tracts and park locations, we can visually assess the distribution of green spaces and tree canopy in relation to low-income and minority neighborhoods. This can help identify areas that may be underserved in terms of access to green spaces and inform targeted interventions to improve environmental justice and urban planning efforts in Philadelphia.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>The blue points on the map represent the locations of street trees in Philadelphia. By overlaying the street tree data with the census tracts and park locations, we can visually assess the distribution of green spaces and tree canopy in relation to low-income and minority neighborhoods. This can help identify areas that may be underserved in terms of access to green spaces and inform targeted interventions to improve environmental justice and urban planning efforts in Philadelphia.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>buffer_area_parks <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(parks_shapefile, <span class="at">dist =</span> <span class="fl">804.672</span>) <span class="co"># 0.5 miles in meters</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="do">###ggplot() +</span></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="do">###  geom_sf(data = buffer_area_parks, fill = &quot;yellow&quot;, color = &quot;grey&quot;)</span></span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="do">###View(buffer_area_parks)</span></span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="co">#But in analysis we are not taking trees as these are not suitalbe for analysis rather we are taking parks as these are more suitable for analysis. I have created a buffer of 0.5 miles (10-minute walk) around the parks to represent the area of influence of each park. This buffer allows us to visually assess which census tracts fall within a reasonable walking distance to the parks, which can help identify areas that may have better access to green spaces and those that may be underserved in terms of park access. By overlaying the buffer areas with the low-income and minority neighborhoods, we can further analyze the equity of access to green spaces in Philadelphia.</span></span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> Philidelphia_data, <span class="at">fill =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> low_income_Philidelphia_data, <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
-<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. Add the points on top</span></span>
-<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> parks_shapefile, <span class="at">color =</span> <span class="st">&quot;darkGreen&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> buffer_area_parks, <span class="at">fill =</span> <span class="st">&quot;pink&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>)<span class="sc">+</span></span>
-<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>buffer_area_parks <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(parks_shapefile, <span class="at">dist =</span> <span class="fl">804.672</span>) <span class="co"># 0.5 miles in meters</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="do">###ggplot() +</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="do">###  geom_sf(data = buffer_area_parks, fill = &quot;yellow&quot;, color = &quot;grey&quot;)</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="do">###View(buffer_area_parks)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>But in analysis we are not taking trees as these are not suitalbe for analysis rather we are taking parks as these are more suitable for analysis. I have created a buffer of 0.5 miles (10-minute walk) around the parks to represent the area of influence of each park. This buffer allows us to visually assess which census tracts fall within a reasonable walking distance to the parks, which can help identify areas that may have better access to green spaces and those that may be underserved in terms of park access. By overlaying the buffer areas with the low-income and minority neighborhoods, we can further analyze the equity of access to green spaces in Philadelphia.</p>
+<div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -5334,25 +5242,25 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">#you can see the pink areas on the map represent the buffer zones around the parks, indicating the areas that are within a 10-minute walk (0.5 miles) of the parks. By visually assessing the overlap between these buffer zones and the low-income and minority neighborhoods (shown in red), we can identify which neighborhoods have better access to parks and which may be underserved in terms of green space access. This analysis can help inform targeted interventions to improve environmental justice and urban planning efforts in Philadelphia.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>you can see the pink areas on the map represent the buffer zones around the parks, indicating the areas that are within a 10-minute walk (0.5 miles) of the parks. By visually assessing the overlap between these buffer zones and the low-income and minority neighborhoods (shown in red), we can identify which neighborhoods have better access to parks and which may be underserved in terms of green space access. This analysis can help inform targeted interventions to improve environmental justice and urban planning efforts in Philadelphia.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">st_agr</span>(buffer_area_parks) <span class="ot">=</span> <span class="st">&quot;constant&quot;</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">st_agr</span>(low_income_Philidelphia_data) <span class="ot">=</span> <span class="st">&quot;constant&quot;</span></span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>overlaps_buffer_area_parks_with_vulnerable_tracts <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(buffer_area_parks, low_income_Philidelphia_data)</span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(overlaps_buffer_area_parks_with_vulnerable_tracts)</span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> Philidelphia_data, <span class="at">fill =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> low_income_Philidelphia_data, <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. Add the points on top</span></span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> parks_shapefile, <span class="at">color =</span> <span class="st">&quot;darkGreen&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> overlaps_buffer_area_parks_with_vulnerable_tracts, <span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>)<span class="sc">+</span></span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Map of Park Access in Philadelphia&quot;</span>,</span>
-<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Blue areas represent low-income and minority</span></span>
-<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a><span class="st">  neighborhoods within a 10-minute walk of parks&quot;</span>,</span>
-<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Data Source: ACS 2022, OpenDataPhilly&quot;</span>) <span class="sc">+</span></span>
-<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">st_agr</span>(buffer_area_parks) <span class="ot">=</span> <span class="st">&quot;constant&quot;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">st_agr</span>(low_income_Philidelphia_data) <span class="ot">=</span> <span class="st">&quot;constant&quot;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>overlaps_buffer_area_parks_with_vulnerable_tracts <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(buffer_area_parks, low_income_Philidelphia_data)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> Philidelphia_data, <span class="at">fill =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> low_income_Philidelphia_data, <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. Add the points on top</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> parks_shapefile, <span class="at">color =</span> <span class="st">&quot;darkGreen&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> overlaps_buffer_area_parks_with_vulnerable_tracts, <span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>)<span class="sc">+</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Map of Park Access in Philadelphia&quot;</span>,</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Blue areas represent low-income and minority</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="st">  neighborhoods within a 10-minute walk of parks&quot;</span>,</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Data Source: ACS 2022, OpenDataPhilly&quot;</span>) <span class="sc">+</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -5360,139 +5268,140 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;The purple areas on the map represent the low-income and minority neighborhoods that fall within the buffer zones around the parks, indicating that these neighborhoods have better access to green spaces. While red areas represent low-income and minority neighborhoods that do not fall within the buffer zones, indicating that they may be underserved in terms of park access. This analysis helps us understand the spatial distribution of park access in relation to vulnerable populations in Philadelphia and can inform targeted interventions to improve environmental justice and urban planning efforts in the city.&quot;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;The purple areas on the map represent the low-income and minority neighborhoods that fall within the buffer zones around the parks, indicating that these neighborhoods have better access to green spaces. While red areas represent low-income and minority neighborhoods that do not fall within the buffer zones, indicating that they may be underserved in terms of park access. This analysis helps us understand the spatial distribution of park access in relation to vulnerable populations in Philadelphia and can inform targeted interventions to improve environmental justice and urban planning efforts in the city.&quot;</code></pre>
 </div>
-</div>
-<pre><code>
-</code></pre>
+<p>The purple areas on the map represent the low-income and minority neighborhoods that fall within the buffer zones around the parks, indicating that these neighborhoods have better access to green spaces. While red areas represent low-income and minority neighborhoods that do not fall within the buffer zones, indicating that they may be underserved in terms of park access. This analysis helps us understand the spatial distribution of park access in relation to vulnerable populations in Philadelphia and can inform targeted interventions to improve environmental justice and urban planning efforts in the city.”</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>points_in_polygons <span class="ot">&lt;-</span> <span class="fu">st_join</span>(street_trees, Philidelphia_data, <span class="at">left =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(points_in_polygons)</span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>Number_of_trees_in_each_tracts <span class="ot">&lt;-</span>  points_in_polygons <span class="sc">%&gt;%</span> <span class="fu">count</span>(NAME)</span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>Number_of_trees_in_each_tracts <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_drop_geometry</span>(Number_of_trees_in_each_tracts)</span>
-<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(Number_of_trees_in_each_tracts)    </span>
-<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>Philidelphia_data_plus_Number_of_trees_in_each_tracts <span class="ot">&lt;-</span> <span class="fu">left_join</span>(Philidelphia_data, Number_of_trees_in_each_tracts, <span class="at">by =</span> <span class="st">&quot;NAME&quot;</span>)</span>
-<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(Philidelphia_data_plus_Number_of_trees_in_each_tracts)    </span>
-<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>Per_capita_tree_canopy <span class="ot">&lt;-</span> Philidelphia_data_plus_Number_of_trees_in_each_tracts <span class="sc">%&gt;%</span></span>
-<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tree_canopy_per_capita =</span> n <span class="sc">/</span> total_popE)</span>
-<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(Per_capita_tree_canopy)</span>
-<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Per_capita_tree_canopy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Simple feature collection with 6 features and 22 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: 991814.8 ymin: 4434257 xmax: 999730.2 ymax: 4438294
-Projected CRS: NAD83 / UTM zone 17N
-        GEOID                                                  NAME total_popE
-1 42101001500    Census Tract 15; Philadelphia County; Pennsylvania       3251
-2 42101001800    Census Tract 18; Philadelphia County; Pennsylvania       3300
-3 42101002802 Census Tract 28.02; Philadelphia County; Pennsylvania       5720
-4 42101004001 Census Tract 40.01; Philadelphia County; Pennsylvania       4029
-5 42101006300    Census Tract 63; Philadelphia County; Pennsylvania       4415
-6 42101007700    Census Tract 77; Philadelphia County; Pennsylvania       1815
-  total_popM median_incomeE median_incomeM whiteE whiteM blackE blackM asianE
-1        677         110859          24975   2155    268    598    578    239
-2        369         114063          30714   2418    381    347    120    185
-3        796          78871          20396   3472    587    178    165   1103
-4        437          61583          22293   2898    423    140    137    289
-5        853          32347           4840    182     88   3592    722    273
-6        210          48581          13812    974    191    364    103    266
-  asianM hispanicE hispanicM Native_HawaiianE Native_HawaiianM American_IndianE
-1    153       155       105                0               11                0
-2    110       128        76                0               11                0
-3    609       759       458                0               16                0
-4    197       387       277                0               11                0
-5    177       326       389                0               11                0
-6    168        97        50                0               11                0
-  American_IndianM otherE otherM   n                       geometry
-1               11      0     11 586 MULTIPOLYGON (((998585.9 44...
-2               11      0     11 514 MULTIPOLYGON (((998552.9 44...
-3               16      0     16 617 MULTIPOLYGON (((998558.6 44...
-4               11      0     11 347 MULTIPOLYGON (((998355 4435...
-5               11      0     11 137 MULTIPOLYGON (((991814.8 44...
-6               11      0     11 545 MULTIPOLYGON (((994498.6 44...
-  tree_canopy_per_capita
-1             0.18025223
-2             0.15575758
-3             0.10786713
-4             0.08612559
-5             0.03103058
-6             0.30027548</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>points_in_polygons <span class="ot">&lt;-</span> <span class="fu">st_join</span>(street_trees, Philidelphia_data, <span class="at">left =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(points_in_polygons)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>Number_of_trees_in_each_tracts <span class="ot">&lt;-</span>  points_in_polygons <span class="sc">%&gt;%</span> <span class="fu">count</span>(NAME)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>Number_of_trees_in_each_tracts <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_drop_geometry</span>(Number_of_trees_in_each_tracts)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(Number_of_trees_in_each_tracts)    </span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>Philidelphia_data_plus_Number_of_trees_in_each_tracts <span class="ot">&lt;-</span> <span class="fu">left_join</span>(Philidelphia_data, Number_of_trees_in_each_tracts, <span class="at">by =</span> <span class="st">&quot;NAME&quot;</span>)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(Philidelphia_data_plus_Number_of_trees_in_each_tracts)    </span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>Per_capita_tree_canopy <span class="ot">&lt;-</span> Philidelphia_data_plus_Number_of_trees_in_each_tracts <span class="sc">%&gt;%</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tree_canopy_per_capita =</span> n <span class="sc">/</span> total_popE)</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>rrrrr <span class="ot">&lt;-</span>  <span class="fu">select</span>(Per_capita_tree_canopy, NAME, total_popE, n, tree_canopy_per_capita) </span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(rrrrr)</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(rrrrr, <span class="at">n =</span> <span class="dv">10</span>),</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;NAME&quot;</span><span class="ot">=</span><span class="st">&quot;Census_Tracts&quot;</span>, <span class="st">&quot;total_popE&quot;</span> <span class="ot">=</span> <span class="st">&quot;Total population&quot;</span>, <span class="st">&quot;n&quot;</span><span class="ot">=</span> <span class="st">&quot;Number_of_trees &quot;</span>, <span class="st">&quot;tree_canopy_per_capita&quot;</span> <span class="ot">=</span> <span class="st">&quot;Number_of_trees(canopy)_per_capita&quot;</span>, <span class="st">&quot;geometry&quot;</span><span class="ot">=</span> <span class="st">&quot;Geometry &quot;</span> ),</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Tree/Tree canopy for each tract per capita &quot;</span>,</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">big.mark =</span> <span class="st">&quot;,&quot;</span>),</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Tree/Tree canopy for each tract per capita</caption>
+<colgroup>
+<col style="width: 35%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 22%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Census_Tracts</th>
+<th style="text-align: right;">Total population</th>
+<th style="text-align: right;">Number_of_trees</th>
+<th style="text-align: right;">Number_of_trees(canopy)_per_capita</th>
+<th style="text-align: left;">Geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Census Tract 15; Philadelphia County; Pennsylvania</td>
+<td style="text-align: right;">3,251</td>
+<td style="text-align: right;">586</td>
+<td style="text-align: right;">0.1802522</td>
+<td style="text-align: left;">MULTIPOLYGON (((998585.9 44…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Census Tract 18; Philadelphia County; Pennsylvania</td>
+<td style="text-align: right;">3,300</td>
+<td style="text-align: right;">514</td>
+<td style="text-align: right;">0.1557576</td>
+<td style="text-align: left;">MULTIPOLYGON (((998552.9 44…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Census Tract 28.02; Philadelphia County; Pennsylvania</td>
+<td style="text-align: right;">5,720</td>
+<td style="text-align: right;">617</td>
+<td style="text-align: right;">0.1078671</td>
+<td style="text-align: left;">MULTIPOLYGON (((998558.6 44…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Census Tract 40.01; Philadelphia County; Pennsylvania</td>
+<td style="text-align: right;">4,029</td>
+<td style="text-align: right;">347</td>
+<td style="text-align: right;">0.0861256</td>
+<td style="text-align: left;">MULTIPOLYGON (((998355 4435…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Census Tract 63; Philadelphia County; Pennsylvania</td>
+<td style="text-align: right;">4,415</td>
+<td style="text-align: right;">137</td>
+<td style="text-align: right;">0.0310306</td>
+<td style="text-align: left;">MULTIPOLYGON (((991814.8 44…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Census Tract 77; Philadelphia County; Pennsylvania</td>
+<td style="text-align: right;">1,815</td>
+<td style="text-align: right;">545</td>
+<td style="text-align: right;">0.3002755</td>
+<td style="text-align: left;">MULTIPOLYGON (((994498.6 44…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Census Tract 87.01; Philadelphia County; Pennsylvania</td>
+<td style="text-align: right;">3,374</td>
+<td style="text-align: right;">408</td>
+<td style="text-align: right;">0.1209247</td>
+<td style="text-align: left;">MULTIPOLYGON (((994507.1 44…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Census Tract 110; Philadelphia County; Pennsylvania</td>
+<td style="text-align: right;">2,729</td>
+<td style="text-align: right;">335</td>
+<td style="text-align: right;">0.1227556</td>
+<td style="text-align: left;">MULTIPOLYGON (((994243.9 44…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Census Tract 115; Philadelphia County; Pennsylvania</td>
+<td style="text-align: right;">4,881</td>
+<td style="text-align: right;">399</td>
+<td style="text-align: right;">0.0817455</td>
+<td style="text-align: left;">MULTIPOLYGON (((990613.7 44…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Census Tract 140; Philadelphia County; Pennsylvania</td>
+<td style="text-align: right;">5,753</td>
+<td style="text-align: right;">414</td>
+<td style="text-align: right;">0.0719625</td>
+<td style="text-align: left;">MULTIPOLYGON (((998228.6 44…</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Kable(Per_capita_tree_canopy)</span></span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="do">##head(arrange(Per_capita_tree_canopy, desc(tree_canopy_per_capita)), n = 5)</span></span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>rrrrr <span class="ot">&lt;-</span>  <span class="fu">select</span>(Per_capita_tree_canopy, NAME, total_popE, n, tree_canopy_per_capita) </span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(rrrrr)</span>
-<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a><span class="co">#kable(head(rrrrr, n = 10),</span></span>
-<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">#  col.names = c(&quot;NAME&quot;=&quot;Census_Tracts&quot;, &quot;total_popE&quot; = &quot;Total population&quot;, &quot;n&quot;= &quot;Number_of_trees &quot;, &quot;tree_canopy_per_capita&quot; = &quot;Number_of_trees(canopy)_per_capita&quot;, &quot;geometry&quot;= &quot;Geometry &quot; ),</span></span>
-<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">#  caption = &quot;Tree/Tree canopy for each tract per capita &quot;,</span></span>
-<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">#  format.args = list(big.mark = &quot;,&quot;),</span></span>
-<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">#  )</span></span>
-<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;Other than our main analysis we also did small spatial and statistical analysis to calculate tree canopy availability per capita across census tracts in Philadelphia. First, a spatial join (st_join) is conducted between the street tree point dataset and the Philadelphia census tract polygon dataset, ensuring that only trees located within tract boundaries are retained . This operation assigns each individual tree to the census tract in which it geographically falls. Next, the joined dataset is grouped by tract name and the number of trees in each tract is counted using the count() function, producing a summary table of total trees per census tract. The geometry column is then removed using st_drop_geometry() so that the data can be handled as a standard tabular dataframe for non-spatial processing. After this, the tree count data are merged back into the original census tract dataset using a left_join based on the tract name, ensuring that each tract polygon now contains both its demographic attributes (including total population) and the corresponding number of trees. Finally, a new variable, tree_canopy_per_capita, is calculated by dividing the number of trees in each tract by the total population estimate (total_popE). This produces a standardized per capita measure of tree availability, allowing for meaningful comparison of urban greenery distribution across census tracts regardless of population size. And then we used Kable function to show the first 10 rows of the data.</span></span>
-<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a><span class="st">Results shows that Census Tract 369.01; Philadelphia County; Pennsylvania has the highest number of per capita trees and that are 8.48 in number. while Census Tract 9809.05; Philadelphia County; Pennsylvania has the least number of per capita trees. &quot;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;Other than our main analysis we also did small spatial and statistical analysis to calculate tree canopy availability per capita across census tracts in Philadelphia. First, a spatial join (st_join) is conducted between the street tree point dataset and the Philadelphia census tract polygon dataset, ensuring that only trees located within tract boundaries are retained . This operation assigns each individual tree to the census tract in which it geographically falls. Next, the joined dataset is grouped by tract name and the number of trees in each tract is counted using the count() function, producing a summary table of total trees per census tract. The geometry column is then removed using st_drop_geometry() so that the data can be handled as a standard tabular dataframe for non-spatial processing. After this, the tree count data are merged back into the original census tract dataset using a left_join based on the tract name, ensuring that each tract polygon now contains both its demographic attributes (including total population) and the corresponding number of trees. Finally, a new variable, tree_canopy_per_capita, is calculated by dividing the number of trees in each tract by the total population estimate (total_popE). This produces a standardized per capita measure of tree availability, allowing for meaningful comparison of urban greenery distribution across census tracts regardless of population size. And then we used Kable function to show the first 10 rows of the data.\nResults shows that Census Tract 369.01; Philadelphia County; Pennsylvania has the highest number of per capita trees and that are 8.48 in number. while Census Tract 9809.05; Philadelphia County; Pennsylvania has the least number of per capita trees. &quot;</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="st">Data Sources used in above analysis are:</span></span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="st">**OpenDataPhilly:** https://opendataphilly.org/datasets/</span></span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="st">- Most datasets available as GeoJSON, Shapefile, or CSV with coordinates</span></span>
-<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a><span class="st">- Always check the Metadata for a data dictionary of the fields.</span></span>
-<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a><span class="st">- **Pennsylvania Open Data:** https://data.pa.gov/</span></span>
-<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a><span class="st">- **Census Bureau (via tidycensus):** Demographics, economic indicators, commute patterns</span></span>
-<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a><span class="st">- **TIGER/Line (via tigris):** Geographic boundaries</span></span>
-<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;\nData Sources used in above analysis are:\n\n**OpenDataPhilly:** https://opendataphilly.org/datasets/\n- Most datasets available as GeoJSON, Shapefile, or CSV with coordinates\n- Always check the Metadata for a data dictionary of the fields.\n- **Pennsylvania Open Data:** https://data.pa.gov/\n- **Census Bureau (via tidycensus):** Demographics, economic indicators, commute patterns\n- **TIGER/Line (via tigris):** Geographic boundaries\n&quot;</code></pre>
-</div>
-</div>
-<p><strong>Questions to answer:</strong> - What dataset did you choose and why? We used Green Space Equity related data sets which include Street Trees, parks &amp; Census tracts (race/income demographics) - What is the data source and date? OpenDataPhilly:** https://opendataphilly.org/datasets/ Street Trees, parks = 2025 while Census tracts (race/income demographics) =2022 - What CRS is it in? Did you need to transform it? Yes transformed it to NAD83 / UTM zone 17N” EPSG:26917.</p>
-<hr>
-<ol start="2" type="1">
-<li><strong>Pose a research question</strong></li>
-</ol>
-<p>Write a clear research statement that your analysis will answer.</p>
+<p>Other than our main analysis we also did small spatial and statistical analysis to calculate tree canopy availability per capita across census tracts in Philadelphia. First, a spatial join (st_join) is conducted between the street tree point dataset and the Philadelphia census tract polygon dataset, ensuring that only trees located within tract boundaries are retained . This operation assigns each individual tree to the census tract in which it geographically falls. Next, the joined dataset is grouped by tract name and the number of trees in each tract is counted using the count() function, producing a summary table of total trees per census tract. The geometry column is then removed using st_drop_geometry() so that the data can be handled as a standard tabular dataframe for non-spatial processing. After this, the tree count data are merged back into the original census tract dataset using a left_join based on the tract name, ensuring that each tract polygon now contains both its demographic attributes (including total population) and the corresponding number of trees. Finally, a new variable, tree_canopy_per_capita, is calculated by dividing the number of trees in each tract by the total population estimate (total_popE). This produces a standardized per capita measure of tree availability, allowing for meaningful comparison of urban greenery distribution across census tracts regardless of population size. And then we used Kable function to show the first 10 rows of the data. Results shows that Census Tract 369.01; Philadelphia County; Pennsylvania has the highest number of per capita trees and that are 8.48 in number. while Census Tract 9809.05; Philadelphia County; Pennsylvania has the least number of per capita trees. ”</p>
+<p>Data Sources used in above analysis are:</p>
+<p><strong>OpenDataPhilly:</strong> https://opendataphilly.org/datasets/ - Most datasets available as GeoJSON, Shapefile, or CSV with coordinates - Always check the Metadata for a data dictionary of the fields. - <strong>Pennsylvania Open Data:</strong> https://data.pa.gov/ - <strong>Census Bureau (via tidycensus):</strong> Demographics, economic indicators, commute patterns - <strong>TIGER/Line (via tigris):</strong> Geographic boundaries ”</p>
+<p>Answers to some important Questions : - What dataset did you choose and why? We used Green Space Equity related data sets which include Street Trees, parks &amp; Census tracts (race/income demographics) - What is the data source and date? OpenDataPhilly:** https://opendataphilly.org/datasets/ Street Trees, parks = 2025 while Census tracts (race/income demographics) =2022 - What CRS is it in? Did you need to transform it? Yes transformed it to NAD83 / UTM zone 17N” EPSG:26917.</p>
+<p>research statement:</p>
 <p>My research analysis answers the low income and vulnerable minorities access to parks in each tract of the Philadelphia.</p>
-<hr>
-<ol start="3" type="1">
-<li><strong>Conduct spatial analysis</strong></li>
-</ol>
 <p>I used all these spatial analysis along with other spatial analysis too. - Buffers - Spatial joins - Spatial filtering with predicates - Distance calculations - Intersections or unions - Point-in-polygon aggregation</p>
-</section>
 <section id="finally---a-few-comments-about-your-incorporation-of-feedback" class="level2">
 <h2 class="anchored" data-anchor-id="finally---a-few-comments-about-your-incorporation-of-feedback">Finally - A few comments about your incorporation of feedback!</h2>
 <p>Yes I have incorporated suggestions which were given to me by teached specially the code hiding in my document.</p>
-<hr>
+
+
 </section>
-<section id="submission-requirements" class="level2">
-<h2 class="anchored" data-anchor-id="submission-requirements">Submission Requirements</h2>
-<p><strong>What to submit:</strong></p>
-<ol type="1">
-<li><strong>Rendered HTML document posted to your course portfolio</strong> with all code, outputs, maps, and text
-<ul>
-<li>Use <code>embed-resources: true</code> in YAML so it’s a single file</li>
-<li>All code should run without errors</li>
-<li>All maps and charts should display correctly</li>
-</ul></li>
-<li>Submit the correct and working links of your assignment on Canvas</li>
-</ol>
-<hr>
-
-
 </section>
 
 </main> <!-- /main -->

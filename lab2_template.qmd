@@ -403,7 +403,7 @@ Centre County and Juniata County(Although these counties have same percentage i-
 - Which counties have the most vulnerable people living far from hospitals?
   the counties with the most vulnerable people living far from hospitals are Clearfield County, Forest County, Cameron County, Monroe County. These counties have the highest number of vulnerable tracts that are located more than 15 miles (i-e 18+) from the nearest hospital, indicating that they may have a significant population of vulnerable individuals who are at risk of being underserved in terms of healthcare access. Focusing healthcare investments and policy interventions in these counties could help improve access to healthcare services for vulnerable populations and address disparities in healthcare access and outcomes.
   
-```{r}
+```{r, echo=FALSE}
 most_vulnerable_people <- vulnerable_tracts_county_centers %>%
   arrange(desc(dist_to_nearest))
 View(most_vulnerable_people)
@@ -422,33 +422,24 @@ kable(head(most_vulnerable_people_New, n = 10),
 ```
 ---
 
-#### Step 7: Create Summary Table 
+#### I am Creating Summary Table 
 
-Create a professional table showing the top 10 priority counties for healthcare investment.
+
 
 **Your Task:**
-```{r}
+```{r, echo=FALSE}
 # Create and format priority counties table
-View(vulnerable_tracts_county_centers)
 
 selected_cols_vulnerable_tracts_county_centers <- vulnerable_tracts_county_centers[, c("NAMELSADCO", "dist_to_nearest", "total_popE", "median_incomeE", "Population_65_over")]
-View(selected_cols_vulnerable_tracts_county_centers)
 
 selected_cols_vulnerable_tracts_county_centers <- selected_cols_vulnerable_tracts_county_centers %>%
   arrange(desc(dist_to_nearest))
-View(selected_cols_vulnerable_tracts_county_centers)
 
 kable(head(selected_cols_vulnerable_tracts_county_centers, n = 10),
       col.names = c("NAMELSADCO"="Name Counties", "dist_to_nearest" = "Distance to nearest hospital (Mile", "total_popE" = "Total Estimated population", "median_incomeE"= "Median Income of People", "Population_65_over" = "Population that is above 65 years of age", "geometry" = "Geometry of the tracts"),
-    aption = "Top 10 priority counties for healthcare investment",
+    caption = "Details about the counties with the most vulnerable people living far from hospitals",
      format.args = list(big.mark = ","),
       )
-
-
-
-
-
-
 ```
 
 
@@ -476,14 +467,20 @@ View(hospitals)
 st_crs(hospitals)
 
 
-ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(x= X,  y=Y, colour = "green"))+ geom_point(size = 5) + geom_point(data = hospitals, 
-             aes(x = X, y = Y), # Map the aesthetics for the new data
-             color = "green",     # Set a specific color for the second data set, outside aes()
-             size = 2)+ 
-  labs(title = "County-Level Choropleth Map of Underserved Vulnerable Tracts in Pennsylvania",
-       subtitle = "Red points indicate hospital locations",
-       caption = "Data Source: ACS 2022, Pennsylvania Department of Health") + 
-          theme_void()   
+underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles = rename(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, any_of(c("new" = "XPZ")))
+View(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)
+
+
+
+
+#ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(x= X,  y=Y, colour = new))+ geom_point(size = 5) + geom_point(data = hospitals, 
+             #aes(x = X, y = Y), # Map the aesthetics for the new data
+          #   color = "red",     # Set a specific color for the second data set, outside aes()
+          #   size = 2)+ 
+  #labs(title = "County-Level Choropleth Map of Underserved Vulnerable Tracts in Pennsylvania",
+   #    subtitle = "Red points indicate hospital locations",
+     #  caption = "Data Source: ACS 2022, Pennsylvania Department of Health") + 
+         # theme_void()   
 
 
 
@@ -492,24 +489,21 @@ ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles,
 
 ```
 
-**Requirements:**
-- Fill counties by percentage of vulnerable tracts that are underserved
-- Include hospital locations as points
-- Use an appropriate color scheme
-- Include clear title, subtitle, and caption
-- Use `theme_void()` or similar clean theme
-- Add a legend with formatted labels
+I have done this:  
+- Filled counties by percentage of vulnerable tracts that are underserved   
+- Included hospital locations as points   
+- Used an appropriate color scheme 
+- Included clear title, subtitle, and caption    
+- Used theme_void()    
+- Added a legend with formatted labels    
 
 ---
 
-### Map 2: Detailed Vulnerability Map 
+### Here below is the detailed Vulnerability Map 
+I created a map highlighting underserved vulnerable tracts.
 
-Create a map highlighting underserved vulnerable tracts.
 
-**Your Task:**
-```{r}
-# Create detailed tract-level map
-
+```{r, echo=FALSE}
 
 st_crs(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)
 st_crs(census_tracts)
@@ -534,31 +528,22 @@ ggplot(data = zxzx) +
 
 ```
 
-**Requirements:**
-- Show underserved vulnerable tracts in a contrasting color
-- Include county boundaries for context
-- Show hospital locations
-- Use appropriate visual hierarchy (what should stand out?)
-- Include informative title and subtitle
+I have done this in the above picture: 
+- Showed underserved vulnerable tracts in a contrasting color
+- Included county boundaries for context
+- Showed hospital locations
+- Used appropriate visual hierarchy 
+- Included informative title and subtitle
 
 ---
 
-### Chart: Distribution Analysis
-
-Create a visualization showing the distribution of distances to hospitals for vulnerable populations.
-
-**Your Task:**
-```{r}
-# Create distribution visualization
-# Create the map
+## I carried a Distribution Analysis:
+Created a visualization showing the distribution of distances to hospitals for vulnerable populations.
 
 
-```
+- I generated a histogram or density plot of distances:
 
-**Suggested chart types:**
-- Histogram or density plot of distances
-
-```{r}
+```{r, echo=FALSE}
 
 ggplot(vulnerable_tracts_county_centers, aes(x = dist_to_nearest)) +
   geom_histogram(binwidth = 0.1, fill = "blue", color = "white", position = "identity", alpha = 0.8) +
@@ -572,8 +557,8 @@ ggplot(vulnerable_tracts_county_centers, aes(x = dist_to_nearest)) +
   theme_classic() # Optional: applies a clean theme
 
 ```
-- Box plot comparing distances across regions
-```{r}
+- I generated a Box plot comparing distances across regions
+```{r, echo=FALSE}
 ggplot(vulnerable_tracts_county_centers, aes(x=NAMELSADCO ,y = dist_to_nearest)) +
   geom_boxplot(binwidth = 0.1, fill = "blue", color = "white", position = "identity", alpha = 0.8) +
   labs(
@@ -589,9 +574,9 @@ ggplot(vulnerable_tracts_county_centers, aes(x=NAMELSADCO ,y = dist_to_nearest))
 
 
 
-- Bar chart of underserved tracts by county
+- I generated a Bar chart of underserved tracts by county
 
-```{r}
+```{r, echo=FALSE}
 ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(x = dist_to_nearest, y = NAME.x)) +
   geom_col( fill = "blue", color = "white", position = "identity", alpha = 0.8)+
   labs(
@@ -608,41 +593,21 @@ The chart above shows the distribution of distances to hospitals for vulnerable 
 
 
 
-**Requirements:**
-- Clear axes labels with units
-- Appropriate title
-- Professional formatting
-- Brief interpretation (1-2 sentences as a caption or in text)
+I showed in graphs:  
+- Clear axes labels with units  
+- Appropriate title  
+- Professional formatting  
+- Brief interpretation  
 
 ---
 
 
-
-
-
-
-
-
-
-
-
-
-
-## Part 3: Bring Your Own Data Analysis 
-
-
-
-
-
-Choose ONE of the following challenge exercises, or propose your own research question using OpenDataPhilly data (https://opendataphilly.org/datasets/). 
-
-**Note these are just loose suggestions to spark ideas - follow or make your own as the data permits and as your ideas evolve. This analysis should include bringing in your own dataset, ensuring the projection/CRS of your layers align and are appropriate for the analysis (not lat/long or geodetic coordinate systems). The analysis portion should include some combination of spatial and attribute operations to answer a relatively straightforward question**
-
+# My Own Data Analysis 
 
 I have chosen to do the analysis on "Green Space Equity" in Philadelphia. I will be using the data of parks, street trees and census tracts.  
 #### Environmental Justice
 
-**Option C: Green Space Equity** 
+## Green Space Equity 
 - **Data:** Parks, Street Trees, Census tracts (race/income demographics)
 - **Question:** "Do low-income and minority neighborhoods have equitable access to green space?"
 - **Operations:** Buffer parks (10-minute walk = 0.5 mile), calculate tree canopy or park acreage per capita, compare by demographics
@@ -650,7 +615,7 @@ I have chosen to do the analysis on "Green Space Equity" in Philadelphia. I will
 ---
 
 First of all for this analysis, I will be using the data of parks, street trees and census tracts. I will be using the data of Philadelphia city. I will be using the data of 2022 ACS for census tracts. I will be using the data of parks and street trees from OpenDataPhilly. I have gotten data from get_acs function for census tracts. I have also read the data of parks and street trees using st_read function. I have transformed the data of parks and street trees to the same projection as census tracts. I have also calculated the coordinates of parks and street trees using st_coordinates function. I have also calculated the median income and median population.
-```{r}
+```{r, echo=FALSE}
 Philidelphia_data <- get_acs(
   geography = "tract",
   state = "PA",
@@ -676,10 +641,11 @@ View(Philidelphia_data)
 Philidelphia_data <- st_transform(Philidelphia_data, crs = 26917)
 
 View(Philidelphia_data)
+```
 
-# transformed the data of Philadelphia census tracts to the same projection as parks and street trees, which is NAD83 / UTM zone 17N (EPSG:26917). This projection is appropriate for spatial analysis in Philadelphia because it uses meters as units, allowing for accurate distance calculations and spatial operations. By ensuring that all datasets are in the same projected coordinate system, I can perform spatial joins, buffering, and other analyses without issues related to misaligned geometries or inaccurate distance measurements.
+I transformed the data of Philadelphia census tracts to the same projection as parks and street trees, which is NAD83 / UTM zone 17N (EPSG:26917). This projection is appropriate for spatial analysis in Philadelphia because it uses meters as units, allowing for accurate distance calculations and spatial operations. By ensuring that all datasets are in the same projected coordinate system, I can perform spatial joins, buffering, and other analyses without issues related to misaligned geometries or inaccurate distance measurements.
 
-
+```{r, echo=FALSE}
 parks_geojson <- st_read("C:/Users/Umair Bin Saad/Desktop/Green Space Equity/parks/PPR_Program_Sites.geojson")
 parks_shapefile <- st_read("C:/Users/Umair Bin Saad/Desktop/Green Space Equity/parks/PPR_Program_Sites.shp")
 parks_shapefile <- st_transform(parks_shapefile, crs = 26917)
@@ -703,30 +669,62 @@ street_trees_coordinates <- st_coordinates(street_trees)
 street_trees <- cbind(street_trees, street_trees_coordinates[, c("X", "Y")])
 View(street_trees)
 
-
+```
+```{r, echo=FALSE}
 
 median(Philidelphia_data$median_incomeE, na.rm = TRUE)
-#Median Income of Philadelphia is $58514. So, I will consider the tracts with median income less than $40,000 as low-income tracts because it is significantly below the median income of Philadelphia, indicating that these tracts may have a higher concentration of low-income residents who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space.
-median(Philidelphia_data$whiteE, na.rm = TRUE)
-#Median number of whiteE people of Philadelphia is 887. So, I will consider the tracts with whiteE population less than 200 as minority neighborhoods because these tracts have a significantly lower number of white residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
-median(Philidelphia_data$blackE, na.rm = TRUE)
-#Median number of blackE people of Philadelphia is 895. So, I will consider the tracts with blackE population less than 210 as minority neighborhoods because these tracts have a significantly lower number of black residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
-median(Philidelphia_data$asianE, na.rm = TRUE)
-#Median number of asianE people of Philadelphia is 130. So, I will consider the tracts with asianE population less than 50 as minority neighborhoods because these tracts have a significantly lower number of Asian residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
-median(Philidelphia_data$hispanicE, na.rm = TRUE)
-#Median number of hispanicE people of Philadelphia is 231. So, I will consider the tracts with hispanicE population less than 10 as minority neighborhoods because these tracts have a significantly lower number of Hispanic residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
-median(Philidelphia_data$Native_HawaiianE, na.rm = TRUE)
-#Median number of Native_HawaiianE people of Philadelphia is 0. So, I will consider the tracts with Native_HawaiianE population less than 10 as minority neighborhoods because these tracts have a significantly lower number of Native Hawaiian residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
-median(Philidelphia_data$American_IndianE, na.rm = TRUE)
-#Median number of American_IndianE people of Philadelphia is 0. So, I will consider the tracts with American_IndianE  population less than 10 as minority neighborhoods because these tracts have a significantly lower number of American Indian residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
-median(Philidelphia_data$otherE, na.rm = TRUE)
-#Median number of otherE people of Philadelphia is 0. So, I will consider the tracts with otherE population less than 10 as minority neighborhoods because these tracts have a significantly lower number of residents categorized as "other" compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities. 
-
-
-
-
-# Filter for vulnerable tracts based on your criteria
 ```
+## Median Income:
+Median Income of Philadelphia is $58514. So, I will consider the tracts with median income less than $40,000 as low-income tracts because it is significantly below the median income of Philadelphia, indicating that these tracts may have a higher concentration of low-income residents who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space.
+
+```{r, echo=FALSE}
+median(Philidelphia_data$whiteE, na.rm = TRUE)
+```
+## Median number of white people:
+Median number of whiteE people of Philadelphia is 887. So, I will consider the tracts with whiteE population less than 200 as minority neighborhoods because these tracts have a significantly lower number of white residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
+
+```{r, echo=FALSE}
+median(Philidelphia_data$blackE, na.rm = TRUE)
+```
+## Median number of black people:
+Median number of blackE people of Philadelphia is 895. So, I will consider the tracts with blackE population less than 210 as minority neighborhoods because these tracts have a significantly lower number of black residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
+
+```{r, echo=FALSE}
+median(Philidelphia_data$asianE, na.rm = TRUE)
+```
+## Median number of asian people"
+Median number of asianE people of Philadelphia is 130. So, I will consider the tracts with asianE population less than 50 as minority neighborhoods because these tracts have a significantly lower number of Asian residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
+
+```{r, echo=FALSE}
+median(Philidelphia_data$hispanicE, na.rm = TRUE)
+```
+## Median number of hispanic people"
+Median number of hispanicE people of Philadelphia is 231. So, I will consider the tracts with hispanicE population less than 10 as minority neighborhoods because these tracts have a significantly lower number of Hispanic residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
+
+```{r, echo=FALSE}
+median(Philidelphia_data$Native_HawaiianE, na.rm = TRUE)
+```
+## Median number of Native_Hawaiian people:
+Median number of Native_HawaiianE people of Philadelphia is 0. So, I will consider the tracts with Native_HawaiianE population less than 10 as minority neighborhoods because these tracts have a significantly lower number of Native Hawaiian residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
+
+
+```{r, echo=FALSE}
+median(Philidelphia_data$American_IndianE, na.rm = TRUE)
+```
+## Median number of American_Indian people:
+#Median number of American_IndianE people of Philadelphia is 0. So, I will consider the tracts with American_IndianE  population less than 10 as minority neighborhoods because these tracts have a significantly lower number of American Indian residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
+
+```{r, echo=FALSE}
+median(Philidelphia_data$otherE, na.rm = TRUE)
+```
+## Median number of otherE people:
+Median number of otherE people of Philadelphia is 0. So, I will consider the tracts with otherE population less than 10 as minority neighborhoods because these tracts have a significantly lower number of residents categorized as "other" compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities. 
+
+
+
+
+# vulnerable tracts based on our criteria:
+
 
 ```{r}
 low_income_Philidelphia_data <- filter(Philidelphia_data, median_incomeE < 40000 & whiteE < 200 | blackE < 210 & asianE > 0 | asianE < 50 & asianE > 0 | hispanicE < 10 & hispanicE > 0 | Native_HawaiianE < 10 & Native_HawaiianE > 0 | American_IndianE < 10 & American_IndianE > 0 | otherE < 10 & otherE > 0)
@@ -734,26 +732,26 @@ View(low_income_Philidelphia_data)
 ggplot() +
   geom_sf(data = Philidelphia_data, fill = "yellow", color = "grey") +
   geom_sf(data = low_income_Philidelphia_data, fill = "red", color = "grey")
-
-
-
-#I have filtered the Philadelphia census tracts to identify low-income and minority neighborhoods based on the defined criteria. The resulting dataset, `low_income_Philidelphia_data`, contains the 184 tracts out of 408 tracts that meet the criteria for being considered low-income and/or minority neighborhoods. These tracts are likely to face greater challenges in terms of access to green spaces and other resources, making them important areas of focus for environmental justice and urban planning efforts in Philadelphia.
-
 ```
 
 
+I have filtered the Philadelphia census tracts to identify low-income and minority neighborhoods based on the defined criteria. The resulting dataset, low_income_Philidelphia_data, contains the 184 tracts out of 408 tracts that meet the criteria for being considered low-income and/or minority neighborhoods. These tracts are likely to face greater challenges in terms of access to green spaces and other resources, making them important areas of focus for environmental justice and urban planning efforts in Philadelphia.
 
-```{r}
+
+
+
+
+```{r, echo=FALSE}
 ggplot() +
   geom_sf(data = Philidelphia_data, fill = "yellow", color = "grey") +
   geom_sf(data = low_income_Philidelphia_data, fill = "red", color = "grey") +
     # 3. Add the points on top
   geom_sf(data = parks_shapefile, color = "darkGreen", size = 2) +
   theme_minimal()
-
-#Then I showed parks on the map. The parks are shown in dark green color. The low-income and minority neighborhoods are shown in red color, while the other tracts are shown in yellow color. This map allows us to visually assess the distribution of parks in relation to low-income and minority neighborhoods in Philadelphia, which can help identify areas that may be underserved in terms of access to green spaces and inform targeted interventions to improve environmental justice and urban planning efforts.
 ```
-```{r}
+Then I showed parks on the map. The parks are shown in dark green color. The low-income and minority neighborhoods are shown in red color, while the other tracts are shown in yellow color. This map allows us to visually assess the distribution of parks in relation to low-income and minority neighborhoods in Philadelphia, which can help identify areas that may be underserved in terms of access to green spaces and inform targeted interventions to improve environmental justice and urban planning efforts.
+
+```{r, echo=FALSE}
 ggplot() +
   geom_sf(data = Philidelphia_data, fill = "yellow", color = "grey") +
   geom_sf(data = low_income_Philidelphia_data, fill = "red", color = "grey") +
@@ -762,9 +760,9 @@ ggplot() +
   geom_sf(data = street_trees, fill = "blue", color = "blue", size = 0.0001) +
   geom_sf(data = parks_shapefile, color = "darkGreen", size = 2) +
   theme_minimal()
-
-#The blue points on the map represent the locations of street trees in Philadelphia. By overlaying the street tree data with the census tracts and park locations, we can visually assess the distribution of green spaces and tree canopy in relation to low-income and minority neighborhoods. This can help identify areas that may be underserved in terms of access to green spaces and inform targeted interventions to improve environmental justice and urban planning efforts in Philadelphia.
 ```
+
+The blue points on the map represent the locations of street trees in Philadelphia. By overlaying the street tree data with the census tracts and park locations, we can visually assess the distribution of green spaces and tree canopy in relation to low-income and minority neighborhoods. This can help identify areas that may be underserved in terms of access to green spaces and inform targeted interventions to improve environmental justice and urban planning efforts in Philadelphia.
 
 
 
@@ -773,10 +771,11 @@ buffer_area_parks <- st_buffer(parks_shapefile, dist = 804.672) # 0.5 miles in m
 ###ggplot() +
 ###  geom_sf(data = buffer_area_parks, fill = "yellow", color = "grey")
 ###View(buffer_area_parks)
+```
 
-#But in analysis we are not taking trees as these are not suitalbe for analysis rather we are taking parks as these are more suitable for analysis. I have created a buffer of 0.5 miles (10-minute walk) around the parks to represent the area of influence of each park. This buffer allows us to visually assess which census tracts fall within a reasonable walking distance to the parks, which can help identify areas that may have better access to green spaces and those that may be underserved in terms of park access. By overlaying the buffer areas with the low-income and minority neighborhoods, we can further analyze the equity of access to green spaces in Philadelphia.
+But in analysis we are not taking trees as these are not suitalbe for analysis rather we are taking parks as these are more suitable for analysis. I have created a buffer of 0.5 miles (10-minute walk) around the parks to represent the area of influence of each park. This buffer allows us to visually assess which census tracts fall within a reasonable walking distance to the parks, which can help identify areas that may have better access to green spaces and those that may be underserved in terms of park access. By overlaying the buffer areas with the low-income and minority neighborhoods, we can further analyze the equity of access to green spaces in Philadelphia.
 
-
+```{r, echo=FALSE}
 ggplot() +
   geom_sf(data = Philidelphia_data, fill = "yellow", color = "grey") +
   geom_sf(data = low_income_Philidelphia_data, fill = "red", color = "grey") +
@@ -784,16 +783,16 @@ ggplot() +
   geom_sf(data = parks_shapefile, color = "darkGreen", size = 2) +
   geom_sf(data = buffer_area_parks, fill = "pink", color = "grey", alpha = 0.7)+
   theme_minimal()
-  
-#you can see the pink areas on the map represent the buffer zones around the parks, indicating the areas that are within a 10-minute walk (0.5 miles) of the parks. By visually assessing the overlap between these buffer zones and the low-income and minority neighborhoods (shown in red), we can identify which neighborhoods have better access to parks and which may be underserved in terms of green space access. This analysis can help inform targeted interventions to improve environmental justice and urban planning efforts in Philadelphia.
-```
+```  
+you can see the pink areas on the map represent the buffer zones around the parks, indicating the areas that are within a 10-minute walk (0.5 miles) of the parks. By visually assessing the overlap between these buffer zones and the low-income and minority neighborhoods (shown in red), we can identify which neighborhoods have better access to parks and which may be underserved in terms of green space access. This analysis can help inform targeted interventions to improve environmental justice and urban planning efforts in Philadelphia.
+
 
 ```{r}
 
  st_agr(buffer_area_parks) = "constant"
  st_agr(low_income_Philidelphia_data) = "constant"
 overlaps_buffer_area_parks_with_vulnerable_tracts <- st_intersection(buffer_area_parks, low_income_Philidelphia_data)
-View(overlaps_buffer_area_parks_with_vulnerable_tracts)
+
 
 ggplot() +
   geom_sf(data = Philidelphia_data, fill = "yellow", color = "grey") +
@@ -806,20 +805,11 @@ ggplot() +
   neighborhoods within a 10-minute walk of parks",
        caption = "Data Source: ACS 2022, OpenDataPhilly") +
   theme_minimal()
-
-"The purple areas on the map represent the low-income and minority neighborhoods that fall within the buffer zones around the parks, indicating that these neighborhoods have better access to green spaces. While red areas represent low-income and minority neighborhoods that do not fall within the buffer zones, indicating that they may be underserved in terms of park access. This analysis helps us understand the spatial distribution of park access in relation to vulnerable populations in Philadelphia and can inform targeted interventions to improve environmental justice and urban planning efforts in the city."
-
-
-
-
 ```
 
-
-  
-```
+The purple areas on the map represent the low-income and minority neighborhoods that fall within the buffer zones around the parks, indicating that these neighborhoods have better access to green spaces. While red areas represent low-income and minority neighborhoods that do not fall within the buffer zones, indicating that they may be underserved in terms of park access. This analysis helps us understand the spatial distribution of park access in relation to vulnerable populations in Philadelphia and can inform targeted interventions to improve environmental justice and urban planning efforts in the city."
 
 
-```
 ```{r}
 points_in_polygons <- st_join(street_trees, Philidelphia_data, left = FALSE)
 View(points_in_polygons)
@@ -836,37 +826,24 @@ View(Philidelphia_data_plus_Number_of_trees_in_each_tracts)
 Per_capita_tree_canopy <- Philidelphia_data_plus_Number_of_trees_in_each_tracts %>%
   mutate(tree_canopy_per_capita = n / total_popE)
 
-View(Per_capita_tree_canopy)
-head(Per_capita_tree_canopy)
 
-##Kable(Per_capita_tree_canopy)
-
-##head(arrange(Per_capita_tree_canopy, desc(tree_canopy_per_capita)), n = 5)
 rrrrr <-  select(Per_capita_tree_canopy, NAME, total_popE, n, tree_canopy_per_capita) 
 View(rrrrr)
 
-#kable(head(rrrrr, n = 10),
-    #  col.names = c("NAME"="Census_Tracts", "total_popE" = "Total population", "n"= "Number_of_trees ", "tree_canopy_per_capita" = "Number_of_trees(canopy)_per_capita", "geometry"= "Geometry " ),
-    #  caption = "Tree/Tree canopy for each tract per capita ",
-    #  format.args = list(big.mark = ","),
-    #  )
+kable(head(rrrrr, n = 10),
+    col.names = c("NAME"="Census_Tracts", "total_popE" = "Total population", "n"= "Number_of_trees ", "tree_canopy_per_capita" = "Number_of_trees(canopy)_per_capita", "geometry"= "Geometry " ),
+    caption = "Tree/Tree canopy for each tract per capita ",
+    format.args = list(big.mark = ","),
+    )
+
+```
 
 
-
-"Other than our main analysis we also did small spatial and statistical analysis to calculate tree canopy availability per capita across census tracts in Philadelphia. First, a spatial join (st_join) is conducted between the street tree point dataset and the Philadelphia census tract polygon dataset, ensuring that only trees located within tract boundaries are retained . This operation assigns each individual tree to the census tract in which it geographically falls. Next, the joined dataset is grouped by tract name and the number of trees in each tract is counted using the count() function, producing a summary table of total trees per census tract. The geometry column is then removed using st_drop_geometry() so that the data can be handled as a standard tabular dataframe for non-spatial processing. After this, the tree count data are merged back into the original census tract dataset using a left_join based on the tract name, ensuring that each tract polygon now contains both its demographic attributes (including total population) and the corresponding number of trees. Finally, a new variable, tree_canopy_per_capita, is calculated by dividing the number of trees in each tract by the total population estimate (total_popE). This produces a standardized per capita measure of tree availability, allowing for meaningful comparison of urban greenery distribution across census tracts regardless of population size. And then we used Kable function to show the first 10 rows of the data.
+Other than our main analysis we also did small spatial and statistical analysis to calculate tree canopy availability per capita across census tracts in Philadelphia. First, a spatial join (st_join) is conducted between the street tree point dataset and the Philadelphia census tract polygon dataset, ensuring that only trees located within tract boundaries are retained . This operation assigns each individual tree to the census tract in which it geographically falls. Next, the joined dataset is grouped by tract name and the number of trees in each tract is counted using the count() function, producing a summary table of total trees per census tract. The geometry column is then removed using st_drop_geometry() so that the data can be handled as a standard tabular dataframe for non-spatial processing. After this, the tree count data are merged back into the original census tract dataset using a left_join based on the tract name, ensuring that each tract polygon now contains both its demographic attributes (including total population) and the corresponding number of trees. Finally, a new variable, tree_canopy_per_capita, is calculated by dividing the number of trees in each tract by the total population estimate (total_popE). This produces a standardized per capita measure of tree availability, allowing for meaningful comparison of urban greenery distribution across census tracts regardless of population size. And then we used Kable function to show the first 10 rows of the data.
 Results shows that Census Tract 369.01; Philadelphia County; Pennsylvania has the highest number of per capita trees and that are 8.48 in number. while Census Tract 9809.05; Philadelphia County; Pennsylvania has the least number of per capita trees. "
 
 
 
-
-
-
-
-
-
-
-
-"
 Data Sources used in above analysis are:
 
 **OpenDataPhilly:** https://opendataphilly.org/datasets/
@@ -878,13 +855,7 @@ Data Sources used in above analysis are:
 "
 
 
-
-
-
-
-```
-
-**Questions to answer:**
+Answers to some important Questions :
 - What dataset did you choose and why?
 We used Green Space Equity related data sets which include Street Trees, parks & Census tracts (race/income demographics)
 - What is the data source and date?
@@ -893,17 +864,12 @@ Street Trees, parks = 2025 while Census tracts (race/income demographics) =2022
 - What CRS is it in? Did you need to transform it?
 Yes transformed it to NAD83 / UTM zone 17N" EPSG:26917.
 
----
 
-2. **Pose a research question**
 
-Write a clear research statement that your analysis will answer.
+
+research statement:
 
 My research analysis answers the low income and vulnerable minorities access to parks in each tract of the Philadelphia. 
-
----
-
-3. **Conduct spatial analysis**
 
 I used all these spatial analysis along with other spatial analysis too.
 - Buffers
@@ -919,17 +885,5 @@ I used all these spatial analysis along with other spatial analysis too.
 ## Finally - A few comments about your incorporation of feedback!
 Yes I have incorporated suggestions which were given to me by teached specially the code hiding in my document.
 
----
 
-## Submission Requirements
-
-**What to submit:**
-
-1. **Rendered HTML document posted to your course portfolio** with all code, outputs, maps, and text
-   - Use `embed-resources: true` in YAML so it's a single file
-   - All code should run without errors
-   - All maps and charts should display correctly
-2. Submit the correct and working links of your assignment on Canvas
-
----
 
