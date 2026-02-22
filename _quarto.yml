@@ -7,7 +7,7 @@ website:
   navbar:
     left:
       - href: https://umairbinsaad.github.io/lab_2/lab2_template.html
-        text: Homee
+        text: Home
       - text: Labs
         menu:
           - href: https://umairbinsaad.github.io/lab_2/lab2_template.html
