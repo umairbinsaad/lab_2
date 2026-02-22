@@ -547,7 +547,7 @@ ggplot(vulnerable_tracts_county_centers, aes(x=NAMELSADCO ,y = dist_to_nearest))
 - Bar chart of underserved tracts by county
 
 ```{r}
-ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(x = dist_to_nearest, y = Tracts_namess)) +
+ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(x = dist_to_nearest, y = NAME.x)) +
   geom_col( fill = "blue", color = "white", position = "identity", alpha = 0.8)+
   labs(
     title = "Distribution of distances to hospitals for (total) vulnerable populations",      # Main plot title
@@ -649,7 +649,6 @@ plot(Philidelphia_data$geometry)
 
 
 street_trees <- st_read("C:/Users/Umair Bin Saad/Desktop/Green Space Equity/Street Trees/ppr_tree_inventory_2025.shp")
-View(street.trees)
 street_trees <- st_transform(street_trees, crs = 26917)
 st_crs(street_trees)
 
@@ -693,7 +692,7 @@ ggplot() +
 
 
 
-I have filtered the Philadelphia census tracts to identify low-income and minority neighborhoods based on the defined criteria. The resulting dataset, `low_income_Philidelphia_data`, contains the 184 tracts out of 408 tracts that meet the criteria for being considered low-income and/or minority neighborhoods. These tracts are likely to face greater challenges in terms of access to green spaces and other resources, making them important areas of focus for environmental justice and urban planning efforts in Philadelphia.
+#I have filtered the Philadelphia census tracts to identify low-income and minority neighborhoods based on the defined criteria. The resulting dataset, `low_income_Philidelphia_data`, contains the 184 tracts out of 408 tracts that meet the criteria for being considered low-income and/or minority neighborhoods. These tracts are likely to face greater challenges in terms of access to green spaces and other resources, making them important areas of focus for environmental justice and urban planning efforts in Philadelphia.
 
 ```
 
@@ -707,7 +706,7 @@ ggplot() +
   geom_sf(data = parks_shapefile, color = "darkGreen", size = 2) +
   theme_minimal()
 
-Then I showed parks on the map. The parks are shown in dark green color. The low-income and minority neighborhoods are shown in red color, while the other tracts are shown in yellow color. This map allows us to visually assess the distribution of parks in relation to low-income and minority neighborhoods in Philadelphia, which can help identify areas that may be underserved in terms of access to green spaces and inform targeted interventions to improve environmental justice and urban planning efforts.
+#Then I showed parks on the map. The parks are shown in dark green color. The low-income and minority neighborhoods are shown in red color, while the other tracts are shown in yellow color. This map allows us to visually assess the distribution of parks in relation to low-income and minority neighborhoods in Philadelphia, which can help identify areas that may be underserved in terms of access to green spaces and inform targeted interventions to improve environmental justice and urban planning efforts.
 ```
 ```{r}
 ggplot() +
@@ -719,7 +718,7 @@ ggplot() +
   geom_sf(data = parks_shapefile, color = "darkGreen", size = 2) +
   theme_minimal()
 
-The blue points on the map represent the locations of street trees in Philadelphia. By overlaying the street tree data with the census tracts and park locations, we can visually assess the distribution of green spaces and tree canopy in relation to low-income and minority neighborhoods. This can help identify areas that may be underserved in terms of access to green spaces and inform targeted interventions to improve environmental justice and urban planning efforts in Philadelphia.
+#The blue points on the map represent the locations of street trees in Philadelphia. By overlaying the street tree data with the census tracts and park locations, we can visually assess the distribution of green spaces and tree canopy in relation to low-income and minority neighborhoods. This can help identify areas that may be underserved in terms of access to green spaces and inform targeted interventions to improve environmental justice and urban planning efforts in Philadelphia.
 ```
 
 
@@ -741,7 +740,7 @@ ggplot() +
   geom_sf(data = buffer_area_parks, fill = "pink", color = "grey", alpha = 0.7)+
   theme_minimal()
   
-you can see the pink areas on the map represent the buffer zones around the parks, indicating the areas that are within a 10-minute walk (0.5 miles) of the parks. By visually assessing the overlap between these buffer zones and the low-income and minority neighborhoods (shown in red), we can identify which neighborhoods have better access to parks and which may be underserved in terms of green space access. This analysis can help inform targeted interventions to improve environmental justice and urban planning efforts in Philadelphia.
+#you can see the pink areas on the map represent the buffer zones around the parks, indicating the areas that are within a 10-minute walk (0.5 miles) of the parks. By visually assessing the overlap between these buffer zones and the low-income and minority neighborhoods (shown in red), we can identify which neighborhoods have better access to parks and which may be underserved in terms of green space access. This analysis can help inform targeted interventions to improve environmental justice and urban planning efforts in Philadelphia.
 ```
 
 ```{r}
@@ -763,7 +762,7 @@ ggplot() +
        caption = "Data Source: ACS 2022, OpenDataPhilly") +
   theme_minimal()
 
-The purple areas on the map represent the low-income and minority neighborhoods that fall within the buffer zones around the parks, indicating that these neighborhoods have better access to green spaces. While red areas represent low-income and minority neighborhoods that do not fall within the buffer zones, indicating that they may be underserved in terms of park access. This analysis helps us understand the spatial distribution of park access in relation to vulnerable populations in Philadelphia and can inform targeted interventions to improve environmental justice and urban planning efforts in the city.
+"The purple areas on the map represent the low-income and minority neighborhoods that fall within the buffer zones around the parks, indicating that these neighborhoods have better access to green spaces. While red areas represent low-income and minority neighborhoods that do not fall within the buffer zones, indicating that they may be underserved in terms of park access. This analysis helps us understand the spatial distribution of park access in relation to vulnerable populations in Philadelphia and can inform targeted interventions to improve environmental justice and urban planning efforts in the city."
 
 
 
@@ -809,8 +808,8 @@ View(rrrrr)
 
 
 
-Other than our main analysis we also did small spatial and statistical analysis to calculate tree canopy availability per capita across census tracts in Philadelphia. First, a spatial join (st_join) is conducted between the street tree point dataset and the Philadelphia census tract polygon dataset, ensuring that only trees located within tract boundaries are retained . This operation assigns each individual tree to the census tract in which it geographically falls. Next, the joined dataset is grouped by tract name and the number of trees in each tract is counted using the count() function, producing a summary table of total trees per census tract. The geometry column is then removed using st_drop_geometry() so that the data can be handled as a standard tabular dataframe for non-spatial processing. After this, the tree count data are merged back into the original census tract dataset using a left_join based on the tract name, ensuring that each tract polygon now contains both its demographic attributes (including total population) and the corresponding number of trees. Finally, a new variable, tree_canopy_per_capita, is calculated by dividing the number of trees in each tract by the total population estimate (total_popE). This produces a standardized per capita measure of tree availability, allowing for meaningful comparison of urban greenery distribution across census tracts regardless of population size. And then we used Kable function to show the first 10 rows of the data.
-Results shows that Census Tract 369.01; Philadelphia County; Pennsylvania has the highest number of per capita trees and that are 8.48 in number. while Census Tract 9809.05; Philadelphia County; Pennsylvania has the least number of per capita trees. 
+"Other than our main analysis we also did small spatial and statistical analysis to calculate tree canopy availability per capita across census tracts in Philadelphia. First, a spatial join (st_join) is conducted between the street tree point dataset and the Philadelphia census tract polygon dataset, ensuring that only trees located within tract boundaries are retained . This operation assigns each individual tree to the census tract in which it geographically falls. Next, the joined dataset is grouped by tract name and the number of trees in each tract is counted using the count() function, producing a summary table of total trees per census tract. The geometry column is then removed using st_drop_geometry() so that the data can be handled as a standard tabular dataframe for non-spatial processing. After this, the tree count data are merged back into the original census tract dataset using a left_join based on the tract name, ensuring that each tract polygon now contains both its demographic attributes (including total population) and the corresponding number of trees. Finally, a new variable, tree_canopy_per_capita, is calculated by dividing the number of trees in each tract by the total population estimate (total_popE). This produces a standardized per capita measure of tree availability, allowing for meaningful comparison of urban greenery distribution across census tracts regardless of population size. And then we used Kable function to show the first 10 rows of the data.
+Results shows that Census Tract 369.01; Philadelphia County; Pennsylvania has the highest number of per capita trees and that are 8.48 in number. while Census Tract 9809.05; Philadelphia County; Pennsylvania has the least number of per capita trees. "
 
 
 
@@ -822,7 +821,7 @@ Results shows that Census Tract 369.01; Philadelphia County; Pennsylvania has th
 
 
 
-
+"
 Data Sources used in above analysis are:
 
 **OpenDataPhilly:** https://opendataphilly.org/datasets/
@@ -831,7 +830,7 @@ Data Sources used in above analysis are:
 - **Pennsylvania Open Data:** https://data.pa.gov/
 - **Census Bureau (via tidycensus):** Demographics, economic indicators, commute patterns
 - **TIGER/Line (via tigris):** Geographic boundaries
-
+"
 
 
 
