@@ -3888,6 +3888,7 @@ vertical-align: -.125em;
   <li><a href="#aggregate-to-county-level" id="toc-aggregate-to-county-level" class="nav-link" data-scroll-target="#aggregate-to-county-level">Aggregate to County Level:</a>
   <ul class="collapse">
   <li><a href="#calculated-percentage-of-vulnerable-tracts-that-are-underserved" id="toc-calculated-percentage-of-vulnerable-tracts-that-are-underserved" class="nav-link" data-scroll-target="#calculated-percentage-of-vulnerable-tracts-that-are-underserved">Calculated percentage of vulnerable tracts that are underserved</a></li>
+  <li><a href="#i-created-summary-table-below" id="toc-i-created-summary-table-below" class="nav-link" data-scroll-target="#i-created-summary-table-below">I Created Summary Table below:</a></li>
   </ul></li>
   <li><a href="#i-have-made-comprehensive-visualization" id="toc-i-have-made-comprehensive-visualization" class="nav-link" data-scroll-target="#i-have-made-comprehensive-visualization">I have made Comprehensive Visualization</a>
   <ul class="collapse">
@@ -4175,9 +4176,6 @@ It is somewhat surprising that only a small percentage of vulnerable tracts are 
 </table>
 </div>
 </div>
-<ul>
-<li>Percentage of vulnerable tracts that are underserved</li>
-</ul>
 </section>
 <section id="calculated-percentage-of-vulnerable-tracts-that-are-underserved" class="level3">
 <h3 class="anchored" data-anchor-id="calculated-percentage-of-vulnerable-tracts-that-are-underserved">Calculated percentage of vulnerable tracts that are underserved</h3>
@@ -4281,8 +4279,9 @@ Centre County and Juniata County(Although these counties have same percentage i-
 </div>
 <hr>
 </section>
-<section id="i-am-creating-summary-table" class="level4">
-<h4 class="anchored" data-anchor-id="i-am-creating-summary-table">I am Creating Summary Table</h4>
+</section>
+<section id="i-created-summary-table-below" class="level3">
+<h3 class="anchored" data-anchor-id="i-created-summary-table-below">I Created Summary Table below:</h3>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -4392,7 +4391,6 @@ Centre County and Juniata County(Although these counties have same percentage i-
 </div>
 </section>
 </section>
-</section>
 <section id="i-have-made-comprehensive-visualization" class="level2">
 <h2 class="anchored" data-anchor-id="i-have-made-comprehensive-visualization">I have made Comprehensive Visualization</h2>
 <p>I have created a choropleth map showing healthcare access challenges at the county level.</p>
@@ -4477,7 +4475,8 @@ Centre County and Juniata County(Although these counties have same percentage i-
 <ul>
 <li><strong>Data:</strong> Parks, Street Trees, Census tracts (race/income demographics)</li>
 <li><strong>Question:</strong> “Do low-income and minority neighborhoods have equitable access to green space?”</li>
-<li><strong>Operations:</strong> Buffer parks (10-minute walk = 0.5 mile), calculate tree canopy or park acreage per capita, compare by demographics</li>
+<li><strong>Operations:</strong> Buffer parks (10-minute walk = 0.5 mile), calculate tree canopy or park acreage per capita, compare by demographics<br>
+</li>
 <li><h2 id="policy-relevance-climate-resilience-environmental-justice-urban-forestry-investment" class="anchored"><strong>Policy relevance:</strong> Climate resilience, environmental justice, urban forestry investment</h2></li>
 </ul>
 <p>First of all for this analysis, I will be using the data of parks, street trees and census tracts. I will be using the data of Philadelphia city. I will be using the data of 2022 ACS for census tracts. I will be using the data of parks and street trees from OpenDataPhilly. I have gotten data from get_acs function for census tracts. I have also read the data of parks and street trees using st_read function. I have transformed the data of parks and street trees to the same projection as census tracts. I have also calculated the coordinates of parks and street trees using st_coordinates function. I have also calculated the median income and median population.</p>

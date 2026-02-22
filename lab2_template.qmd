@@ -355,7 +355,6 @@ kable(head(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles_fre
 
 
 ```
-- Percentage of vulnerable tracts that are underserved
 
 
 ###  Calculated percentage of vulnerable tracts that are underserved
@@ -424,7 +423,7 @@ kable(head(most_vulnerable_people_New, n = 10),
 ```
 ---
 
-#### I am Creating Summary Table 
+### I Created Summary Table below:
 
 
 
@@ -628,7 +627,7 @@ I have chosen to do the analysis on "Green Space Equity" in Philadelphia. I will
 ## Green Space Equity 
 - **Data:** Parks, Street Trees, Census tracts (race/income demographics)
 - **Question:** "Do low-income and minority neighborhoods have equitable access to green space?"
-- **Operations:** Buffer parks (10-minute walk = 0.5 mile), calculate tree canopy or park acreage per capita, compare by demographics
+- **Operations:** Buffer parks (10-minute walk = 0.5 mile), calculate tree canopy or park acreage per capita, compare by demographics  
 - **Policy relevance:** Climate resilience, environmental justice, urban forestry investment
 ---
 
