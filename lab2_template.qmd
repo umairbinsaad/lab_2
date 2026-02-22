@@ -308,7 +308,7 @@ ggplot(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(X 
 ```
 
 - Does this surprise you? Why or why not?    
-It is somewhat surprising that only a small percentage of vulnerable tracts are underserved, given the significant barriers to healthcare access that can exist in rural and low-income areas. However, it may also reflect the fact that many vulnerable populations are located in more urban or suburban areas where hospitals are more accessible. It highlights the importance of looking beyond just the number of vulnerable tracts and considering the geographic distribution and specific needs of these populations when planning healthcare investments and interventions.
+<div style="text-align: justify;">It is somewhat surprising that only a small percentage of vulnerable tracts are underserved, given the significant barriers to healthcare access that can exist in rural and low-income areas. However, it may also reflect the fact that many vulnerable populations are located in more urban or suburban areas where hospitals are more accessible. It highlights the importance of looking beyond just the number of vulnerable tracts and considering the geographic distribution and specific needs of these populations when planning healthcare investments and interventions.</div>
 
 ---
 
@@ -317,7 +317,7 @@ I used spatial joins and aggregation to calculate county-level statistics about 
 
 
 #### county-level statistics:   
-The number of vulnerable tracts in each county is calculated by performing a spatial join between the vulnerable tracts and the county boundaries, and then counting the number of vulnerable tracts that fall within each county. This will gave us a count of how many vulnerable tracts are located in each county, which can help identify which counties have the highest concentration of vulnerable populations that may be underserved in terms of healthcare access. Philadelphia County has the highest number of vulnerable tracts, with a total of 138 vulnerable tracts. This indicates that Philadelphia County has a significant concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access, particularly if many of these tracts are located far from hospitals. Allegheny County has the second highest number of vulnerable tracts, with a total of 80 vulnerable tracts. This suggests that Allegheny County also has a significant concentration of vulnerable populations that may require targeted healthcare investments and policy interventions to improve access to healthcare services. Luzerne County has the third highest number of vulnerable tracts, with a total of 29 vulnerable tracts. This indicates that Luzerne County also has a notable concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access. These findings highlight the importance of focusing healthcare investments and policy interventions in these counties to address the needs of vulnerable populations and improve healthcare access and equity.   
+<div style="text-align: justify;">The number of vulnerable tracts in each county is calculated by performing a spatial join between the vulnerable tracts and the county boundaries, and then counting the number of vulnerable tracts that fall within each county. This will gave us a count of how many vulnerable tracts are located in each county, which can help identify which counties have the highest concentration of vulnerable populations that may be underserved in terms of healthcare access. Philadelphia County has the highest number of vulnerable tracts, with a total of 138 vulnerable tracts. This indicates that Philadelphia County has a significant concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access, particularly if many of these tracts are located far from hospitals. Allegheny County has the second highest number of vulnerable tracts, with a total of 80 vulnerable tracts. This suggests that Allegheny County also has a significant concentration of vulnerable populations that may require targeted healthcare investments and policy interventions to improve access to healthcare services. Luzerne County has the third highest number of vulnerable tracts, with a total of 29 vulnerable tracts. This indicates that Luzerne County also has a notable concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access. These findings highlight the importance of focusing healthcare investments and policy interventions in these counties to address the needs of vulnerable populations and improve healthcare access and equity. </div>  
 
 ```{r, echo=FALSE}
 # Calculate frequencies
@@ -338,7 +338,7 @@ kable(head(vulnerable_tracts_frequency_by_county, n = 8),
 ```
 
 #### Number of underserved tracts:  
-The number of underserved tracts in each county is calculated by performing a spatial join between the underserved tracts (vulnerable tracts that are more than 15 miles from the nearest hospital) and the county boundaries, and then counting the number of underserved tracts that fall within each county. This will give us a count of how many underserved tracts are located in each county, which can help identify which counties have the highest concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access. Clearfield County has the highest number of underserved tracts, with a total of 3 underserved tracts. This indicates that Pike County has a significant concentration of vulnerable populations that are located far from hospitals and may be at risk of being underserved in terms of healthcare access. Forest County has the second highest number of underserved tracts, with a total of 2 underserved tracts. This suggests that Chester County also has a notable concentration of vulnerable populations that are located far from hospitals and may require targeted healthcare investments and policy interventions to improve access to healthcare services. 
+<div style="text-align: justify;">The number of underserved tracts in each county is calculated by performing a spatial join between the underserved tracts (vulnerable tracts that are more than 15 miles from the nearest hospital) and the county boundaries, and then counting the number of underserved tracts that fall within each county. This will give us a count of how many underserved tracts are located in each county, which can help identify which counties have the highest concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access. Clearfield County has the highest number of underserved tracts, with a total of 3 underserved tracts. This indicates that Pike County has a significant concentration of vulnerable populations that are located far from hospitals and may be at risk of being underserved in terms of healthcare access. Forest County has the second highest number of underserved tracts, with a total of 2 underserved tracts. This suggests that Chester County also has a notable concentration of vulnerable populations that are located far from hospitals and may require targeted healthcare investments and policy interventions to improve access to healthcare services.</div> 
 
 
 ```{r, echo=FALSE}
@@ -359,7 +359,7 @@ kable(head(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles_fre
 
 ###  Calculated percentage of vulnerable tracts that are underserved
 
-Approximately 0.02% of vulnerable tracts are underserved, meaning they are located more than 15 miles from the nearest hospital. This is calculated by dividing the number of underserved tracts (9) by the total number of vulnerable tracts (555) and multiplying by 100. 
+<div style="text-align: justify;"> Approximately 0.02% of vulnerable tracts are underserved, meaning they are located more than 15 miles from the nearest hospital. This is calculated by dividing the number of underserved tracts (9) by the total number of vulnerable tracts (555) and multiplying by 100.  
 
 ```{r, echo=FALSE}
 #| message: false
@@ -369,7 +369,7 @@ Approximately 0.02% of vulnerable tracts are underserved, meaning they are locat
 ```
 
 - Average distance to nearest hospital for vulnerable tracts
-The average distance to the nearest hospital for vulnerable tracts is approximately 2.619415 miles. This is calculated by taking the mean of the dist_to_nearest variable for all vulnerable tracts, which represents the distance from each tract centroid to the nearest hospital.
+<div style="text-align: justify;"> The average distance to the nearest hospital for vulnerable tracts is approximately 2.619415 miles. This is calculated by taking the mean of the dist_to_nearest variable for all vulnerable tracts, which represents the distance from each tract centroid to the nearest hospital. </div>
 
 ```{r, echo=FALSE}
 #| message: false
@@ -381,7 +381,7 @@ mean(vulnerable_tracts_county_centers$dist_to_nearest)
 ```
 
 - Total vulnerable population    
-  The total vulnerable population is calculated by summing the total_popE variable for all vulnerable tracts. This gives us an estimate of the total number of 1861909 people living in vulnerable tracts, which can help us understand the scale of the population that is at risk of being vulnerable in terms of healthcare access.
+<div style="text-align: justify;"> The total vulnerable population is calculated by summing the total_popE variable for all vulnerable tracts. This gives us an estimate of the total number of 1861909 people living in vulnerable tracts, which can help us understand the scale of the population that is at risk of being vulnerable in terms of healthcare access. </div>
 
 ```{r, echo=FALSE}
 # Calculate frequencies
@@ -397,12 +397,12 @@ kable(head(Total_vulnerable_population, n = 1),
 
 
 #### Answers to some important questions
-- Which 5 counties have the highest percentage of underserved vulnerable tracts?
+<div style="text-align: justify;"> - Which 5 counties have the highest percentage of underserved vulnerable tracts?
 The 5 counties with the highest percentage of underserved vulnerable tracts are Clearfield County, Forest County, Cameron County, 	
-Centre County and Juniata County(Although these counties have same percentage i-e Cameron County, Centre County and Juniata County). These counties have the highest proportion of vulnerable tracts that are located more than 15 miles from the nearest hospital, indicating that they may be at greater risk of being underserved in terms of healthcare access. Targeting healthcare investments and policy interventions in these counties could help improve access to healthcare services for vulnerable populations and address disparities in healthcare access and outcomes.
+Centre County and Juniata County(Although these counties have same percentage i-e Cameron County, Centre County and Juniata County). These counties have the highest proportion of vulnerable tracts that are located more than 15 miles from the nearest hospital, indicating that they may be at greater risk of being underserved in terms of healthcare access. Targeting healthcare investments and policy interventions in these counties could help improve access to healthcare services for vulnerable populations and address disparities in healthcare access and outcomes.</div>
 
 - Which counties have the most vulnerable people living far from hospitals?
-  the counties with the most vulnerable people living far from hospitals are Clearfield County, Forest County, Cameron County, Monroe County. These counties have the highest number of vulnerable tracts that are located more than 15 miles (i-e 18+) from the nearest hospital, indicating that they may have a significant population of vulnerable individuals who are at risk of being underserved in terms of healthcare access. Focusing healthcare investments and policy interventions in these counties could help improve access to healthcare services for vulnerable populations and address disparities in healthcare access and outcomes.
+<div style="text-align: justify;"> The counties with the most vulnerable people living far from hospitals are Clearfield County, Forest County, Cameron County, Monroe County. These counties have the highest number of vulnerable tracts that are located more than 15 miles (i-e 18+) from the nearest hospital, indicating that they may have a significant population of vulnerable individuals who are at risk of being underserved in terms of healthcare access. Focusing healthcare investments and policy interventions in these counties could help improve access to healthcare services for vulnerable populations and address disparities in healthcare access and outcomes.</div>
   
 ```{r, echo=FALSE}
 most_vulnerable_people <- vulnerable_tracts_county_centers %>%
@@ -603,7 +603,7 @@ ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles,
   theme_classic() # Optional: applies a clean theme
 
 ```
-The chart above shows the distribution of distances to hospitals for vulnerable populations in Pennsylvania. The bar chart indicates that the some of vulnerable tracts are not located within a few miles of the nearest hospital, with a long tail extending to higher distances. This suggests that while many vulnerable populations have relatively good access to healthcare services, there are some tracts that face significant barriers due to their distance from hospitals. Targeted interventions may be needed to improve healthcare access for those living in more remote areas.
+<div style="text-align: justify;"> The chart above shows the distribution of distances to hospitals for vulnerable populations in Pennsylvania. The bar chart indicates that the some of vulnerable tracts are not located within a few miles of the nearest hospital, with a long tail extending to higher distances. This suggests that while many vulnerable populations have relatively good access to healthcare services, there are some tracts that face significant barriers due to their distance from hospitals. Targeted interventions may be needed to improve healthcare access for those living in more remote areas. </div>
 
 
 
