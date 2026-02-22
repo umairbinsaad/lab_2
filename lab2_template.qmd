@@ -111,13 +111,11 @@ tract_demographics <- tract_demographics %>%
 
 # Join to tract boundaries
 census_tracts <- tracts(state = "PA", cb = TRUE)
-View(census_tracts)
 
 
 tracts_with_data <- census_tracts %>%
   left_join(tract_demographics, by = "GEOID")
 
-View(tracts_with_data)
 plot(st_geometry(tracts_with_data))
 ```
 
