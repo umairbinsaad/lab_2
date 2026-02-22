@@ -140,14 +140,14 @@ Median income across all PA census tracts = 70188
 median(tracts_with_data$median_incomeE, na.rm = TRUE)
 ```
 
-#Vulnerable Populations 
+Vulnerable Populations:     
 I have classified those people as vulnerable whose income is less than 50000 and whom age is above 65 years of age in all tracts of Pensylvania.
 
-These two are my criterias:
-1. Low median household income (median_incomeE < 50000)  
-2. Significant elderly population (Population_65_over > 200)
+These two are my criteria:    
+1. Low median household income (median_incomeE < 50000)    
+2. Significant elderly population (Population_65_over > 200)  
 
-**Your Task:**
+
 ```{r, echo=FALSE}
 # Filter for vulnerable tracts based on your criteria
 
@@ -159,24 +159,27 @@ View(vulnerable_tracts)
 
 ```
 
-My replies to some important questions here:
+My replies to some important questions related to my analysis:
 
-- What income threshold did you choose and why? 
+- What income threshold did you choose and why?   
 I have chosen an income threshold of $50,000 because it is a common benchmark for low-income status in many policy analyses. It also allows us to capture a significant portion of the population that may be struggling financially, while still including enough tracts for meaningful analysis.
-- What elderly population threshold did you choose and why?
+- What elderly population threshold did you choose and why?   
 I have chosen an elderly population threshold of 200 because it represents a significant number of elderly residents in a tract, which may indicate a higher need for healthcare services. This threshold allows us to focus on tracts that have a substantial elderly population, which is often more vulnerable to health issues and may require more frequent access to hospitals.
-- How many tracts meet your vulnerability criteria?
+- How many tracts meet your vulnerability criteria?    
 There are total 555 tracts that meet the vulnerability criteria of having a median household income below $50,000 and an elderly population of over 200.
-- What percentage of PA census tracts are considered vulnerable by your definition?
+- What percentage of PA census tracts are considered vulnerable by your definition?     
 Total 16.1103 percent of PA census tracts are considered vulnerable by the defined criteria. That are basically 555 tracts out of total 3447 tracts in Pennsylvania. Simply 555/3447*100 = 16.1103 percent.
 
-```{r}
+```{r, echo=FALSE}
+#| message: false
+#| warning: false
+#| results: 'hide'
 (nrow(vulnerable_tracts) / nrow(tracts_with_data)) * 100
 ```
 
 ---
 
-#### Step 4: Calculate Distance to Hospitals 
+## Step 4: Calculate Distance to Hospitals 
 
 For each vulnerable tract, calculate the distance to the nearest hospital.
 
