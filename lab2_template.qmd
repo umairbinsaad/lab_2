@@ -58,7 +58,7 @@ library(here)
 
 ```
 
-```{r, echo=FALSE}
+```{r, results="hide", message=FALSE}
 # Load spatial data
 pa_counties <- st_read("D:/Ph.D/US Pakistan Knowledge Corridore/Upenn/Subjects/Public Policy Analytics/Week 4/Data/Pennsylvania_County_Boundaries.shp")
 districts <- st_read("D:/Ph.D/US Pakistan Knowledge Corridore/Upenn/Subjects/Public Policy Analytics/Week 4/Data/districts.geojson")
