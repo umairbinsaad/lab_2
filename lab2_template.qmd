@@ -32,21 +32,21 @@ execute:
 
 **Which Pennsylvania counties have the highest proportion of vulnerable populations (elderly + low-income) living far from hospitals?**
 
-Your analysis should identify counties that should be priorities for healthcare investment and policy intervention.
+My analysis should identify counties that should be priorities for healthcare investment and policy intervention.
 
-### Required Analysis Steps
+#Analysis Steps
 
-Complete the following analysis, documenting each step with code and brief explanations:
+I have Completed the following analysis, tried to give the brief explanations about each step (Although if you want codes you may check technical details through my source code on GitHub:
 
-#### Step 1: Data Collection (5 points)
+#Step 1: Data Detail
 
-Load the required spatial data:
-- Pennsylvania county boundaries
-- Pennsylvania hospitals (from lecture data)
-- Pennsylvania census tracts
+I have used the following data :  
+- Pennsylvania county boundaries  
+- Pennsylvania hospitals     
+- Pennsylvania census tracts     
 
-**Your Task:**
-```{r}
+
+```{r, echo=FALSE}
 # Load required packages
 library(sf)
 library(tidyverse)
