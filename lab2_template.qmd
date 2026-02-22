@@ -38,9 +38,10 @@ My analysis should identify counties that should be priorities for healthcare in
 
 ### Analysis Steps
 
+<div style="text-align: justify;"> 
+I have Completed the following analysis, tried to give the brief explanations about each step (Although if you want codes you may check technical details through my source code on GitHub
+</div>
 
-
----
 
 # Step 1: Data Detail
 
@@ -163,7 +164,7 @@ vulnerable_tracts <- tracts_with_data %>%
 
 ```
 
-##    My replies to some important questions related to my analysis:
+##  My replies to some important questions:
 
 
 
