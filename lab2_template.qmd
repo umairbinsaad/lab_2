@@ -18,11 +18,11 @@ execute:
 ## Assignment Overview
 
 **Learning Objectives:**
-- Apply spatial operations to answer policy-relevant research questions
-- Integrate census demographic data with spatial analysis
-- Create publication-quality visualizations and maps
-- Work with spatial data from multiple sources
-- Communicate findings effectively for policy audiencesssss
+- Apply spatial operations to answer policy-relevant research questions    
+- Integrate census demographic data with spatial analysis   
+- Create publication-quality visualizations and maps     
+- Work with spatial data from multiple sources    
+- Communicate findings effectively for policy audiences
 
 ---
 
@@ -58,7 +58,7 @@ library(here)
 
 ```
 
-```{r}
+```{r, echo=FALSE}
 # Load spatial data
 pa_counties <- st_read("D:/Ph.D/US Pakistan Knowledge Corridore/Upenn/Subjects/Public Policy Analytics/Week 4/Data/Pennsylvania_County_Boundaries.shp")
 districts <- st_read("D:/Ph.D/US Pakistan Knowledge Corridore/Upenn/Subjects/Public Policy Analytics/Week 4/Data/districts.geojson")
@@ -71,24 +71,21 @@ pa_countiesdbf <- st_read("D:/Ph.D/US Pakistan Knowledge Corridore/Upenn/Subject
 
 ```
 
-**Questions to answer:**
+I will answer the following questions in my analysis :
 - How many hospitals are in your dataset?
 - How many census tracts?
 - What coordinate reference system is each dataset in?
 
 ---
 
-#### Step 2: Get Demographic Data 
+#I am obtaining tract-level demographic data for Pennsylvania from American Census Survey data portal.
 
-Use `tidycensus` to download tract-level demographic data for Pennsylvania.
-
-**Required variables:**
+Following are the variables I am taking into consideration
 - Total population
 - Median household income
 - Population 65 years and over (you may need to sum multiple age categories)
 
-**Your Task:**
-```{r}
+```{r, echo=FALSE}
 # Get demographic data from ACS
 tract_demographics <- get_acs(
   geography = "tract",
@@ -103,7 +100,6 @@ tract_demographics <- get_acs(
   output = "wide"
 )
 
-
 # Sum the columns
 tract_demographics <- tract_demographics %>%
   mutate(Population_65_over = male_65_66E + male_67_69E + male_70_74E + male_75_79E + male_80_84E + male_85_150E + Female_65_66E + Female_67_69 + Female_70_74 + Female_75_79 + Female_80_84 + Female_85_150  )
@@ -115,7 +111,6 @@ census_tracts <- tracts(state = "PA", cb = TRUE)
 View(census_tracts)
 
 
-
 tracts_with_data <- census_tracts %>%
   left_join(tract_demographics, by = "GEOID")
 
@@ -124,6 +119,7 @@ plot(st_geometry(tracts_with_data))
 ```
 
 **Questions to answer:**
+
 - What year of ACS data are you using?
 I am using 2022 ACS data.
 
@@ -131,18 +127,20 @@ I am using 2022 ACS data.
 There is 0 tract with missing income data.
 
 - What is the median income across all PA census tracts?
-```{r}
+
+```{r, echo=FALSE}
 median(tracts_with_data$median_incomeE, na.rm = TRUE)
 ```
 
-#### Step 3: Define Vulnerable Populations 
+#Vulnerable Populations 
+I have classified those people as vulnerable whose income is less than 50000 and whom age is above 65 years of age in all tracts of Pensylvania.
 
-Identify census tracts with vulnerable populations based on TWO criteria:
-1. Low median household income (choose an appropriate threshold)
-2. Significant elderly population (choose an appropriate threshold)
+These two are my criterias:
+1. Low median household income (median_incomeE < 50000)  
+2. Significant elderly population (Population_65_over > 200)
 
 **Your Task:**
-```{r}
+```{r, echo=FALSE}
 # Filter for vulnerable tracts based on your criteria
 
 vulnerable_tracts <- tracts_with_data %>%
@@ -153,7 +151,8 @@ View(vulnerable_tracts)
 
 ```
 
-**Questions to answer:**
+My replies to some important questions here:
+
 - What income threshold did you choose and why? 
 I have chosen an income threshold of $50,000 because it is a common benchmark for low-income status in many policy analyses. It also allows us to capture a significant portion of the population that may be struggling financially, while still including enough tracts for meaningful analysis.
 - What elderly population threshold did you choose and why?
