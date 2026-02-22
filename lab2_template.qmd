@@ -265,7 +265,7 @@ tracts_more_than_15_miles <- vulnerable_tracts_county_centers %>%
 #### Identification of Underserved Areas    
 
 I Defined "underserved" as :    
-Vulnerable tracts that are more than 15 miles from the nearest hospital are considered underserved because they likely face significant barriers to accessing healthcare services, which can lead to worse health outcomes. This distance can be a major obstacle for individuals who may not have reliable transportation or who have mobility issues, particularly among the elderly population. Identifying these underserved areas is crucial for targeting healthcare investments and policy interventions to improve access and equity in healthcare services.
+<div style="text-align: justify;"> Vulnerable tracts that are more than 15 miles from the nearest hospital are considered underserved because they likely face significant barriers to accessing healthcare services, which can lead to worse health outcomes. This distance can be a major obstacle for individuals who may not have reliable transportation or who have mobility issues, particularly among the elderly population. Identifying these underserved areas is crucial for targeting healthcare investments and policy interventions to improve access and equity in healthcare services. </div>
 
 
 ```{r, echo=FALSE}
@@ -291,9 +291,9 @@ View(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles )
 
 ## Primary results:  
 - How many tracts are underserved?    
-There are total 9 tracts that are underserved, meaning they are vulnerable and located more than 15 miles from the nearest hospital.
+<div style="text-align: justify;">There are total 9 tracts that are underserved, meaning they are vulnerable and located more than 15 miles from the nearest hospital.</div>
 - What percentage of vulnerable tracts are underserved?    
-Approximately 1.62% of vulnerable tracts are underserved, meaning they are located more than 15 miles from the nearest hospital. This is calculated by dividing the number of underserved tracts (9) by the total number of vulnerable tracts (555) and multiplying by 100. 
+<div style="text-align: justify;">Approximately 1.62% of vulnerable tracts are underserved, meaning they are located more than 15 miles from the nearest hospital. This is calculated by dividing the number of underserved tracts (9) by the total number of vulnerable tracts (555) and multiplying by 100.</div>
 ```{r, echo=FALSE}
 ggplot(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(X ,Y)) +
   geom_point(color = "red", size = 10) 
@@ -339,7 +339,6 @@ kable(head(vulnerable_tracts_frequency_by_county, n = 8),
 
 #### Number of underserved tracts:  
 The number of underserved tracts in each county is calculated by performing a spatial join between the underserved tracts (vulnerable tracts that are more than 15 miles from the nearest hospital) and the county boundaries, and then counting the number of underserved tracts that fall within each county. This will give us a count of how many underserved tracts are located in each county, which can help identify which counties have the highest concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access. Clearfield County has the highest number of underserved tracts, with a total of 3 underserved tracts. This indicates that Pike County has a significant concentration of vulnerable populations that are located far from hospitals and may be at risk of being underserved in terms of healthcare access. Forest County has the second highest number of underserved tracts, with a total of 2 underserved tracts. This suggests that Chester County also has a notable concentration of vulnerable populations that are located far from hospitals and may require targeted healthcare investments and policy interventions to improve access to healthcare services. 
- 	
 
 
 ```{r, echo=FALSE}
