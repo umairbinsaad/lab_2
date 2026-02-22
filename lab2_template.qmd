@@ -784,10 +784,14 @@ Median number of otherE people of Philadelphia is 0. So, I will consider the tra
 ```{r, echo=FALSE}
 
 low_income_Philidelphia_data <- filter(Philidelphia_data, median_incomeE < 40000 & whiteE < 200 | blackE < 210 & asianE > 0 | asianE < 50 & asianE > 0 | hispanicE < 10 & hispanicE > 0 | Native_HawaiianE < 10 & Native_HawaiianE > 0 | American_IndianE < 10 & American_IndianE > 0 | otherE < 10 & otherE > 0)
-View(low_income_Philidelphia_data)
+
 ggplot() +
   geom_sf(data = Philidelphia_data, fill = "yellow", color = "grey") +
-  geom_sf(data = low_income_Philidelphia_data, fill = "red", color = "grey")
+  geom_sf(data = low_income_Philidelphia_data, fill = "red", color = "grey")+ 
+  labs(title = "Map of low-income and minority Tracts in Philadelphia",
+       subtitle = "Red areas represent low-income and minority
+neighborhoods while yellow areas represent other tracts",
+       caption = "Data Source: ACS 2022, OpenDataPhilly") 
 ```
 
 
@@ -804,6 +808,9 @@ ggplot() +
   geom_sf(data = low_income_Philidelphia_data, fill = "red", color = "grey") +
     # 3. Add the points on top
   geom_sf(data = parks_shapefile, color = "darkGreen", size = 2) +
+  labs(title = "Map of Park (Dark Green Points)",
+       subtitle = "Red areas show low-income and minority neighborhoods while yellow show remaining tracts",
+       caption = "Data Source: ACS 2022, OpenDataPhilly") +
   theme_minimal()
 ```
 Then I showed parks on the map. The parks are shown in dark green color. The low-income and minority neighborhoods are shown in red color, while the other tracts are shown in yellow color. This map allows us to visually assess the distribution of parks in relation to low-income and minority neighborhoods in Philadelphia, which can help identify areas that may be underserved in terms of access to green spaces and inform targeted interventions to improve environmental justice and urban planning efforts.
@@ -816,6 +823,9 @@ ggplot() +
   
   geom_sf(data = street_trees, fill = "blue", color = "blue", size = 0.0001) +
   geom_sf(data = parks_shapefile, color = "darkGreen", size = 2) +
+  labs(title = "Map of Park Access in Philadelphia",
+       subtitle = "Blue points represent trees and while dark green colours show trees",
+       caption = "Data Source: ACS 2022, OpenDataPhilly") +
   theme_minimal()
 ```
 
@@ -843,6 +853,10 @@ ggplot() +
     # 3. Add the points on top
   geom_sf(data = parks_shapefile, color = "darkGreen", size = 2) +
   geom_sf(data = buffer_area_parks, fill = "pink", color = "grey", alpha = 0.7)+
+  labs(title = "Map of Park Access and Buffers(Pink) in Philadelphia",
+       subtitle = "Red areas represent low-income and minority
+neighborhoods while yellow areas represent other tracts ",
+       caption = "Data Source: ACS 2022, OpenDataPhilly") +
   theme_minimal()
 ```  
 you can see the pink areas on the map represent the buffer zones around the parks, indicating the areas that are within a 10-minute walk (0.5 miles) of the parks. By visually assessing the overlap between these buffer zones and the low-income and minority neighborhoods (shown in red), we can identify which neighborhoods have better access to parks and which may be underserved in terms of green space access. This analysis can help inform targeted interventions to improve environmental justice and urban planning efforts in Philadelphia.
@@ -904,6 +918,7 @@ kable(head(rrrrr, n = 10),
 Other than our main analysis we also did small spatial and statistical analysis to calculate tree canopy availability per capita across census tracts in Philadelphia. First, a spatial join (st_join) is conducted between the street tree point dataset and the Philadelphia census tract polygon dataset, ensuring that only trees located within tract boundaries are retained . This operation assigns each individual tree to the census tract in which it geographically falls. Next, the joined dataset is grouped by tract name and the number of trees in each tract is counted using the count() function, producing a summary table of total trees per census tract. The geometry column is then removed using st_drop_geometry() so that the data can be handled as a standard tabular dataframe for non-spatial processing. After this, the tree count data are merged back into the original census tract dataset using a left_join based on the tract name, ensuring that each tract polygon now contains both its demographic attributes (including total population) and the corresponding number of trees. Finally, a new variable, tree_canopy_per_capita, is calculated by dividing the number of trees in each tract by the total population estimate (total_popE). This produces a standardized per capita measure of tree availability, allowing for meaningful comparison of urban greenery distribution across census tracts regardless of population size. And then we used Kable function to show the first 10 rows of the data.
 Results shows that Census Tract 369.01; Philadelphia County; Pennsylvania has the highest number of per capita trees and that are 8.48 in number. while Census Tract 9809.05; Philadelphia County; Pennsylvania has the least number of per capita trees. "
 
+I believe that investment in urban forestry is a critical, multi-functional strategy that merges environmental justice with climate resilience, directly addressing the disproportionate impacts of climate change on underserved communities. By strategically expanding tree canopy in low-income neighborhoods and areas with higher populations of color, which often suffer from extreme "heat island" effects and poorer air quality, cities can proactively reduce heat-related health hazards, lower energy burdens, and manage stormwater runoff. Unlike conventional infrastructure, urban trees provide compounded returns on investment over time, offering natural, cost-effective, and long-term solutions that enhance urban livability. Therefore, prioritizing urban forestry—supported by federal funding and local stewardship—is essential for creating sustainable, equitable cities that are better equipped to handle the escalating pressures of climate-related disasters.
 
 
 Data Sources used in above analysis are:   
