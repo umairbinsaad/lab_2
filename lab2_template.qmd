@@ -395,7 +395,7 @@ kable(head(Total_vulnerable_population, n = 1),
 ```
 
 
-#### Questions to some important questions
+#### Answers to some important questions
 - Which 5 counties have the highest percentage of underserved vulnerable tracts?
 The 5 counties with the highest percentage of underserved vulnerable tracts are Clearfield County, Forest County, Cameron County, 	
 Centre County and Juniata County(Although these counties have same percentage i-e Cameron County, Centre County and Juniata County). These counties have the highest proportion of vulnerable tracts that are located more than 15 miles from the nearest hospital, indicating that they may be at greater risk of being underserved in terms of healthcare access. Targeting healthcare investments and policy interventions in these counties could help improve access to healthcare services for vulnerable populations and address disparities in healthcare access and outcomes.
@@ -426,7 +426,7 @@ kable(head(most_vulnerable_people_New, n = 10),
 
 
 
-**Your Task:**
+
 ```{r, echo=FALSE}
 # Create and format priority counties table
 
@@ -448,7 +448,7 @@ kable(head(selected_cols_vulnerable_tracts_county_centers, n = 10),
 I have created a choropleth map showing healthcare access challenges at the county level.
 
 
-```{r}
+```{r, echo=FALSE}
 # Create county-level access map
 
 coords_matrix <- st_coordinates(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)
@@ -469,10 +469,9 @@ st_crs(hospitals)
 
 underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles = rename(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, any_of(c("new" = "XPZ")))
 View(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)
+```
 
-
-
-
+```{r, echo=FALSE}
 #ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(x= X,  y=Y, colour = new))+ geom_point(size = 5) + geom_point(data = hospitals, 
              #aes(x = X, y = Y), # Map the aesthetics for the new data
           #   color = "red",     # Set a specific color for the second data set, outside aes()
@@ -481,12 +480,6 @@ View(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)
    #    subtitle = "Red points indicate hospital locations",
      #  caption = "Data Source: ACS 2022, Pennsylvania Department of Health") + 
          # theme_void()   
-
-
-
-
-
-
 ```
 
 I have done this:  
