@@ -1,0 +1,894 @@
+---
+title: "Lab 2: Spatial Analysis and Visualization"
+subtitle: "Healthcare Access and Equity in Pennsylvania"
+author: "UMAIR BIN SAAD"
+date: today
+format: 
+  html:
+    code-fold: false
+    toc: true
+    toc-location: left
+    theme: cosmo
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+---
+
+## Assignment Overview
+
+**Learning Objectives:**
+- Apply spatial operations to answer policy-relevant research questions
+- Integrate census demographic data with spatial analysis
+- Create publication-quality visualizations and maps
+- Work with spatial data from multiple sources
+- Communicate findings effectively for policy audiencesssss
+
+---
+
+## Part 1: Healthcare Access for Vulnerable Populations
+
+### Research Question
+
+**Which Pennsylvania counties have the highest proportion of vulnerable populations (elderly + low-income) living far from hospitals?**
+
+Your analysis should identify counties that should be priorities for healthcare investment and policy intervention.
+
+### Required Analysis Steps
+
+Complete the following analysis, documenting each step with code and brief explanations:
+
+#### Step 1: Data Collection (5 points)
+
+Load the required spatial data:
+- Pennsylvania county boundaries
+- Pennsylvania hospitals (from lecture data)
+- Pennsylvania census tracts
+
+**Your Task:**
+```{r}
+# Load required packages
+library(sf)
+library(tidyverse)
+library(tigris)
+library(tidycensus)
+library(scales)
+library(patchwork)
+library(here)
+
+```
+
+```{r}
+# Load spatial data
+pa_counties <- st_read("D:/Ph.D/US Pakistan Knowledge Corridore/Upenn/Subjects/Public Policy Analytics/Week 4/Data/Pennsylvania_County_Boundaries.shp")
+districts <- st_read("D:/Ph.D/US Pakistan Knowledge Corridore/Upenn/Subjects/Public Policy Analytics/Week 4/Data/districts.geojson")
+hospitals <- st_read("D:/Ph.D/US Pakistan Knowledge Corridore/Upenn/Subjects/Public Policy Analytics/Week 4/data/hospitals.geojson")  
+state_bounds <- st_read("https://gis.penndot.pa.gov/gis/rest/services/opendata/stateboundary/MapServer/0/query?outFields=*&where=1%3D1&f=geojson")
+pa_countiesdbf <- st_read("D:/Ph.D/US Pakistan Knowledge Corridore/Upenn/Subjects/Public Policy Analytics/Week 4/Data/Pennsylvania_County_Boundaries.dbf")
+
+# Check that all data loaded correctly
+
+
+```
+
+**Questions to answer:**
+- How many hospitals are in your dataset?
+- How many census tracts?
+- What coordinate reference system is each dataset in?
+
+---
+
+#### Step 2: Get Demographic Data 
+
+Use `tidycensus` to download tract-level demographic data for Pennsylvania.
+
+**Required variables:**
+- Total population
+- Median household income
+- Population 65 years and over (you may need to sum multiple age categories)
+
+**Your Task:**
+```{r}
+# Get demographic data from ACS
+tract_demographics <- get_acs(
+  geography = "tract",
+  variables = c(
+    total_pop = "B01003_001",
+    median_income = "B19013_001",
+    male_65_66 = "B01001_020", male_67_69 = "B01001_021", male_70_74 = "B01001_022", male_75_79 = "B01001_023", male_80_84 = "B01001_024", male_85_150 = "B01001_025",
+    Female_65_66 = "B01001_044", Female_67_69 = "B01001_045E", Female_70_74 = "B01001_046E", Female_75_79 = "B01001_047E",  Female_80_84 = "B01001_048E",  Female_85_150 = "B01001_049E"
+    ),
+  state = "PA",
+  year = 2022,
+  output = "wide"
+)
+
+
+# Sum the columns
+tract_demographics <- tract_demographics %>%
+  mutate(Population_65_over = male_65_66E + male_67_69E + male_70_74E + male_75_79E + male_80_84E + male_85_150E + Female_65_66E + Female_67_69 + Female_70_74 + Female_75_79 + Female_80_84 + Female_85_150  )
+
+View(tract_demographics)
+
+# Join to tract boundaries
+census_tracts <- tracts(state = "PA", cb = TRUE)
+View(census_tracts)
+plot(census_tracts)
+plot(st_geometry(census_tracts))
+
+tracts_with_data <- census_tracts %>%
+  left_join(tract_demographics, by = "GEOID")
+
+View(tracts_with_data)
+plot(tracts_with_data)
+plot(st_geometry(tracts_with_data))
+```
+
+**Questions to answer:**
+- What year of ACS data are you using?
+I am using 2022 ACS data.
+
+- How many tracts have missing income data?
+There is 0 tract with missing income data.
+
+- What is the median income across all PA census tracts?
+```{r}
+median(tracts_with_data$median_incomeE, na.rm = TRUE)
+```
+
+#### Step 3: Define Vulnerable Populations 
+
+Identify census tracts with vulnerable populations based on TWO criteria:
+1. Low median household income (choose an appropriate threshold)
+2. Significant elderly population (choose an appropriate threshold)
+
+**Your Task:**
+```{r}
+# Filter for vulnerable tracts based on your criteria
+
+vulnerable_tracts <- tracts_with_data %>%
+  filter(median_incomeE < 50000, Population_65_over > 200)
+View(vulnerable_tracts)
+
+
+
+```
+
+**Questions to answer:**
+- What income threshold did you choose and why? 
+I have chosen an income threshold of $50,000 because it is a common benchmark for low-income status in many policy analyses. It also allows us to capture a significant portion of the population that may be struggling financially, while still including enough tracts for meaningful analysis.
+- What elderly population threshold did you choose and why?
+I have chosen an elderly population threshold of 200 because it represents a significant number of elderly residents in a tract, which may indicate a higher need for healthcare services. This threshold allows us to focus on tracts that have a substantial elderly population, which is often more vulnerable to health issues and may require more frequent access to hospitals.
+- How many tracts meet your vulnerability criteria?
+There are total 555 tracts that meet the vulnerability criteria of having a median household income below $50,000 and an elderly population of over 200.
+- What percentage of PA census tracts are considered vulnerable by your definition?
+Total 16.1103 percent of PA census tracts are considered vulnerable by the defined criteria. That are basically 555 tracts out of total 3447 tracts in Pennsylvania. Simply 555/3447*100 = 16.1103 percent.
+
+```{r}
+(nrow(vulnerable_tracts) / nrow(tracts_with_data)) * 100
+```
+
+---
+
+#### Step 4: Calculate Distance to Hospitals 
+
+For each vulnerable tract, calculate the distance to the nearest hospital.
+
+**Your Task:**
+```{r}
+# Transform to appropriate projected CRS
+st_crs(vulnerable_tracts)
+vulnerable_tracts <- st_transform(vulnerable_tracts, crs = 26917)
+st_crs(vulnerable_tracts)
+View(vulnerable_tracts)
+
+
+hospitals <- st_transform(hospitals, crs = 26917)
+View(hospitals)
+
+# Calculate distance from each tract centroid to nearest hospital
+
+#### Distance between county centroids
+vulnerable_tracts_county_centers <- st_centroid(vulnerable_tracts)
+ggplot(vulnerable_tracts_county_centers)+
+  geom_sf()+
+  theme_void()
+plot(vulnerable_tracts_county_centers)
+
+#### Calculate distance matrix (matrix[i, j] is dist from poly i to point j)
+dist_matrix <- st_distance(vulnerable_tracts_county_centers, hospitals)
+View(dist_matrix)
+#### Get minimum distance for each polygon
+min_distances <- apply(dist_matrix, 1, min)
+View(min_distances)
+#### Add distances to the original dataframe
+vulnerable_tracts_county_centers$dist_to_nearest <- min_distances/ 1609.34 # Convert from meters to miles
+View(vulnerable_tracts_county_centers)
+
+
+```
+
+**Requirements:**
+- Use an appropriate projected coordinate system for Pennsylvania
+  I have used the PROJCRS["NAD83 / UTM zone 17N"] (EPSG:26917) which is a common projected coordinate system for the eastern United States, including Pennsylvania. It uses meters as units, which allows for accurate distance calculations.
+  
+- Calculate distances in miles 
+  Distance has been calculated in mile (1 Mile = 1609.34 Meters)  
+  
+- Explain why you chose your projection
+  I have chosen this projection because it is a common projected coordinate system for the eastern United States, including Pennsylvania. It uses meters as units, which allows for accurate distance calculations.
+
+**Questions to answer:**
+```{r}
+mean(vulnerable_tracts_county_centers$dist_to_nearest)
+
+```
+- What is the average distance to the nearest hospital for vulnerable tracts?
+  The average distance to the nearest hospital for vulnerable tracts is approximately 2.619415 miles.
+  
+```{r}
+max(vulnerable_tracts_county_centers$dist_to_nearest)
+```
+- What is the maximum distance?
+  The maximum distance to the nearest hospital for vulnerable tracts is approximately 18.96458 miles.
+  
+- How many vulnerable tracts are more than 15 miles from the nearest hospital?
+There are total 128 vulnerable tracts that are more than 15 miles from the nearest hospital.
+```{r}
+tracts_more_than_15_miles <- vulnerable_tracts_county_centers %>%
+  filter(dist_to_nearest > 15)
+View(tracts_more_than_15_miles)
+``` 
+  
+
+#### Step 5: Identify Underserved Areas 
+
+Define "underserved" as vulnerable tracts that are more than 15 miles from the nearest hospital.
+vulnerable tracts that are more than 15 miles from the nearest hospital are considered underserved because they likely face significant barriers to accessing healthcare services, which can lead to worse health outcomes. This distance can be a major obstacle for individuals who may not have reliable transportation or who have mobility issues, particularly among the elderly population. Identifying these underserved areas is crucial for targeting healthcare investments and policy interventions to improve access and equity in healthcare services.
+
+**Your Task:**
+```{r}
+# Create underserved variable
+
+                                       
+
+underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles <- tracts_more_than_15_miles %>% 
+  mutate(underserved = case_when(
+    dist_to_nearest > 15 ~ "Yes",
+    
+  ))
+View(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles )
+
+
+``` 
+
+
+
+```
+
+**Questions to answer:**
+- How many tracts are underserved?
+There are total 9 tracts that are underserved, meaning they are vulnerable and located more than 15 miles from the nearest hospital.
+- What percentage of vulnerable tracts are underserved?
+Approximately 1.62% of vulnerable tracts are underserved, meaning they are located more than 15 miles from the nearest hospital. This is calculated by dividing the number of underserved tracts (9) by the total number of vulnerable tracts (555) and multiplying by 100. 
+```
+
+```{r}    
+(9 / 555) * 100
+```
+
+- Does this surprise you? Why or why not?
+It is somewhat surprising that only a small percentage of vulnerable tracts are underserved, given the significant barriers to healthcare access that can exist in rural and low-income areas. However, it may also reflect the fact that many vulnerable populations are located in more urban or suburban areas where hospitals are more accessible. It highlights the importance of looking beyond just the number of vulnerable tracts and considering the geographic distribution and specific needs of these populations when planning healthcare investments and interventions.
+
+---
+
+#### Step 6: Aggregate to County Level
+
+Use spatial joins and aggregation to calculate county-level statistics about vulnerable populations and hospital access.
+
+**Your Task:**
+```{r}
+# Spatial join tracts to counties
+
+
+
+
+
+
+# Aggregate statistics by county
+
+
+```
+
+**Required county-level statistics:**
+- Number of vulnerable tracts
+There number of vulnerable tracts in each county is calculated by performing a spatial join between the vulnerable tracts and the county boundaries, and then counting the number of vulnerable tracts that fall within each county. This will gave us a count of how many vulnerable tracts are located in each county, which can help identify which counties have the highest concentration of vulnerable populations that may be underserved in terms of healthcare access. Philadelphia County has the highest number of vulnerable tracts, with a total of 138 vulnerable tracts. This indicates that Philadelphia County has a significant concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access, particularly if many of these tracts are located far from hospitals. Allegheny County has the second highest number of vulnerable tracts, with a total of 80 vulnerable tracts. This suggests that Allegheny County also has a significant concentration of vulnerable populations that may require targeted healthcare investments and policy interventions to improve access to healthcare services. Luzerne County has the third highest number of vulnerable tracts, with a total of 29 vulnerable tracts. This indicates that Luzerne County also has a notable concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access. These findings highlight the importance of focusing healthcare investments and policy interventions in these counties to address the needs of vulnerable populations and improve healthcare access and equity.   
+
+```{r}
+# Calculate frequencies
+vulnerable_tracts_frequency_by_county <- table(vulnerable_tracts_county_centers$NAMELSADCO)
+View(vulnerable_tracts_frequency_by_county)
+head(vulnerable_tracts_frequency_by_county)
+```
+
+- Number of underserved tracts  
+The number of underserved tracts in each county is calculated by performing a spatial join between the underserved tracts (vulnerable tracts that are more than 15 miles from the nearest hospital) and the county boundaries, and then counting the number of underserved tracts that fall within each county. This will give us a count of how many underserved tracts are located in each county, which can help identify which counties have the highest concentration of vulnerable populations that may be at risk of being underserved in terms of healthcare access. Clearfield County has the highest number of underserved tracts, with a total of 3 underserved tracts. This indicates that Pike County has a significant concentration of vulnerable populations that are located far from hospitals and may be at risk of being underserved in terms of healthcare access. Forest County has the second highest number of underserved tracts, with a total of 2 underserved tracts. This suggests that Chester County also has a notable concentration of vulnerable populations that are located far from hospitals and may require targeted healthcare investments and policy interventions to improve access to healthcare services. 	
+
+
+```{r}
+# Calculate frequencies
+underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles_frequency_by_county <- table(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles$NAMELSADCO)
+View(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles_frequency_by_county)
+head(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles_frequency_by_county)
+
+
+```
+- Percentage of vulnerable tracts that are underserved
+# Calculate percentage of vulnerable tracts that are underserved
+
+Approximately 0.02% of vulnerable tracts are underserved, meaning they are located more than 15 miles from the nearest hospital. This is calculated by dividing the number of underserved tracts (9) by the total number of vulnerable tracts (555) and multiplying by 100. 
+
+```{r}    
+(9 / 555) * 100
+```
+
+- Average distance to nearest hospital for vulnerable tracts
+The average distance to the nearest hospital for vulnerable tracts is approximately 2.619415 miles. This is calculated by taking the mean of the `dist_to_nearest` variable for all vulnerable tracts, which represents the distance from each tract centroid to the nearest hospital.
+
+```{r}
+
+mean(vulnerable_tracts_county_centers$dist_to_nearest)
+```
+
+- Total vulnerable population
+  The total vulnerable population is calculated by summing the `total_popE` variable for all vulnerable tracts. This gives us an estimate of the total number of 1861909 people living in vulnerable tracts, which can help us understand the scale of the population that is at risk of being vulnerable in terms of healthcare access.
+
+```{r}
+# Calculate frequencies
+Total_vulnerable_population <- sum(vulnerable_tracts_county_centers$total_popE)
+View(Total_vulnerable_population)
+head(Total_vulnerable_population)
+```
+
+
+**Questions to answer:**
+- Which 5 counties have the highest percentage of underserved vulnerable tracts?
+The 5 counties with the highest percentage of underserved vulnerable tracts are Clearfield County, Forest County, Cameron County, 	
+Centre County and Juniata County(Although these counties have same percentage i-e Cameron County, Centre County and Juniata County). These counties have the highest proportion of vulnerable tracts that are located more than 15 miles from the nearest hospital, indicating that they may be at greater risk of being underserved in terms of healthcare access. Targeting healthcare investments and policy interventions in these counties could help improve access to healthcare services for vulnerable populations and address disparities in healthcare access and outcomes.
+
+- Which counties have the most vulnerable people living far from hospitals?
+  the counties with the most vulnerable people living far from hospitals are Clearfield County, Forest County, Cameron County, Monroe County. These counties have the highest number of vulnerable tracts that are located more than 15 miles (i-e 18+) from the nearest hospital, indicating that they may have a significant population of vulnerable individuals who are at risk of being underserved in terms of healthcare access. Focusing healthcare investments and policy interventions in these counties could help improve access to healthcare services for vulnerable populations and address disparities in healthcare access and outcomes.
+  
+```{r}
+most_vulnerable_people <- vulnerable_tracts_county_centers %>%
+  arrange(desc(dist_to_nearest))
+head(most_vulnerable_people)
+
+
+```
+---
+
+#### Step 7: Create Summary Table 
+
+Create a professional table showing the top 10 priority counties for healthcare investment.
+
+**Your Task:**
+```{r}
+# Create and format priority counties table
+View(vulnerable_tracts_county_centers)
+
+selected_cols_vulnerable_tracts_county_centers <- vulnerable_tracts_county_centers[, c("NAMELSADCO", "dist_to_nearest", "total_popE", "median_incomeE", "Population_65_over")]
+View(selected_cols_vulnerable_tracts_county_centers)
+
+selected_cols_vulnerable_tracts_county_centers <- selected_cols_vulnerable_tracts_county_centers %>%
+  arrange(desc(dist_to_nearest))
+View(selected_cols_vulnerable_tracts_county_centers)
+
+kable(head(selected_cols_vulnerable_tracts_county_centers, n = 10),
+      col.names = c("NAMELSADCO"="Name Counties", "dist_to_nearest" = "Distance to nearest hospital (Mile", "total_popE" = "Total Estimated population", "median_incomeE"= "Median Income of People", "Population_65_over" = "Population that is above 65 years of age", "geometry" = "Geometry of the tracts"),
+      caption = "Top 10 priority counties for healthcare investment",
+      format.args = list(big.mark = ","),
+      )
+
+
+
+
+
+
+```
+
+**Requirements:**
+- Use `knitr::kable()` or similar for formatting
+
+- Include descriptive column names
+- Format numbers appropriately (commas for population, percentages, etc.)
+- Add an informative caption
+- Sort by priority (you decide the metric)
+
+---
+
+## Part 2: Comprehensive Visualization 
+
+Using the skills from Week 3 (Data Visualization), create publication-quality maps and charts.
+
+```{r}
+View(Hospitals)
+
+### Map 1: County-Level Choropleth 
+```
+Create a choropleth map showing healthcare access challenges at the county level.
+
+**Your Task:**
+```{r}
+# Create county-level access map
+
+coords_matrix <- st_coordinates(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)
+View(coords_matrix)
+underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles <- cbind(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, coords_matrix[, c("X", "Y")])
+View(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)
+underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles <- rename(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, county_names = NAMELSADCO)
+View(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)
+
+hospitals_coords_matrix <- st_coordinates(hospitals)
+View(hospitals_coords_matrix)
+hospitals <- cbind(hospitals, hospitals_coords_matrix[, c("X", "Y")])
+View(hospitals)
+
+
+
+ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(x= X,  y=Y, colour = county_names))+ geom_point(size = 5) + geom_point(data = hospitals, 
+             aes(x = X, y = Y), # Map the aesthetics for the new data
+             color = "red",     # Set a specific color for the second data set, outside aes()
+             size = 3)+ 
+  labs(title = "County-Level Choropleth Map of Underserved Vulnerable Tracts in Pennsylvania",
+       subtitle = "Red points indicate hospital locations",
+       caption = "Data Source: ACS 2022, Pennsylvania Department of Health") + 
+          theme_void()   
+
+View(census_tracts)
+
+
+
+
+```
+
+**Requirements:**
+- Fill counties by percentage of vulnerable tracts that are underserved
+- Include hospital locations as points
+- Use an appropriate color scheme
+- Include clear title, subtitle, and caption
+- Use `theme_void()` or similar clean theme
+- Add a legend with formatted labels
+
+---
+
+### Map 2: Detailed Vulnerability Map 
+
+Create a map highlighting underserved vulnerable tracts.
+
+**Your Task:**
+```{r}
+# Create detailed tract-level map
+
+
+st_crs(underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles)
+st_crs(census_tracts)
+census_tracts_NAD83 <- st_transform(census_tracts, crs = 26917)
+View(census_tracts_NAD83)
+st_crs(census_tracts_NAD83)
+zxzx <- st_join(census_tracts_NAD83, underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, join = st_intersects, left = TRUE)
+View(zxzx)
+
+ggplot(data = zxzx) +
+  geom_sf(aes(fill = underserved), color = "white", size = 0.1) +
+  geom_point(data = hospitals, 
+             aes(x = X, y = Y), # Map the aesthetics for the new data
+             color = "blue",     # Set a specific color for the second data set, outside aes()
+             size = 3)+ 
+  labs(title = "Tracts-Level Choropleth Map of Underserved Vulnerable Tracts in Pennsylvania",
+       subtitle = "Blue points indicate hospital locations",
+       caption = "Data Source: ACS 2022, Pennsylvania Department of Health") + 
+          theme_void()  
+
+```
+
+**Requirements:**
+- Show underserved vulnerable tracts in a contrasting color
+- Include county boundaries for context
+- Show hospital locations
+- Use appropriate visual hierarchy (what should stand out?)
+- Include informative title and subtitle
+
+---
+
+### Chart: Distribution Analysis
+
+Create a visualization showing the distribution of distances to hospitals for vulnerable populations.
+
+**Your Task:**
+```{r}
+# Create distribution visualization
+# Create the map
+
+
+```
+
+**Suggested chart types:**
+- Histogram or density plot of distances
+
+```{r}
+
+ggplot(vulnerable_tracts_county_centers, aes(x = dist_to_nearest)) +
+  geom_histogram(binwidth = 0.1, fill = "blue", color = "white", position = "identity", alpha = 0.8) +
+  labs(
+    title = "Distribution of distances to hospitals for (total) vulnerable populations",      # Main plot title
+    subtitle = "Histogram showing nearest hospital from all vulnerable tracts",       # Subtitle
+    caption = "Created: UMAIR BIN SAAD",     # Plot caption
+    x = "Distance in Miles",           # X-axis label
+    y = "Frequency/count"                         # Y-axis label
+  ) +
+  theme_classic() # Optional: applies a clean theme
+
+```
+- Box plot comparing distances across regions
+```{r}
+ggplot(vulnerable_tracts_county_centers, aes(x=NAMELSADCO ,y = dist_to_nearest)) +
+  geom_boxplot(binwidth = 0.1, fill = "blue", color = "white", position = "identity", alpha = 0.8) +
+  labs(
+    title = "Distribution of distances to hospitals for (total) vulnerable populations",      # Main plot title
+    subtitle = "Histogram showing nearest hospital from all vulnerable tracts",       # Subtitle
+    caption = "Created: UMAIR BIN SAAD",     # Plot caption
+    x = "Distance in Miles",           # X-axis label
+    y = "Frequency/count"                         # Y-axis label
+  ) +
+  theme_classic() # Optional: applies a clean theme
+```
+
+
+
+
+- Bar chart of underserved tracts by county
+```{r}
+ggplot(data = underserved_tracts_out_of_vulnerable_which_are_more_than_15_miles, aes(x = dist_to_nearest, y = county_names)) +
+  geom_col( fill = "blue", color = "white", position = "identity", alpha = 0.8)+
+  labs(
+    title = "Distribution of distances to hospitals for (total) vulnerable populations",      # Main plot title
+    subtitle = "Histogram showing nearest hospital from all vulnerable tracts",       # Subtitle
+    caption = "Created: UMAIR BIN SAAD",     # Plot caption
+    x = "Distance in Miles",           # X-axis label
+    y = "Frequency/count"                         # Y-axis label
+  ) +
+  theme_classic() # Optional: applies a clean theme
+
+```
+The chart above shows the distribution of distances to hospitals for vulnerable populations in Pennsylvania. The bar chart indicates that the some of vulnerable tracts are not located within a few miles of the nearest hospital, with a long tail extending to higher distances. This suggests that while many vulnerable populations have relatively good access to healthcare services, there are some tracts that face significant barriers due to their distance from hospitals. Targeted interventions may be needed to improve healthcare access for those living in more remote areas.
+
+
+
+**Requirements:**
+- Clear axes labels with units
+- Appropriate title
+- Professional formatting
+- Brief interpretation (1-2 sentences as a caption or in text)
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Part 3: Bring Your Own Data Analysis 
+
+
+
+
+
+Choose ONE of the following challenge exercises, or propose your own research question using OpenDataPhilly data (https://opendataphilly.org/datasets/). 
+
+**Note these are just loose suggestions to spark ideas - follow or make your own as the data permits and as your ideas evolve. This analysis should include bringing in your own dataset, ensuring the projection/CRS of your layers align and are appropriate for the analysis (not lat/long or geodetic coordinate systems). The analysis portion should include some combination of spatial and attribute operations to answer a relatively straightforward question**
+
+
+I have chosen to do the analysis on "Green Space Equity" in Philadelphia. I will be using the data of parks, street trees and census tracts.  
+#### Environmental Justice
+
+**Option C: Green Space Equity** 
+- **Data:** Parks, Street Trees, Census tracts (race/income demographics)
+- **Question:** "Do low-income and minority neighborhoods have equitable access to green space?"
+- **Operations:** Buffer parks (10-minute walk = 0.5 mile), calculate tree canopy or park acreage per capita, compare by demographics
+- **Policy relevance:** Climate resilience, environmental justice, urban forestry investment
+---
+
+First of all for this analysis, I will be using the data of parks, street trees and census tracts. I will be using the data of Philadelphia city. I will be using the data of 2022 ACS for census tracts. I will be using the data of parks and street trees from OpenDataPhilly. I have gotten data from get_acs function for census tracts. I have also read the data of parks and street trees using st_read function. I have transformed the data of parks and street trees to the same projection as census tracts. I have also calculated the coordinates of parks and street trees using st_coordinates function. I have also calculated the median income and median population.
+```{r}
+Philidelphia_data <- get_acs(
+  geography = "tract",
+  state = "PA",
+  county = "Philadelphia",
+   variables = c(
+    total_pop = "B01003_001",
+    median_income = "B19013_001",
+    white = "B03002_003",
+    black = "B03002_004",
+    asian = "B03002_006",
+    hispanic = "B03002_012",
+    Native_Hawaiian = "B03002_007",
+    American_Indian= "B03002_005",
+    other = "B03002_008"
+    
+  ),
+  geometry = TRUE,
+  year = 2022,
+  output = "wide"
+)
+
+View(Philidelphia_data)
+Philidelphia_data <- st_transform(Philidelphia_data, crs = 26917)
+
+View(Philidelphia_data)
+
+# transformed the data of Philadelphia census tracts to the same projection as parks and street trees, which is NAD83 / UTM zone 17N (EPSG:26917). This projection is appropriate for spatial analysis in Philadelphia because it uses meters as units, allowing for accurate distance calculations and spatial operations. By ensuring that all datasets are in the same projected coordinate system, I can perform spatial joins, buffering, and other analyses without issues related to misaligned geometries or inaccurate distance measurements.
+
+
+parks_geojson <- st_read("C:/Users/Umair Bin Saad/Desktop/Green Space Equity/parks/PPR_Program_Sites.geojson")
+parks_shapefile <- st_read("C:/Users/Umair Bin Saad/Desktop/Green Space Equity/parks/PPR_Program_Sites.shp")
+parks_shapefile <- st_transform(parks_shapefile, crs = 26917)
+parks_shapefile_coords_matrix <- st_coordinates(parks_shapefile)
+
+parks_shapefile <- cbind(parks_shapefile, parks_shapefile_coords_matrix [, c("X", "Y")])
+plot(parks_shapefile)
+st_crs(parks_shapefile)
+View(parks_shapefile)
+plot(Philidelphia_data$geometry)
+
+
+
+street_trees <- st_read("C:/Users/Umair Bin Saad/Desktop/Green Space Equity/Street Trees/ppr_tree_inventory_2025.shp")
+View(street.trees)
+street_trees <- st_transform(street_trees, crs = 26917)
+st_crs(street_trees)
+
+
+
+street_trees_coordinates <- st_coordinates(street_trees)
+street_trees <- cbind(street_trees, street_trees_coordinates[, c("X", "Y")])
+View(street_trees)
+
+
+
+median(Philidelphia_data$median_incomeE, na.rm = TRUE)
+#Median Income of Philadelphia is $58514. So, I will consider the tracts with median income less than $40,000 as low-income tracts because it is significantly below the median income of Philadelphia, indicating that these tracts may have a higher concentration of low-income residents who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space.
+median(Philidelphia_data$whiteE, na.rm = TRUE)
+#Median number of whiteE people of Philadelphia is 887. So, I will consider the tracts with whiteE population less than 200 as minority neighborhoods because these tracts have a significantly lower number of white residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
+median(Philidelphia_data$blackE, na.rm = TRUE)
+#Median number of blackE people of Philadelphia is 895. So, I will consider the tracts with blackE population less than 210 as minority neighborhoods because these tracts have a significantly lower number of black residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
+median(Philidelphia_data$asianE, na.rm = TRUE)
+#Median number of asianE people of Philadelphia is 130. So, I will consider the tracts with asianE population less than 50 as minority neighborhoods because these tracts have a significantly lower number of Asian residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
+median(Philidelphia_data$hispanicE, na.rm = TRUE)
+#Median number of hispanicE people of Philadelphia is 231. So, I will consider the tracts with hispanicE population less than 10 as minority neighborhoods because these tracts have a significantly lower number of Hispanic residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
+median(Philidelphia_data$Native_HawaiianE, na.rm = TRUE)
+#Median number of Native_HawaiianE people of Philadelphia is 0. So, I will consider the tracts with Native_HawaiianE population less than 10 as minority neighborhoods because these tracts have a significantly lower number of Native Hawaiian residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
+median(Philidelphia_data$American_IndianE, na.rm = TRUE)
+#Median number of American_IndianE people of Philadelphia is 0. So, I will consider the tracts with American_IndianE  population less than 10 as minority neighborhoods because these tracts have a significantly lower number of American Indian residents compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources. This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities.
+median(Philidelphia_data$otherE, na.rm = TRUE)
+#Median number of otherE people of Philadelphia is 0. So, I will consider the tracts with otherE population less than 10 as minority neighborhoods because these tracts have a significantly lower number of residents categorized as "other" compared to the median, indicating that they may have a higher concentration of minority populations who could be at greater risk of lacking access to green spaces and other resources This threshold allows us to focus on areas that are likely to face more significant challenges in terms of environmental justice and access to green space for minority communities. 
+
+
+
+
+# Filter for vulnerable tracts based on your criteria
+```
+
+```{r}
+low_income_Philidelphia_data <- filter(Philidelphia_data, median_incomeE < 40000 & whiteE < 200 | blackE < 210 & asianE > 0 | asianE < 50 & asianE > 0 | hispanicE < 10 & hispanicE > 0 | Native_HawaiianE < 10 & Native_HawaiianE > 0 | American_IndianE < 10 & American_IndianE > 0 | otherE < 10 & otherE > 0)
+View(low_income_Philidelphia_data)
+ggplot() +
+  geom_sf(data = Philidelphia_data, fill = "yellow", color = "grey") +
+  geom_sf(data = low_income_Philidelphia_data, fill = "red", color = "grey")
+
+
+
+I have filtered the Philadelphia census tracts to identify low-income and minority neighborhoods based on the defined criteria. The resulting dataset, `low_income_Philidelphia_data`, contains the 184 tracts out of 408 tracts that meet the criteria for being considered low-income and/or minority neighborhoods. These tracts are likely to face greater challenges in terms of access to green spaces and other resources, making them important areas of focus for environmental justice and urban planning efforts in Philadelphia.
+
+```
+
+
+
+```{r}
+ggplot() +
+  geom_sf(data = Philidelphia_data, fill = "yellow", color = "grey") +
+  geom_sf(data = low_income_Philidelphia_data, fill = "red", color = "grey") +
+    # 3. Add the points on top
+  geom_sf(data = parks_shapefile, color = "darkGreen", size = 2) +
+  theme_minimal()
+
+Then I showed parks on the map. The parks are shown in dark green color. The low-income and minority neighborhoods are shown in red color, while the other tracts are shown in yellow color. This map allows us to visually assess the distribution of parks in relation to low-income and minority neighborhoods in Philadelphia, which can help identify areas that may be underserved in terms of access to green spaces and inform targeted interventions to improve environmental justice and urban planning efforts.
+```
+```{r}
+ggplot() +
+  geom_sf(data = Philidelphia_data, fill = "yellow", color = "grey") +
+  geom_sf(data = low_income_Philidelphia_data, fill = "red", color = "grey") +
+    # 3. Add the points on top
+  
+  geom_sf(data = street_trees, fill = "blue", color = "blue", size = 0.0001) +
+  geom_sf(data = parks_shapefile, color = "darkGreen", size = 2) +
+  theme_minimal()
+
+The blue points on the map represent the locations of street trees in Philadelphia. By overlaying the street tree data with the census tracts and park locations, we can visually assess the distribution of green spaces and tree canopy in relation to low-income and minority neighborhoods. This can help identify areas that may be underserved in terms of access to green spaces and inform targeted interventions to improve environmental justice and urban planning efforts in Philadelphia.
+```
+
+
+
+```{r}
+buffer_area_parks <- st_buffer(parks_shapefile, dist = 804.672) # 0.5 miles in meters
+ggplot() +
+  geom_sf(data = buffer_area_parks, fill = "yellow", color = "grey")
+View(buffer_area_parks)
+plot(buffer_area_parks)
+
+But in analysis we are not taking trees as these are not suitalbe for analysis rather we are taking parks as these are more suitable for analysis. I have created a buffer of 0.5 miles (10-minute walk) around the parks to represent the area of influence of each park. This buffer allows us to visually assess which census tracts fall within a reasonable walking distance to the parks, which can help identify areas that may have better access to green spaces and those that may be underserved in terms of park access. By overlaying the buffer areas with the low-income and minority neighborhoods, we can further analyze the equity of access to green spaces in Philadelphia.
+
+
+ggplot() +
+  geom_sf(data = Philidelphia_data, fill = "yellow", color = "grey") +
+  geom_sf(data = low_income_Philidelphia_data, fill = "red", color = "grey") +
+    # 3. Add the points on top
+  geom_sf(data = parks_shapefile, color = "darkGreen", size = 2) +
+  geom_sf(data = buffer_area_parks, fill = "pink", color = "grey", alpha = 0.7)+
+  theme_minimal()
+  
+you can see the pink areas on the map represent the buffer zones around the parks, indicating the areas that are within a 10-minute walk (0.5 miles) of the parks. By visually assessing the overlap between these buffer zones and the low-income and minority neighborhoods (shown in red), we can identify which neighborhoods have better access to parks and which may be underserved in terms of green space access. This analysis can help inform targeted interventions to improve environmental justice and urban planning efforts in Philadelphia.
+```
+
+```{r}
+
+ st_agr(buffer_area_parks) = "constant"
+ st_agr(low_income_Philidelphia_data) = "constant"
+overlaps_buffer_area_parks_with_vulnerable_tracts <- st_intersection(buffer_area_parks, low_income_Philidelphia_data)
+View(overlaps_buffer_area_parks_with_vulnerable_tracts)
+
+ggplot() +
+  geom_sf(data = Philidelphia_data, fill = "yellow", color = "grey") +
+  geom_sf(data = low_income_Philidelphia_data, fill = "red", color = "grey") +
+    # 3. Add the points on top
+  geom_sf(data = parks_shapefile, color = "darkGreen", size = 2) +
+  geom_sf(data = overlaps_buffer_area_parks_with_vulnerable_tracts, fill = "blue", color = "grey", alpha = 0.7)+
+  labs(title = "Map of Park Access in Philadelphia",
+       subtitle = "Blue areas represent low-income and minority
+  neighborhoods within a 10-minute walk of parks",
+       caption = "Data Source: ACS 2022, OpenDataPhilly") +
+  theme_minimal()
+
+The purple areas on the map represent the low-income and minority neighborhoods that fall within the buffer zones around the parks, indicating that these neighborhoods have better access to green spaces. While red areas represent low-income and minority neighborhoods that do not fall within the buffer zones, indicating that they may be underserved in terms of park access. This analysis helps us understand the spatial distribution of park access in relation to vulnerable populations in Philadelphia and can inform targeted interventions to improve environmental justice and urban planning efforts in the city.
+
+
+
+
+```
+
+
+  
+```
+
+
+```
+```{r}
+points_in_polygons <- st_join(street_trees, Philidelphia_data, left = FALSE)
+View(points_in_polygons)
+
+Number_of_trees_in_each_tracts <-  points_in_polygons %>% count(NAME)
+
+Number_of_trees_in_each_tracts <- sf::st_drop_geometry(Number_of_trees_in_each_tracts)
+View(Number_of_trees_in_each_tracts)    
+
+Philidelphia_data_plus_Number_of_trees_in_each_tracts <- left_join(Philidelphia_data, Number_of_trees_in_each_tracts, by = "NAME")
+View(Philidelphia_data_plus_Number_of_trees_in_each_tracts)    
+
+
+Per_capita_tree_canopy <- Philidelphia_data_plus_Number_of_trees_in_each_tracts %>%
+  mutate(tree_canopy_per_capita = n / total_popE)
+
+View(Per_capita_tree_canopy)
+head(Per_capita_tree_canopy)
+
+##Kable(Per_capita_tree_canopy)
+
+##head(arrange(Per_capita_tree_canopy, desc(tree_canopy_per_capita)), n = 5)
+rrrrr <-  select(Per_capita_tree_canopy, NAME, total_popE, n, tree_canopy_per_capita) 
+View(rrrrr)
+
+kable(head(rrrrr, n = 10),
+      col.names = c("NAME"="Census_Tracts", "total_popE" = "Total population", "n"= "Number_of_trees ", "tree_canopy_per_capita" = "Number_of_trees(canopy)_per_capita", "geometry"= "Geometry " ),
+      caption = "Tree/Tree canopy for each tract per capita ",
+      format.args = list(big.mark = ","),
+      )
+
+
+
+Other than our main analysis we also did small spatial and statistical analysis to calculate tree canopy availability per capita across census tracts in Philadelphia. First, a spatial join (st_join) is conducted between the street tree point dataset and the Philadelphia census tract polygon dataset, ensuring that only trees located within tract boundaries are retained . This operation assigns each individual tree to the census tract in which it geographically falls. Next, the joined dataset is grouped by tract name and the number of trees in each tract is counted using the count() function, producing a summary table of total trees per census tract. The geometry column is then removed using st_drop_geometry() so that the data can be handled as a standard tabular dataframe for non-spatial processing. After this, the tree count data are merged back into the original census tract dataset using a left_join based on the tract name, ensuring that each tract polygon now contains both its demographic attributes (including total population) and the corresponding number of trees. Finally, a new variable, tree_canopy_per_capita, is calculated by dividing the number of trees in each tract by the total population estimate (total_popE). This produces a standardized per capita measure of tree availability, allowing for meaningful comparison of urban greenery distribution across census tracts regardless of population size. And then we used Kable function to show the first 10 rows of the data.
+Results shows that Census Tract 369.01; Philadelphia County; Pennsylvania has the highest number of per capita trees and that are 8.48 in number. while Census Tract 9809.05; Philadelphia County; Pennsylvania has the least number of per capita trees. 
+
+
+
+
+
+
+
+
+
+
+
+
+Data Sources used in above analysis are:
+
+**OpenDataPhilly:** https://opendataphilly.org/datasets/
+- Most datasets available as GeoJSON, Shapefile, or CSV with coordinates
+- Always check the Metadata for a data dictionary of the fields.
+- **Pennsylvania Open Data:** https://data.pa.gov/
+- **Census Bureau (via tidycensus):** Demographics, economic indicators, commute patterns
+- **TIGER/Line (via tigris):** Geographic boundaries
+
+
+
+
+
+
+
+```
+
+**Questions to answer:**
+- What dataset did you choose and why?
+We used Green Space Equity related data sets which include Street Trees, parks & Census tracts (race/income demographics)
+- What is the data source and date?
+OpenDataPhilly:** https://opendataphilly.org/datasets/ 
+Street Trees, parks = 2025 while Census tracts (race/income demographics) =2022
+- What CRS is it in? Did you need to transform it?
+Yes transformed it to NAD83 / UTM zone 17N" EPSG:26917.
+
+---
+
+2. **Pose a research question**
+
+Write a clear research statement that your analysis will answer.
+
+My research analysis answers the low income and vulnerable minorities access to parks in each tract of the Philadelphia. 
+
+---
+
+3. **Conduct spatial analysis**
+
+I used all these spatial analysis along with other spatial analysis too.
+- Buffers
+- Spatial joins
+- Spatial filtering with predicates
+- Distance calculations
+- Intersections or unions
+- Point-in-polygon aggregation
+
+
+
+
+## Finally - A few comments about your incorporation of feedback!
+Yes I have incorporated suggestions which were given to me by teached specially the code hiding in my document.
+
+---
+
+## Submission Requirements
+
+**What to submit:**
+
+1. **Rendered HTML document posted to your course portfolio** with all code, outputs, maps, and text
+   - Use `embed-resources: true` in YAML so it's a single file
+   - All code should run without errors
+   - All maps and charts should display correctly
+2. Submit the correct and working links of your assignment on Canvas
+
+---
+
