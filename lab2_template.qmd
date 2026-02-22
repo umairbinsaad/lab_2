@@ -38,7 +38,7 @@ My analysis should identify counties that should be priorities for healthcare in
 
 <div style="text-align: justify;">I have Completed the following analysis, tried to give the brief explanations about each step (Although if you want codes you may check technical details through my source code on GitHub:</div>
 
-#Step 1: Data Detail
+# Step 1: Data Detail
 
 I have used the following data :  
 - Pennsylvania county boundaries  
