@@ -90,6 +90,10 @@ Following are the variables I am taking into consideration
 - Population 65 years and over (you may need to sum multiple age categories)   
 
 ```{r, echo=FALSE}
+#| message: false
+#| warning: false
+#| results: 'hide'
+
 # Get demographic data from ACS
 tract_demographics <- get_acs(
   geography = "tract",
