@@ -116,7 +116,6 @@ census_tracts <- tracts(state = "PA", cb = TRUE)
 tracts_with_data <- census_tracts %>%
   left_join(tract_demographics, by = "GEOID")
 
-plot(st_geometry(tracts_with_data))
 ```
 
 **Questions to answer:**
